@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Analytics - Scientist Twin</title>
+    <title>Curious Minds Club - Scientist Twin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -43,11 +43,22 @@
             font-size: 2.8em;
             font-weight: 800;
             margin-bottom: 12px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         .header p {
             font-size: 1.1em;
             opacity: 0.9;
+        }
+
+        .data-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.85em;
+            margin-top: 16px;
         }
 
         .stats-hero {
@@ -62,7 +73,10 @@
         .big-number {
             font-size: 5em;
             font-weight: 800;
-            color: var(--coral);
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
         }
 
@@ -147,6 +161,10 @@
             border: 3px solid var(--coral-light);
         }
 
+        .scientist-info {
+            flex: 1;
+        }
+
         .scientist-info h4 {
             font-weight: 700;
             font-size: 1em;
@@ -159,7 +177,6 @@
         }
 
         .match-rate {
-            margin-left: auto;
             background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
             color: white;
             padding: 8px 16px;
@@ -192,10 +209,11 @@
 
         .activity-text {
             flex: 1;
+            font-size: 0.95em;
         }
 
         .activity-text strong { color: var(--text-dark); }
-        .activity-text span { color: var(--coral); font-weight: 600; }
+        .activity-text .scientist-name { color: var(--coral); font-weight: 600; }
 
         .activity-time {
             font-size: 0.8em;
@@ -230,6 +248,7 @@
             height: 100%;
             background: linear-gradient(90deg, var(--coral) 0%, var(--coral-dark) 100%);
             border-radius: 5px;
+            transition: width 1s ease;
         }
 
         .trait-percent {
@@ -257,6 +276,7 @@
         .stat-box .label {
             font-size: 0.85em;
             color: var(--text-muted);
+            margin-top: 4px;
         }
 
         /* Fields */
@@ -268,6 +288,12 @@
             background: #f9fafb;
             border-radius: 12px;
             margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .field-item:hover {
+            background: #fef2f2;
+            transform: translateX(4px);
         }
 
         .field-name { font-weight: 600; }
@@ -279,6 +305,7 @@
             gap: 16px;
             justify-content: center;
             margin-top: 40px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -296,6 +323,7 @@
             gap: 8px;
             box-shadow: var(--shadow-sm);
             text-decoration: none;
+            font-family: inherit;
         }
 
         .btn:hover {
@@ -308,12 +336,48 @@
             color: white;
         }
 
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding: 24px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-company-logo {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+            background: white;
+            padding: 6px 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95em;
+        }
+
+        .footer-text a {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
         /* Responsive */
         @media (max-width: 640px) {
             .container { padding: 16px 12px; }
             .header { margin-bottom: 24px; }
             .header h1 { font-size: 1.6em; line-height: 1.2; }
             .header p { font-size: 0.9em; }
+            .data-badge { font-size: 0.75em; padding: 6px 14px; }
             .stats-hero { padding: 28px 20px; border-radius: 20px; margin-bottom: 20px; }
             .big-number { font-size: 3em; }
             .stats-label { font-size: 1em; }
@@ -346,27 +410,32 @@
             .field-count { font-size: 0.85em; }
             .action-buttons { flex-direction: column; gap: 12px; margin-top: 28px; }
             .btn { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.95em; border-radius: 14px; }
+            .footer { margin-top: 32px; padding: 20px; }
         }
 
-        /* Extra small devices */
         @media (max-width: 380px) {
             .header h1 { font-size: 1.4em; }
             .big-number { font-size: 2.5em; }
             .hall-of-fame-item { flex-wrap: wrap; }
-            .match-rate { margin-left: 0; margin-top: 8px; }
+            .match-rate { margin-left: 0; margin-top: 8px; width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>&#127919; The Curious Minds Club</h1>
+            <h1>The Curious Minds Club</h1>
             <p>Real-time insights from our growing community of science enthusiasts</p>
+            {% if is_real %}
+            <span class="data-badge">Live Data</span>
+            {% else %}
+            <span class="data-badge">Sample Data</span>
+            {% endif %}
         </header>
 
         <div class="stats-hero">
             <div class="big-number" id="total-plays">{{ stats.total_plays }}</div>
-            <div class="stats-label">Curious Minds Have Played! &#128640;</div>
+            <div class="stats-label">Curious Minds Have Played!</div>
         </div>
 
         <div class="grid">
@@ -385,7 +454,7 @@
                     <img src="https://en.wikipedia.org/wiki/Special:FilePath/{{ scientist.name | replace(' ', '_') }}.jpg"
                          alt="{{ scientist.name }}"
                          class="scientist-avatar"
-                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f3f4f6%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%239ca3af%22 font-size=%2240%22>&#128100;</text></svg>'">
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/><circle cx=\'50\' cy=\'35\' r=\'18\' fill=\'%239ca3af\'/><ellipse cx=\'50\' cy=\'75\' rx=\'28\' ry=\'20\' fill=\'%239ca3af\'/></svg>');">
                     <div class="scientist-info">
                         <h4>{{ scientist.name }}</h4>
                         <p>{{ scientist.field }} &bull; {{ scientist.era }}</p>
@@ -406,9 +475,9 @@
                 </div>
                 {% for activity in stats.recent_activity %}
                 <div class="activity-item">
-                    <div class="activity-avatar">&#128100;</div>
+                    <div class="activity-avatar">&#129300;</div>
                     <div class="activity-text">
-                        <strong>Player {{ activity.id }}</strong> matched with <span>{{ activity.scientist }}</span>
+                        <strong>Player #{{ activity.id }}</strong> matched with <span class="scientist-name">{{ activity.scientist }}</span>
                     </div>
                     <div class="activity-time">{{ activity.time }}</div>
                 </div>
@@ -487,19 +556,71 @@
                 </div>
                 <div class="stat-box">
                     <div class="number">{{ stats.peak_hour }}</div>
-                    <div class="label">&#9200; Busiest Hour</div>
+                    <div class="label">Busiest Hour</div>
                 </div>
                 <div class="stat-box">
                     <div class="number">{{ stats.peak_day }}</div>
-                    <div class="label">&#128197; Most Active Day</div>
+                    <div class="label">Most Active Day</div>
                 </div>
             </div>
         </div>
 
         <div class="action-buttons">
-            <a href="/" class="btn btn-primary">&#127919; Take Quiz Again</a>
-            <a href="/" class="btn">&#127968; Back to Home</a>
+            <a href="/" class="btn btn-primary">Take Quiz Again</a>
+            <a href="/" class="btn">Back to Home</a>
         </div>
+
+        <footer class="footer">
+            <div class="footer-brand">
+                <img src="/static/companyimage.png" alt="SciRio" class="footer-company-logo">
+                <span class="footer-text">A <a href="https://www.scirio.in" target="_blank">SciRio</a> Product</span>
+            </div>
+        </footer>
     </div>
+
+    <script>
+        // Animate the big number on load
+        const totalPlaysElement = document.getElementById('total-plays');
+        const targetNumber = parseInt(totalPlaysElement.textContent);
+        let currentNumber = 0;
+        const duration = 1500;
+        const startTime = performance.now();
+
+        function animateNumber(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            currentNumber = Math.floor(targetNumber * easeOut);
+            totalPlaysElement.textContent = currentNumber.toLocaleString();
+
+            if (progress < 1) {
+                requestAnimationFrame(animateNumber);
+            } else {
+                totalPlaysElement.textContent = targetNumber.toLocaleString();
+            }
+        }
+
+        requestAnimationFrame(animateNumber);
+
+        // Animate trait bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.trait-bar-fill');
+                    bars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.trait-item').forEach(item => {
+            observer.observe(item.closest('.card'));
+        });
+    </script>
 </body>
 </html>
