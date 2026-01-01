@@ -140,6 +140,17 @@ def get_matches():
     user_profile = build_user_profile(answers)
     matches = matching_engine.get_full_matches(user_profile, domain)
 
+    # Calculate trait percentages based on answer positions
+    # Each answer (0-3) maps to different intensity levels
+    trait_percentages = {}
+    for i, answer in enumerate(answers):
+        if i < len(QUESTIONS):
+            dim = QUESTIONS[i]['dimension']
+            # Map answer position to percentage (visual representation)
+            # Answer 0=95%, 1=82%, 2=68%, 3=55% (first answer = strongest expression)
+            percent_map = {0: 95, 1: 82, 2: 68, 3: 55}
+            trait_percentages[dim] = percent_map.get(answer, 75)
+
     # Save to Supabase
     if SUPABASE_AVAILABLE and db:
         session_uuid = session.get('db_session_uuid')
@@ -151,6 +162,7 @@ def get_matches():
 
     return jsonify({
         "user_profile": user_profile,
+        "trait_percentages": trait_percentages,
         "matches": matches
     })
 

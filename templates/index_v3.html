@@ -1094,27 +1094,35 @@
             const container = document.getElementById('results-container');
             const primary = data.matches[0];
 
-            // Build trait chart from actual user profile
+            // Build trait chart from actual user profile with real percentages
             const profile = data.user_profile || {};
+            const percentages = data.trait_percentages || {};
             const traitMap = {
-                'approach': { icon: '&#128300;', labels: { theoretical: 'Theoretical', experimental: 'Hands-On', applied: 'Practical', observational: 'Observant' }},
-                'collaboration': { icon: '&#128101;', labels: { solo: 'Independent', small_team: 'Team Player', large_team: 'Leader', mentor: 'Mentor' }},
-                'risk': { icon: '&#127919;', labels: { conservative: 'Careful', calculated: 'Strategic', bold: 'Bold', hedged: 'Balanced' }},
-                'motivation': { icon: '&#128161;', labels: { curiosity: 'Curious', impact: 'Impactful', recognition: 'Ambitious', duty: 'Dutiful' }},
-                'adversity': { icon: '&#128170;', labels: { persist: 'Persistent', pivot: 'Adaptable', fight: 'Fighter', accept: 'Resilient' }}
+                'approach': { icon: '&#128300;', label: 'Problem Solving', values: { theoretical: 'Theoretical', experimental: 'Hands-On', applied: 'Practical', observational: 'Observant' }},
+                'collaboration': { icon: '&#128101;', label: 'Work Style', values: { solo: 'Independent', small_team: 'Team Player', large_team: 'Leader', mentor: 'Mentor' }},
+                'risk': { icon: '&#127919;', label: 'Risk Taking', values: { conservative: 'Careful', calculated: 'Strategic', bold: 'Bold', hedged: 'Balanced' }},
+                'motivation': { icon: '&#128161;', label: 'Motivation', values: { curiosity: 'Curious', impact: 'Impactful', recognition: 'Ambitious', duty: 'Dutiful' }},
+                'adversity': { icon: '&#128170;', label: 'Resilience', values: { persist: 'Persistent', pivot: 'Adaptable', fight: 'Fighter', accept: 'Accepting' }},
+                'breadth': { icon: '&#128214;', label: 'Focus', values: { deep: 'Deep Focus', broad: 'Broad Explorer', hybrid: 'Balanced' }},
+                'authority': { icon: '&#128081;', label: 'Authority', values: { challenge: 'Challenger', work_within: 'Pragmatic', build_own: 'Builder' }},
+                'communication': { icon: '&#128172;', label: 'Communication', values: { public: 'Public Voice', private: 'Private', selective: 'Selective' }},
+                'legacy': { icon: '&#127942;', label: 'Legacy', values: { knowledge: 'Knowledge', students: 'Teaching', institutions: 'Building', applications: 'Applications' }},
+                'failure': { icon: '&#128736;', label: 'Failure Response', values: { learn: 'Learner', persist: 'Fighter', reframe: 'Reframer', move_on: 'Pragmatic' }}
             };
-            const traitData = Object.entries(profile).slice(0, 5).map(([key, value], i) => {
-                const info = traitMap[key] || { icon: '&#9733;', labels: {} };
+            // Use top 5 traits with actual percentages from API
+            const traitData = Object.entries(profile).slice(0, 5).map(([key, value]) => {
+                const info = traitMap[key] || { icon: '&#9733;', label: key, values: {} };
+                const percent = percentages[key] || 75;
                 return {
                     icon: info.icon,
-                    name: info.labels[value] || value.replace('_', ' ').replace(/^\w/, c => c.toUpperCase()),
-                    percent: 85 - (i * 12) // Visual weight decreasing
+                    name: info.values[value] || value.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase()),
+                    percent: Math.round(percent)
                 };
             });
 
             // Generate Wikipedia image URL
             const wikiImageUrl = `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(primary.name.replace(/ /g, '_'))}.jpg`;
-            const fallbackImage = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f3f4f6" width="100" height="100"/><text x="50" y="55" text-anchor="middle" fill="%239ca3af" font-size="40">&#128100;</text></svg>';
+            const fallbackImage = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="#f3f4f6" width="100" height="100"/><circle cx="50" cy="35" r="18" fill="#9ca3af"/><ellipse cx="50" cy="75" rx="28" ry="20" fill="#9ca3af"/></svg>');
 
             let html = `
                 <div class="result-header">
