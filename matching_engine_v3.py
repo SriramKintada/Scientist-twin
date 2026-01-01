@@ -681,7 +681,8 @@ Return ONLY valid JSON. Keep it concise."""
                 "character_moment": narrative.get('character_moment', ''),
                 "summary": scientist.get('summary', ''),
                 "moments": scientist.get('moments', []),
-                "wiki_url": wiki_url
+                "wiki_url": wiki_url,
+                "image_url": scientist.get('image_url', '')
             })
 
         return results

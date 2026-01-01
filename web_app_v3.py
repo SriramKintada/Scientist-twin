@@ -196,7 +196,8 @@ def analytics():
             "name": s["name"],
             "field": s["field"],
             "era": s.get("era", "Modern"),
-            "match_rate": match_rates[i] if i < len(match_rates) else random.randint(30, 50)
+            "match_rate": match_rates[i] if i < len(match_rates) else random.randint(30, 50),
+            "image_url": s.get("image_url", "")
         })
 
     # Recent activity
