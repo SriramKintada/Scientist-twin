@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Indian Scientist Twin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #f87171;
+            --coral-dark: #ef4444;
+            --coral-light: #fca5a5;
+            --coral-bg: #fb7185;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #fb7185 0%, #f87171 50%, #ef4444 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Floating Science Icons */
+        .floating-icons {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .science-icon {
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.15;
+            animation: floatIcon 20s ease-in-out infinite;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .science-icon:nth-child(1) { top: 8%; left: 5%; animation-delay: 0s; }
+        .science-icon:nth-child(2) { top: 5%; right: 10%; animation-delay: -4s; }
+        .science-icon:nth-child(3) { top: 60%; left: 3%; animation-delay: -8s; }
+        .science-icon:nth-child(4) { top: 70%; right: 5%; animation-delay: -12s; }
+        .science-icon:nth-child(5) { top: 35%; left: 8%; animation-delay: -16s; }
+        .science-icon:nth-child(6) { bottom: 10%; left: 15%; animation-delay: -2s; }
+        .science-icon:nth-child(7) { top: 20%; right: 3%; animation-delay: -6s; }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(20px) rotate(-5deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tagline {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        .header p {
+            font-size: 1.15em;
+            color: rgba(255,255,255,0.9);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+
+        .scientist-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--coral);
+            margin-top: 24px;
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 48px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            animation: cardSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(60px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Steps */
+        .step { display: none; }
+        .step.active {
+            display: block;
+            animation: stepFadeIn 0.5s ease;
+        }
+
+        @keyframes stepFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Section titles */
+        h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 28px;
+        }
+
+        /* Domain grid */
+        .domain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .domain-card {
+            background: #fef2f2;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 28px 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            position: relative;
+        }
+
+        .domain-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(248, 113, 113, 0.2);
+            border-color: var(--coral-light);
+        }
+
+        .domain-card.selected {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-color: var(--coral-dark);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(248, 113, 113, 0.35);
+        }
+
+        .domain-card.selected .domain-desc { color: rgba(255,255,255,0.85); }
+
+        .domain-icon {
+            font-size: 2.8em;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .domain-name {
+            font-weight: 700;
+            font-size: 1.05em;
+            margin-bottom: 6px;
+        }
+
+        .domain-desc {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 18px 40px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(248, 113, 113, 0.3);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(248, 113, 113, 0.4);
+        }
+
+        .btn:disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--coral);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-white:hover:not(:disabled) {
+            box-shadow: var(--shadow);
+        }
+
+        /* Progress */
+        .progress-container { margin-bottom: 36px; }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .progress-text {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--coral);
+        }
+
+        .dimension-badge {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #fee2e2;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--coral) 0%, var(--coral-dark) 100%);
+            height: 100%;
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 4px;
+        }
+
+        /* Questions */
+        .question-text {
+            font-size: 1.5em;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 32px;
+            color: var(--text-dark);
+        }
+
+        .option-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .option-card {
+            background: #fef2f2;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 22px 28px;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 1em;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            background: #fce7f3;
+            border-color: var(--coral-light);
+            transform: translateX(8px);
+        }
+
+        .option-card.selected {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-color: var(--coral-dark);
+            color: white;
+        }
+
+        .option-card.selected::before {
+            background: white;
+            border-color: white;
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.3);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .spinner-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 36px;
+            position: relative;
+        }
+
+        .spinner {
+            width: 100%;
+            height: 100%;
+            border: 4px solid #fee2e2;
+            border-top-color: var(--coral);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .spinner-inner {
+            position: absolute;
+            inset: 16px;
+            border: 4px solid #fee2e2;
+            border-bottom-color: var(--coral-dark);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite reverse;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading h2 {
+            font-size: 1.6em;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .loading p {
+            color: var(--text-muted);
+            font-size: 1.05em;
+        }
+
+        /* Results */
+        .result-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .result-intro {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .scientist-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--coral);
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 15px 40px rgba(248, 113, 113, 0.3);
+            background: #f3f4f6;
+        }
+
+        .scientist-name {
+            font-size: 2.8em;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .scientist-meta {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .match-quality-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 1em;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(248, 113, 113, 0.3);
+        }
+
+        /* Action buttons row */
+        .action-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+        }
+
+        .heart-btn {
+            background: white;
+            border: 2px solid #fee2e2;
+            border-radius: 50%;
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.5em;
+        }
+
+        .heart-btn:hover { border-color: var(--coral); transform: scale(1.1); }
+        .heart-btn.liked { background: #fef2f2; border-color: var(--coral); }
+        .heart-btn.liked .heart-icon { color: var(--coral); }
+
+        .share-btn {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2em;
+        }
+
+        .share-btn:hover { border-color: var(--coral); transform: scale(1.1); background: #fef2f2; }
+
+        /* Bio Section */
+        .scientist-bio {
+            background: #f9fafb;
+            border-radius: 20px;
+            padding: 28px;
+            margin: 28px 0;
+            line-height: 1.8;
+            font-size: 1.02em;
+        }
+
+        .fun-fact {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            font-size: 0.95em;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .fun-fact-icon { font-size: 1.5em; }
+
+        /* Trait Chart */
+        .trait-chart-section {
+            background: #f9fafb;
+            border-radius: 24px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: center;
+        }
+
+        .trait-chart-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-dark);
+        }
+
+        .trait-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .trait-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trait-bar-icon { font-size: 1.3em; width: 32px; }
+
+        .trait-bar-label {
+            width: 120px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .trait-bar-bg {
+            flex: 1;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .trait-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        .trait-bar-percent {
+            width: 45px;
+            text-align: right;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        /* Sections */
+        .section {
+            margin: 36px 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: white;
+        }
+
+        .trait-card {
+            background: #f9fafb;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--coral);
+        }
+
+        .trait-name {
+            font-weight: 700;
+            font-size: 1.05em;
+            color: var(--coral);
+            margin-bottom: 10px;
+        }
+
+        .trait-explanation {
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        .working-style-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%);
+            border-radius: 20px;
+            padding: 28px;
+            line-height: 1.8;
+        }
+
+        .character-moment {
+            background: #f9fafb;
+            border-radius: 20px;
+            padding: 32px;
+            font-size: 1.1em;
+            font-style: italic;
+            line-height: 1.8;
+            position: relative;
+            border-left: 4px solid var(--coral);
+        }
+
+        /* Other matches */
+        .other-matches {
+            margin-top: 44px;
+        }
+
+        .other-matches h3 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .alt-match {
+            background: #f9fafb;
+            border-radius: 18px;
+            padding: 20px 24px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .alt-match:hover {
+            background: #fef2f2;
+            transform: translateX(8px);
+        }
+
+        .alt-match-info h4 {
+            font-weight: 700;
+            font-size: 1.05em;
+            margin-bottom: 4px;
+        }
+
+        .alt-match-info p {
+            font-size: 0.88em;
+            color: var(--text-muted);
+        }
+
+        .alt-match-score {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        /* Analytics link */
+        .analytics-link {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 20px;
+            padding: 24px;
+            margin: 32px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .analytics-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .analytics-info h4 {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .analytics-info p {
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        .analytics-arrow {
+            font-size: 1.5em;
+            color: var(--coral);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding: 32px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-company-logo {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+            background: white;
+            padding: 6px 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95em;
+        }
+
+        .footer-text a {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-dark);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container { padding: 16px 12px; }
+            .card { padding: 24px 18px; border-radius: 24px; }
+            .header { margin-bottom: 24px; }
+            .header h1 { font-size: 2em; line-height: 1.15; }
+            .header p { font-size: 0.95em; }
+            .tagline { padding: 8px 16px; font-size: 0.85em; }
+            .scientist-badge { padding: 10px 18px; font-size: 0.85em; }
+            .domain-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .domain-card { padding: 16px 12px; border-radius: 16px; }
+            .domain-icon { font-size: 2.2em; margin-bottom: 10px; }
+            .domain-name { font-size: 0.95em; }
+            .domain-desc { font-size: 0.75em; }
+            .question-text { font-size: 1.15em; margin-bottom: 24px; }
+            .option-card { padding: 16px 20px 16px 50px; font-size: 0.95em; border-radius: 14px; }
+            .option-card::before { left: 18px; width: 20px; height: 20px; }
+            .scientist-name { font-size: 1.8em; }
+            .scientist-photo { width: 110px; height: 110px; border-width: 4px; }
+            .scientist-meta { font-size: 0.95em; }
+            .match-quality-badge { padding: 10px 20px; font-size: 0.9em; }
+            .action-row { gap: 10px; }
+            .heart-btn { width: 46px; height: 46px; font-size: 1.3em; }
+            .share-btn { width: 42px; height: 42px; font-size: 1.1em; }
+            .scientist-bio { padding: 20px; font-size: 0.95em; line-height: 1.7; border-radius: 16px; }
+            .section { margin: 28px 0; }
+            .section-title { font-size: 1.1em; gap: 10px; margin-bottom: 14px; }
+            .section-icon { width: 36px; height: 36px; font-size: 1em; border-radius: 10px; }
+            .trait-card { padding: 18px; border-radius: 14px; margin-bottom: 10px; }
+            .trait-name { font-size: 0.95em; margin-bottom: 6px; }
+            .trait-explanation { font-size: 0.9em; line-height: 1.6; }
+            .working-style-box { padding: 20px; font-size: 0.95em; line-height: 1.7; border-radius: 16px; }
+            .character-moment { padding: 20px; font-size: 0.95em; line-height: 1.7; border-radius: 16px; }
+            .trait-chart-section { padding: 24px 18px; border-radius: 20px; margin: 24px 0; }
+            .trait-chart-title { font-size: 1.1em; margin-bottom: 18px; }
+            .trait-bar-label { width: 90px; font-size: 0.8em; }
+            .trait-bar-icon { font-size: 1.1em; width: 28px; }
+            .trait-bar-percent { width: 38px; font-size: 0.85em; }
+            .other-matches { margin-top: 32px; }
+            .other-matches h3 { font-size: 1.05em; margin-bottom: 14px; }
+            .alt-match { padding: 16px; border-radius: 14px; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+            .alt-match-info h4 { font-size: 0.95em; }
+            .alt-match-info p { font-size: 0.8em; }
+            .alt-match-score { padding: 8px 14px; font-size: 0.8em; }
+            .analytics-link { padding: 18px; border-radius: 16px; margin: 24px 0; }
+            .analytics-info h4 { font-size: 1em; }
+            .analytics-info p { font-size: 0.85em; }
+            .btn { padding: 14px 28px; font-size: 0.95em; border-radius: 14px; }
+            .footer { margin-top: 32px; padding: 24px; }
+            h2 { font-size: 1.5em; margin-bottom: 20px; }
+            .progress-text { font-size: 0.9em; }
+            .dimension-badge { padding: 6px 14px; font-size: 0.8em; }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 380px) {
+            .header h1 { font-size: 1.7em; }
+            .scientist-name { font-size: 1.5em; }
+            .domain-grid { gap: 8px; }
+            .domain-card { padding: 14px 10px; }
+            .domain-icon { font-size: 1.8em; }
+            .option-card { padding: 14px 16px 14px 44px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Science Icons -->
+    <div class="floating-icons">
+        <div class="science-icon">&#128300;</div><!-- Microscope -->
+        <div class="science-icon">&#128301;</div><!-- Telescope -->
+        <div class="science-icon">&#9883;</div><!-- Atom -->
+        <div class="science-icon">&#129514;</div><!-- Flask -->
+        <div class="science-icon">&#129516;</div><!-- DNA -->
+        <div class="science-icon">&#128218;</div><!-- Book -->
+        <div class="science-icon">&#127759;</div><!-- Globe -->
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <span class="tagline">&#9889; Discover Your Scientific Identity</span>
+            <h1>Find Your Indian<br>Scientist Twin</h1>
+            <p>Take this fun interactive quiz to discover which pioneering Indian scientist matches your personality!</p>
+            <span class="scientist-badge">
+                <span>&#128101;</span>
+                <span id="scientist-count">Loading...</span>
+            </span>
+        </header>
+
+        <div class="card">
+            <!-- Step 1: Domain Selection -->
+            <div class="step active" id="step-domain">
+                <h2>&#127919; Choose Your Scientific Domain</h2>
+                <div class="domain-grid">
+                    {% for key, domain in domains.items() %}
+                    <div class="domain-card" data-domain="{{ key }}">
+                        <span class="domain-icon">
+                            {% if key == 'cosmos' %}&#127775;{% endif %}
+                            {% if key == 'quantum' %}&#9883;{% endif %}
+                            {% if key == 'life' %}&#129516;{% endif %}
+                            {% if key == 'earth' %}&#127793;{% endif %}
+                            {% if key == 'engineering' %}&#9881;{% endif %}
+                        </span>
+                        <div class="domain-name">{{ domain.name }}</div>
+                        <div class="domain-desc">{{ domain.description }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="btn" id="btn-domain" disabled>
+                    <span>&#127919; Start Quiz</span>
+                </button>
+            </div>
+
+            <!-- Step 2: Quiz -->
+            <div class="step" id="step-quiz">
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span class="progress-text">Question <span id="q-num">1</span> of 12</span>
+                        <span class="dimension-badge" id="q-dimension"></span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="question-text" id="question-text"></div>
+                <div class="option-grid" id="quiz-options"></div>
+                <button class="btn" id="btn-answer" disabled style="margin-top: 28px;">
+                    <span>Next Question &#8594;</span>
+                </button>
+            </div>
+
+            <!-- Step 3: Loading -->
+            <div class="step" id="step-loading">
+                <div class="loading">
+                    <div class="spinner-container">
+                        <div class="spinner"></div>
+                        <div class="spinner-inner"></div>
+                    </div>
+                    <h2>Finding Your Scientific Twin...</h2>
+                    <p>Analyzing your profile against 213+ Indian scientists</p>
+                </div>
+            </div>
+
+            <!-- Step 4: Results -->
+            <div class="step" id="step-results">
+                <div id="results-container"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-brand">
+                <img src="/static/companyimage.png" alt="SciRio" class="footer-company-logo">
+                <span class="footer-text">A <a href="https://www.scirio.in" target="_blank">SciRio</a> Product &copy; 2025</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let selectedDomain = null;
+        let currentQuestion = 0;
+        let totalQuestions = 12;
+        let selectedAnswer = null;
+        let userTraitPercentages = {};
+
+        // Load scientist count
+        fetch('/api/scientists/count')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('scientist-count').textContent = data.count + ' Scientists to Match With';
+            });
+
+        // Domain selection
+        document.querySelectorAll('[data-domain]').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('[data-domain]').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedDomain = this.dataset.domain;
+                document.getElementById('btn-domain').disabled = false;
+            });
+        });
+
+        document.getElementById('btn-domain').addEventListener('click', startQuiz);
+
+        async function startQuiz() {
+            const response = await fetch('/api/start-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain: selectedDomain })
+            });
+
+            const data = await response.json();
+            totalQuestions = data.total_questions;
+
+            document.getElementById('step-domain').classList.remove('active');
+            document.getElementById('step-quiz').classList.add('active');
+            showQuestion(data.question);
+        }
+
+        function showQuestion(question) {
+            document.getElementById('question-text').textContent = question.text;
+            document.getElementById('q-num').textContent = question.number;
+            document.getElementById('q-dimension').textContent = formatDimension(question.dimension);
+
+            const container = document.getElementById('quiz-options');
+            container.innerHTML = '';
+
+            const labels = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, index) => {
+                const card = document.createElement('div');
+                card.className = 'option-card';
+                card.dataset.answer = index;
+                card.textContent = labels[index] + '. ' + option;
+
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('#quiz-options .option-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedAnswer = parseInt(this.dataset.answer);
+                    document.getElementById('btn-answer').disabled = false;
+                });
+
+                container.appendChild(card);
+            });
+
+            selectedAnswer = null;
+            document.getElementById('btn-answer').disabled = true;
+            document.getElementById('btn-answer').innerHTML =
+                question.number === totalQuestions ? '<span>See Results &#8594;</span>' : '<span>Next Question &#8594;</span>';
+
+            const progress = (question.number / totalQuestions) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function formatDimension(dim) {
+            const labels = {
+                'approach': 'Problem-Solving',
+                'collaboration': 'Working Style',
+                'risk': 'Risk Tolerance',
+                'motivation': 'Motivation',
+                'adversity': 'Facing Obstacles',
+                'breadth': 'Knowledge Style',
+                'authority': 'Authority',
+                'communication': 'Communication',
+                'time_horizon': 'Time Perspective',
+                'resources': 'Resources',
+                'legacy': 'Legacy',
+                'failure': 'Handling Failure'
+            };
+            return labels[dim] || dim;
+        }
+
+        document.getElementById('btn-answer').addEventListener('click', async function() {
+            const response = await fetch('/api/answer-question', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answer: selectedAnswer })
+            });
+
+            const data = await response.json();
+
+            if (data.complete) {
+                showLoading();
+                await getMatches();
+            } else {
+                showQuestion(data.question);
+            }
+        });
+
+        function showLoading() {
+            document.getElementById('step-quiz').classList.remove('active');
+            document.getElementById('step-loading').classList.add('active');
+        }
+
+        async function getMatches() {
+            const startTime = Date.now();
+
+            const response = await fetch('/api/get-matches', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+
+            // Store trait percentages
+            userTraitPercentages = data.trait_percentages || {};
+
+            // Minimum 3 seconds loading
+            const elapsed = Date.now() - startTime;
+            const minDelay = 3000;
+            if (elapsed < minDelay) {
+                await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+            }
+
+            showResults(data);
+        }
+
+        function showResults(data) {
+            const container = document.getElementById('results-container');
+            const primary = data.matches[0];
+
+            // Build trait chart from actual user profile
+            const profile = data.user_profile || {};
+            const traitMap = {
+                'approach': { icon: '&#128300;', labels: { theoretical: 'Theoretical', experimental: 'Hands-On', applied: 'Practical', observational: 'Observant' }},
+                'collaboration': { icon: '&#128101;', labels: { solo: 'Independent', small_team: 'Team Player', large_team: 'Leader', mentor: 'Mentor' }},
+                'risk': { icon: '&#127919;', labels: { conservative: 'Careful', calculated: 'Strategic', bold: 'Bold', hedged: 'Balanced' }},
+                'motivation': { icon: '&#128161;', labels: { curiosity: 'Curious', impact: 'Impactful', recognition: 'Ambitious', duty: 'Dutiful' }},
+                'adversity': { icon: '&#128170;', labels: { persist: 'Persistent', pivot: 'Adaptable', fight: 'Fighter', accept: 'Resilient' }}
+            };
+            const traitData = Object.entries(profile).slice(0, 5).map(([key, value], i) => {
+                const info = traitMap[key] || { icon: '&#9733;', labels: {} };
+                return {
+                    icon: info.icon,
+                    name: info.labels[value] || value.replace('_', ' ').replace(/^\w/, c => c.toUpperCase()),
+                    percent: 85 - (i * 12) // Visual weight decreasing
+                };
+            });
+
+            // Generate Wikipedia image URL
+            const wikiImageUrl = `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(primary.name.replace(/ /g, '_'))}.jpg`;
+            const fallbackImage = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f3f4f6" width="100" height="100"/><text x="50" y="55" text-anchor="middle" fill="%239ca3af" font-size="40">&#128100;</text></svg>';
+
+            let html = `
+                <div class="result-header">
+                    <p class="result-intro">Your Indian Scientist Twin is...</p>
+                    <img src="${wikiImageUrl}"
+                         alt="${primary.name}"
+                         class="scientist-photo"
+                         onerror="this.src='${fallbackImage}'">
+                    <h1 class="scientist-name">${primary.name}</h1>
+                    <p class="scientist-meta">${primary.field} &bull; ${primary.era}</p>
+                    <span class="match-quality-badge">&#10024; ${primary.match_quality}</span>
+
+                    <!-- Action buttons -->
+                    <div class="action-row">
+                        <button class="heart-btn" onclick="toggleLike(this)" title="Love this result!">
+                            <span class="heart-icon">&#9825;</span>
+                        </button>
+                        <button class="share-btn" onclick="shareTwitter()" title="Share on Twitter">&#120143;</button>
+                        <button class="share-btn" onclick="shareWhatsApp()" title="Share on WhatsApp">&#128172;</button>
+                        <button class="share-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">&#128279;</button>
+                        <button class="share-btn" onclick="copyLink()" title="Copy Link">&#128203;</button>
+                    </div>
+                </div>
+
+                <div class="scientist-bio">
+                    ${(() => {
+                        const summary = primary.summary || '';
+                        // Split into sentences
+                        const allSentences = summary.split(/(?<=[.!?])\s+/);
+                        // Filter out Wikipedia-style intro sentences
+                        const goodSentences = allSentences.filter(s => {
+                            const lower = s.toLowerCase();
+                            // Skip Wikipedia intros with birth dates, nationality patterns
+                            if (lower.includes('was an indian') || lower.includes('is an indian')) return false;
+                            if (lower.includes('was a indian') || lower.includes('was an american')) return false;
+                            if (/\(\d{1,2}\s+(january|february|march|april|may|june|july|august|september|october|november|december)/i.test(s)) return false;
+                            if (/\) was a[n]?\s/i.test(s)) return false;
+                            if (/\) is a[n]?\s/i.test(s)) return false;
+                            return s.length > 20;
+                        });
+                        // Take first 2 good sentences, join them
+                        const result = goodSentences.slice(0, 2).join(' ').trim();
+                        // Clean ending - if ends mid-sentence, cut at last period
+                        if (result.length > 280) {
+                            const lastPeriod = result.lastIndexOf('.', 280);
+                            return lastPeriod > 100 ? result.substring(0, lastPeriod + 1) : result.substring(0, 280);
+                        }
+                        return result;
+                    })()}
+                </div>
+
+                ${primary.fun_fact ? `
+                <div class="fun-fact">
+                    <span class="fun-fact-icon">&#128161;</span>
+                    <div><strong>Fun Fact:</strong> ${primary.fun_fact}</div>
+                </div>
+                ` : ''}
+
+                <!-- Trait Chart -->
+                <div class="trait-chart-section">
+                    <h3 class="trait-chart-title">&#128202; Your Trait Profile</h3>
+                    <div class="trait-bars">
+                        ${traitData.map(t => `
+                            <div class="trait-bar-item">
+                                <span class="trait-bar-icon">${t.icon}</span>
+                                <span class="trait-bar-label">${t.name}</span>
+                                <div class="trait-bar-bg">
+                                    <div class="trait-bar-fill" style="width: ${t.percent}%"></div>
+                                </div>
+                                <span class="trait-bar-percent">${t.percent}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="section-icon">&#10003;</span>
+                        Why You Match
+                    </h3>
+                    ${primary.resonances.map(r => `
+                        <div class="trait-card">
+                            <div class="trait-name">${r.trait}</div>
+                            <div class="trait-explanation">${r.explanation}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                ${primary.contrasts && primary.contrasts.length > 0 ? `
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="section-icon">&#8644;</span>
+                        Productive Differences
+                    </h3>
+                    ${primary.contrasts.map(c => `
+                        <div class="trait-card">
+                            <div class="trait-name">${c.trait}</div>
+                            <div class="trait-explanation">${c.explanation}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="section-icon">&#128736;</span>
+                        Their Working Style
+                    </h3>
+                    <div class="working-style-box">
+                        ${primary.working_style}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">
+                        <span class="section-icon">&#11088;</span>
+                        A Defining Moment
+                    </h3>
+                    <div class="character-moment">
+                        ${primary.character_moment}
+                    </div>
+                </div>
+
+                <!-- Wikipedia Link -->
+                <div style="text-align: center; margin: 32px 0;">
+                    <a href="${primary.wiki_url}" target="_blank" class="btn btn-white">
+                        &#127760; View on Wikipedia
+                    </a>
+                </div>
+
+                ${data.matches.length > 1 ? `
+                <div class="other-matches">
+                    <h3>&#128101; Other Close Matches</h3>
+                    ${data.matches.slice(1).map(m => `
+                        <div class="alt-match">
+                            <div class="alt-match-info">
+                                <h4>${m.name}</h4>
+                                <p>${m.archetype} &bull; ${m.field}</p>
+                            </div>
+                            <span class="alt-match-score">${Math.round(m.score * 100)}% Match</span>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                <!-- Analytics Link -->
+                <div class="analytics-link" onclick="window.location.href='/analytics'">
+                    <div class="analytics-info">
+                        <h4>&#128101; Know Who Else Played!</h4>
+                        <p>See community stats and top matches</p>
+                    </div>
+                    <span class="analytics-arrow">&#8594;</span>
+                </div>
+
+                <div style="text-align: center; margin-top: 32px;">
+                    <button class="btn" onclick="location.reload()">
+                        &#128260; Take Quiz Again
+                    </button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            document.getElementById('step-loading').classList.remove('active');
+            document.getElementById('step-results').classList.add('active');
+        }
+
+        // Social sharing functions
+        function toggleLike(btn) {
+            btn.classList.toggle('liked');
+            if (btn.classList.contains('liked')) {
+                btn.querySelector('.heart-icon').innerHTML = '&#10084;';
+                showToast('Added to favorites! ❤️');
+            } else {
+                btn.querySelector('.heart-icon').innerHTML = '&#9825;';
+            }
+        }
+
+        function shareTwitter() {
+            const text = "I just found my Indian Scientist Twin! Take the quiz to find yours! 🔬";
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+
+        function shareWhatsApp() {
+            const text = "I just found my Indian Scientist Twin! 🔬 Take the quiz: " + window.location.href;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function shareLinkedIn() {
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast('Link copied to clipboard! 📋');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>

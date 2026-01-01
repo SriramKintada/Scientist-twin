@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Analytics - Scientist Twin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #f87171;
+            --coral-dark: #ef4444;
+            --coral-light: #fca5a5;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fb7185 0%, #f87171 50%, #ef4444 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats-hero {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .big-number {
+            font-size: 5em;
+            font-weight: 800;
+            color: var(--coral);
+            line-height: 1;
+        }
+
+        .stats-label {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .card-subtitle {
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        /* Hall of Fame */
+        .hall-of-fame-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .hall-of-fame-item:hover {
+            background: #fef2f2;
+            transform: translateX(8px);
+        }
+
+        .rank {
+            font-size: 1.2em;
+            font-weight: 800;
+            color: var(--coral);
+            width: 32px;
+        }
+
+        .scientist-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e5e7eb;
+            border: 3px solid var(--coral-light);
+        }
+
+        .scientist-info h4 {
+            font-weight: 700;
+            font-size: 1em;
+            margin-bottom: 4px;
+        }
+
+        .scientist-info p {
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+
+        .match-rate {
+            margin-left: auto;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.85em;
+        }
+
+        /* Live Activity */
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .activity-item:last-child { border-bottom: none; }
+
+        .activity-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .activity-text {
+            flex: 1;
+        }
+
+        .activity-text strong { color: var(--text-dark); }
+        .activity-text span { color: var(--coral); font-weight: 600; }
+
+        .activity-time {
+            font-size: 0.8em;
+            color: var(--text-muted);
+        }
+
+        /* Trait bars */
+        .trait-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .trait-icon { font-size: 1.3em; width: 32px; }
+
+        .trait-name {
+            width: 120px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .trait-bar-bg {
+            flex: 1;
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .trait-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 5px;
+        }
+
+        .trait-percent {
+            width: 40px;
+            text-align: right;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        /* Stats grid */
+        .stat-box {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-box .number {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--coral);
+        }
+
+        .stat-box .label {
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+
+        /* Fields */
+        .field-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: #f9fafb;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .field-name { font-weight: 600; }
+        .field-count { color: var(--coral); font-weight: 700; }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            background: white;
+            color: var(--coral);
+            border: none;
+            border-radius: 16px;
+            padding: 16px 32px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container { padding: 16px 12px; }
+            .header { margin-bottom: 24px; }
+            .header h1 { font-size: 1.6em; line-height: 1.2; }
+            .header p { font-size: 0.9em; }
+            .stats-hero { padding: 28px 20px; border-radius: 20px; margin-bottom: 20px; }
+            .big-number { font-size: 3em; }
+            .stats-label { font-size: 1em; }
+            .grid { grid-template-columns: 1fr; gap: 16px; }
+            .card { padding: 24px 18px; border-radius: 20px; }
+            .card-header { margin-bottom: 18px; }
+            .card-icon { width: 40px; height: 40px; font-size: 1.2em; border-radius: 12px; }
+            .card-title { font-size: 1.1em; }
+            .card-subtitle { font-size: 0.8em; }
+            .hall-of-fame-item { padding: 14px; gap: 12px; border-radius: 14px; margin-bottom: 10px; }
+            .rank { font-size: 1em; width: 28px; }
+            .scientist-avatar { width: 48px; height: 48px; }
+            .scientist-info h4 { font-size: 0.9em; }
+            .scientist-info p { font-size: 0.75em; }
+            .match-rate { padding: 6px 12px; font-size: 0.75em; }
+            .activity-item { padding: 12px; gap: 10px; }
+            .activity-avatar { width: 36px; height: 36px; font-size: 1em; }
+            .activity-text { font-size: 0.85em; }
+            .activity-time { font-size: 0.7em; }
+            .trait-item { gap: 10px; margin-bottom: 12px; }
+            .trait-icon { font-size: 1.1em; width: 28px; }
+            .trait-name { width: 100px; font-size: 0.8em; }
+            .trait-bar-bg { height: 8px; }
+            .trait-percent { width: 35px; font-size: 0.8em; }
+            .stat-box { padding: 16px; border-radius: 14px; }
+            .stat-box .number { font-size: 1.6em; }
+            .stat-box .label { font-size: 0.8em; }
+            .field-item { padding: 12px 14px; border-radius: 10px; margin-bottom: 8px; }
+            .field-name { font-size: 0.9em; }
+            .field-count { font-size: 0.85em; }
+            .action-buttons { flex-direction: column; gap: 12px; margin-top: 28px; }
+            .btn { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.95em; border-radius: 14px; }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 380px) {
+            .header h1 { font-size: 1.4em; }
+            .big-number { font-size: 2.5em; }
+            .hall-of-fame-item { flex-wrap: wrap; }
+            .match-rate { margin-left: 0; margin-top: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>&#127919; The Curious Minds Club</h1>
+            <p>Real-time insights from our growing community of science enthusiasts</p>
+        </header>
+
+        <div class="stats-hero">
+            <div class="big-number" id="total-plays">{{ stats.total_plays }}</div>
+            <div class="stats-label">Curious Minds Have Played! &#128640;</div>
+        </div>
+
+        <div class="grid">
+            <!-- Hall of Fame -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#127942;</div>
+                    <div>
+                        <div class="card-title">Hall of Fame</div>
+                        <div class="card-subtitle">Most matched scientists</div>
+                    </div>
+                </div>
+                {% for scientist in stats.hall_of_fame %}
+                <div class="hall-of-fame-item">
+                    <div class="rank">#{{ loop.index }}</div>
+                    <img src="https://en.wikipedia.org/wiki/Special:FilePath/{{ scientist.name | replace(' ', '_') }}.jpg"
+                         alt="{{ scientist.name }}"
+                         class="scientist-avatar"
+                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23f3f4f6%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%239ca3af%22 font-size=%2240%22>&#128100;</text></svg>'">
+                    <div class="scientist-info">
+                        <h4>{{ scientist.name }}</h4>
+                        <p>{{ scientist.field }} &bull; {{ scientist.era }}</p>
+                    </div>
+                    <span class="match-rate">{{ scientist.match_rate }}%</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Live Activity -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128226;</div>
+                    <div>
+                        <div class="card-title">Live Activity</div>
+                        <div class="card-subtitle">Recent quiz completions</div>
+                    </div>
+                </div>
+                {% for activity in stats.recent_activity %}
+                <div class="activity-item">
+                    <div class="activity-avatar">&#128100;</div>
+                    <div class="activity-text">
+                        <strong>Player {{ activity.id }}</strong> matched with <span>{{ activity.scientist }}</span>
+                    </div>
+                    <div class="activity-time">{{ activity.time }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Top Traits -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128202;</div>
+                    <div>
+                        <div class="card-title">Top Traits</div>
+                        <div class="card-subtitle">Most common in our community</div>
+                    </div>
+                </div>
+                {% for trait in stats.top_traits %}
+                <div class="trait-item">
+                    <span class="trait-icon">{{ trait.icon }}</span>
+                    <span class="trait-name">{{ trait.name }}</span>
+                    <div class="trait-bar-bg">
+                        <div class="trait-bar-fill" style="width: {{ trait.percent }}%"></div>
+                    </div>
+                    <span class="trait-percent">{{ trait.percent }}%</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Popular Fields -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128218;</div>
+                    <div>
+                        <div class="card-title">Popular Fields</div>
+                        <div class="card-subtitle">Top matched scientific areas</div>
+                    </div>
+                </div>
+                {% for field in stats.popular_fields %}
+                <div class="field-item">
+                    <span class="field-name">{{ field.name }}</span>
+                    <span class="field-count">{{ field.count }} matches</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Engagement Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128170;</div>
+                    <div>
+                        <div class="card-title">Community Engagement</div>
+                        <div class="card-subtitle">How our community interacts</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.share_rate }}%</div>
+                    <div class="label">Share Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.retake_rate }}%</div>
+                    <div class="label">Retake Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.favorites }}</div>
+                    <div class="label">Favorites</div>
+                </div>
+            </div>
+
+            <!-- Peak Times -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#9200;</div>
+                    <div>
+                        <div class="card-title">When Do They Play?</div>
+                        <div class="card-subtitle">Peak activity times</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.peak_hour }}</div>
+                    <div class="label">&#9200; Busiest Hour</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.peak_day }}</div>
+                    <div class="label">&#128197; Most Active Day</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/" class="btn btn-primary">&#127919; Take Quiz Again</a>
+            <a href="/" class="btn">&#127968; Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
