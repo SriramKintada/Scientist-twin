@@ -337,8 +337,8 @@ python main_enhanced.py
 
 ## API Key Configuration
 
-**Gemini API Key**: `AIzaSyBAgKDpZTofLZvaYt_xtB700z2ts-OxGsQ`
-- Configured in `config.py`
+**Gemini API Key**: Set via environment variable `GEMINI_API_KEY`
+- Configured in `.env` file (not committed to git)
 - Working model: `gemini-2.5-flash`
 - Successfully tested
 - Rate limits: None encountered

@@ -1,8 +1,11 @@
 """Test Gemini API connection and find correct model name"""
 
+import os
 import google.generativeai as genai
+from dotenv import load_dotenv
 
-API_KEY = "AIzaSyBAgKDpZTofLZvaYt_xtB700z2ts-OxGsQ"
+load_dotenv()
+API_KEY = os.getenv("GEMINI_API_KEY", "")
 
 print("Testing Gemini API...")
 genai.configure(api_key=API_KEY)
