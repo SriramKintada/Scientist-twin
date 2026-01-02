@@ -4778,12 +4778,20 @@
     },
     "archetype": "National Champion",
     "era": "Contemporary Leader",
-    "achievements": "Padma Shri for the year 2014 for his distinguished service in Science and Technology. Padma Shri for the year 2014. first launch attempt in August 2013.",
-    "summary": "Prasad is an Indian scientist and the former director of the Satish Dhawan Space Centre Sriharikota Range (SDSC-SHAR). of India’s Civilian Award Padma Shri for the year 2014 for his distinguished service in Science and Technology. Prasad Distinguished Scientist (APEX), ISRO & Director, SDSC SHAR, Sriharikota. Retired on 31 May 2015 as Director of Satish Dhawan Space Centre SHAR (SDSC-SHAR) of ISRO.",
-    "moments": [],
-    "working_style": "M. Y. S. Prasad thrived in collaborative environments while nurturing the next generation of scientists.",
+    "achievements": "Led seventeen PSLV and three GSLV launches as Director of SDSC SHAR. Introduced on-board computers into launch vehicles starting from ASLV. Developed the Realtime Decision System in Flight Sequencing, a key element for all launch vehicle successes. Created and commissioned the New Master Control Facility at Bhopal for GSO satellite operations. Served as Vice-President of the International Astronautical Federation (IAF) for four years from 2006-2010. Elected as Member of International Academy of Astronautics (IAA) in 2008.",
+    "summary": "M.Y.S. Prasad (born 4 May 1953) is an Indian space scientist and former director of the Satish Dhawan Space Centre Sriharikota Range (SDSC-SHAR). He received the Government of India's Padma Shri award in 2014 for his distinguished service in science and technology. With 39 years of experience in the Indian Space Program, he has steered various activities across different ISRO centres and units. He served as Director of SDSC SHAR from January 2013 to May 2015, overseeing all PSLV and GSLV launches during this period.",
+    "moments": [
+      "Received Padma Shri from the Government of India in 2014 for distinguished service in science and technology",
+      "Successfully handled major emergency during GSLV-D5 launch attempt in August 2013, managing a large propellant leak",
+      "Served as Director of SDSC SHAR from 2013-2015, overseeing seventeen PSLV and three GSLV launches",
+      "Elected as Member of International Academy of Astronautics (IAA) in 2008",
+      "Introduced on-board computers into Indian launch vehicles starting from ASLV",
+      "Developed Realtime Decision System in Flight Sequencing, now a key element in all launch vehicle successes"
+    ],
+    "working_style": "M.Y.S. Prasad thrived in collaborative environments while nurturing the next generation of scientists. He managed large teams with in-depth technical knowledge and enhanced teamwork. Throughout his career, he delivered over 60 invited lectures at universities and engineering colleges, and taught satellite communication to M.Tech students. His leadership style combined hands-on technical expertise with international networking, having represented India in the UN Committee on Peaceful Uses of Outer Space for 11 years.",
     "content_length": 7161,
-    "wiki_title": "M. Y. S. Prasad"
+    "wiki_title": "M. Y. S. Prasad",
+    "image_url": ""
   },
   {
     "name": "P. Kunhikrishnan",
