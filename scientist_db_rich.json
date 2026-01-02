@@ -29,7 +29,8 @@
     ],
     "working_style": "Srinivasa Ramanujan preferred working in focused solitude with meticulous attention to detail pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 63924,
-    "wiki_title": "Srinivasa Ramanujan"
+    "wiki_title": "Srinivasa Ramanujan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/srinivasa_ramanujan.jpg"
   },
   {
     "name": "Harish-Chandra",
@@ -60,7 +61,8 @@
     ],
     "working_style": "Harish-Chandra preferred working in focused solitude pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 5076,
-    "wiki_title": "Harish-Chandra"
+    "wiki_title": "Harish-Chandra",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/harish-chandra.jpg"
   },
   {
     "name": "S. R. Srinivasa Varadhan",
@@ -91,7 +93,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 5449,
-    "wiki_title": "S. R. Srinivasa Varadhan"
+    "wiki_title": "S. R. Srinivasa Varadhan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/s_r_srinivasa_varadhan.jpg"
   },
   {
     "name": "Manjul Bhargava",
@@ -122,7 +125,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 9077,
-    "wiki_title": "Manjul Bhargava"
+    "wiki_title": "Manjul Bhargava",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/manjul_bhargava.jpg"
   },
   {
     "name": "Akshay Venkatesh",
@@ -153,7 +157,8 @@
     ],
     "working_style": "Akshay Venkatesh thrived in collaborative environments pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 8573,
-    "wiki_title": "Akshay Venkatesh"
+    "wiki_title": "Akshay Venkatesh",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/akshay_venkatesh.jpg"
   },
   {
     "name": "C. R. Rao",
@@ -182,7 +187,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 6893,
-    "wiki_title": "C. R. Rao"
+    "wiki_title": "C. R. Rao",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/c_r_rao.jpg"
   },
   {
     "name": "P. C. Mahalanobis",
@@ -212,7 +218,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 12839,
-    "wiki_title": "Prasanta Chandra Mahalanobis"
+    "wiki_title": "Prasanta Chandra Mahalanobis",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/p_c_mahalanobis.jpg"
   },
   {
     "name": "D. D. Kosambi",
@@ -243,7 +250,8 @@
     ],
     "working_style": "D. D. Kosambi thrived in collaborative environments pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 25907,
-    "wiki_title": "Damodar Dharmananda Kosambi"
+    "wiki_title": "Damodar Dharmananda Kosambi",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/d_d_kosambi.jpg"
   },
   {
     "name": "C. S. Seshadri",
@@ -270,7 +278,8 @@
     "moments": [],
     "working_style": "C. S. Seshadri thrived in collaborative environments pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 4003,
-    "wiki_title": "C. S. Seshadri"
+    "wiki_title": "C. S. Seshadri",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/c_s_seshadri.jpg"
   },
   {
     "name": "M. S. Narasimhan",
@@ -299,7 +308,8 @@
     ],
     "working_style": "M. S. Narasimhan thrived in collaborative environments pursuing elegant mathematical formulations.",
     "content_length": 6628,
-    "wiki_title": "M. S. Narasimhan"
+    "wiki_title": "M. S. Narasimhan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/m_s_narasimhan.jpg"
   },
   {
     "name": "S. S. Shrikhande",
@@ -393,7 +403,8 @@
     ],
     "working_style": "while nurturing the next generation of scientists.",
     "content_length": 7272,
-    "wiki_title": "Shakuntala Devi"
+    "wiki_title": "Shakuntala Devi",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/shakuntala_devi.jpg"
   },
   {
     "name": "Bhama Srinivasan",
@@ -451,7 +462,8 @@
     "moments": [],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 2796,
-    "wiki_title": "Sujatha Ramdorai"
+    "wiki_title": "Sujatha Ramdorai",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/sujatha_ramdorai.jpg"
   },
   {
     "name": "Neena Gupta",
@@ -480,7 +492,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 3264,
-    "wiki_title": "Neena Gupta (mathematician)"
+    "wiki_title": "Neena Gupta (mathematician)",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/neena_gupta.jpg"
   },
   {
     "name": "K. R. Parthasarathy",
@@ -536,7 +549,8 @@
     "moments": [],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 5478,
-    "wiki_title": "M. S. Raghunathan"
+    "wiki_title": "M. S. Raghunathan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/m_s_raghunathan.jpg"
   },
   {
     "name": "S. Ramanan",
@@ -622,7 +636,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 3526,
-    "wiki_title": "Raman Parimala"
+    "wiki_title": "Raman Parimala",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/raman_parimala.jpg"
   },
   {
     "name": "Dipendra Prasad",
@@ -652,7 +667,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 5287,
-    "wiki_title": "Dipendra Prasad"
+    "wiki_title": "Dipendra Prasad",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/dipendra_prasad.jpg"
   },
   {
     "name": "Rahul Pandharipande",
@@ -682,7 +698,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 1335,
-    "wiki_title": "Rahul Pandharipande"
+    "wiki_title": "Rahul Pandharipande",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/rahul_pandharipande.jpg"
   },
   {
     "name": "Kannan Soundararajan",
@@ -713,7 +730,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 3489,
-    "wiki_title": "Kannan Soundararajan"
+    "wiki_title": "Kannan Soundararajan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/kannan_soundararajan.jpg"
   },
   {
     "name": "Madhu Sudan",
@@ -744,7 +762,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 2223,
-    "wiki_title": "Madhu Sudan"
+    "wiki_title": "Madhu Sudan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/madhu_sudan.jpg"
   },
   {
     "name": "Nikhil Srivastava",
@@ -774,7 +793,8 @@
     ],
     "working_style": "Nikhil Srivastava made notable contributions to Spectral Graph Theory, embodying the distinguished researcher approach.",
     "content_length": 1224,
-    "wiki_title": "Nikhil Srivastava"
+    "wiki_title": "Nikhil Srivastava",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/nikhil_srivastava.jpg"
   },
   {
     "name": "C. V. Raman",
@@ -806,7 +826,8 @@
     ],
     "working_style": "C. V. Raman preferred working in focused solitude with meticulous attention to detail spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 49993,
-    "wiki_title": "C. V. Raman"
+    "wiki_title": "C. V. Raman",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/c_v_raman.jpg"
   },
   {
     "name": "Satyendra Nath Bose",
@@ -837,7 +858,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 15785,
-    "wiki_title": "Satyendra Nath Bose"
+    "wiki_title": "Satyendra Nath Bose",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/satyendra_nath_bose.jpg"
   },
   {
     "name": "Subrahmanyan Chandrasekhar",
@@ -868,7 +890,8 @@
     ],
     "working_style": "Subrahmanyan Chandrasekhar thrived in collaborative environments with meticulous attention to detail spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 22743,
-    "wiki_title": "Subrahmanyan Chandrasekhar"
+    "wiki_title": "Subrahmanyan Chandrasekhar",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/subrahmanyan_chandrasekhar.jpg"
   },
   {
     "name": "Homi J. Bhabha",
@@ -900,7 +923,8 @@
     ],
     "working_style": "Homi J. Bhabha thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 47936,
-    "wiki_title": "Homi J. Bhabha"
+    "wiki_title": "Homi J. Bhabha",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/homi_j_bhabha.jpg"
   },
   {
     "name": "Vikram Sarabhai",
@@ -930,7 +954,8 @@
     ],
     "working_style": "spending long hours in the laboratory.",
     "content_length": 6045,
-    "wiki_title": "Vikram Sarabhai"
+    "wiki_title": "Vikram Sarabhai",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/vikram_sarabhai.jpg"
   },
   {
     "name": "J. C. Bose",
@@ -962,7 +987,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 26664,
-    "wiki_title": "Jagadish Chandra Bose"
+    "wiki_title": "Jagadish Chandra Bose",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/j_c_bose.jpg"
   },
   {
     "name": "K. S. Krishnan",
@@ -1056,7 +1082,8 @@
     ],
     "working_style": "E. C. G. Sudarshan thrived in collaborative environments pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 8437,
-    "wiki_title": "E. C. George Sudarshan"
+    "wiki_title": "E. C. George Sudarshan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/e_c_g_sudarshan.jpg"
   },
   {
     "name": "Ashoke Sen",
@@ -1088,7 +1115,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 3780,
-    "wiki_title": "Ashoke Sen"
+    "wiki_title": "Ashoke Sen",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/ashoke_sen.jpg"
   },
   {
     "name": "Jayant Narlikar",
@@ -1207,7 +1235,8 @@
     "moments": [],
     "working_style": "Bikash Sinha thrived in collaborative environments spending long hours in the laboratory.",
     "content_length": 4164,
-    "wiki_title": "Bikash Sinha"
+    "wiki_title": "Bikash Sinha",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/bikash_sinha.jpg"
   },
   {
     "name": "R. Chidambaram",
@@ -1236,7 +1265,8 @@
     ],
     "working_style": "R. Chidambaram thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 9361,
-    "wiki_title": "Rajagopala Chidambaram"
+    "wiki_title": "Rajagopala Chidambaram",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/r_chidambaram.jpg"
   },
   {
     "name": "Thanu Padmanabhan",
@@ -1265,7 +1295,8 @@
     ],
     "working_style": "Thanu Padmanabhan thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 8895,
-    "wiki_title": "Thanu Padmanabhan"
+    "wiki_title": "Thanu Padmanabhan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/thanu_padmanabhan.jpg"
   },
   {
     "name": "Sandip Trivedi",
@@ -1352,7 +1383,8 @@
     ],
     "working_style": "Atish Dabholkar thrived in collaborative environments pursuing elegant mathematical formulations.",
     "content_length": 10967,
-    "wiki_title": "Atish Dabholkar"
+    "wiki_title": "Atish Dabholkar",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/atish_dabholkar.jpg"
   },
   {
     "name": "Sunil Mukhi",
@@ -1383,7 +1415,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 3764,
-    "wiki_title": "Sunil Mukhi"
+    "wiki_title": "Sunil Mukhi",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/sunil_mukhi.jpg"
   },
   {
     "name": "Probir Roy",
@@ -1437,7 +1470,8 @@
     "moments": [],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 5401,
-    "wiki_title": "Rohini Godbole"
+    "wiki_title": "Rohini Godbole",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/rohini_godbole.jpg"
   },
   {
     "name": "C. V. Vishveshwara",
@@ -1495,7 +1529,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 4755,
-    "wiki_title": "Bibha Chowdhuri"
+    "wiki_title": "Bibha Chowdhuri",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/bibha_chowdhuri.jpg"
   },
   {
     "name": "Anna Mani",
@@ -1616,7 +1651,8 @@
     ],
     "working_style": "spending long hours in the laboratory.",
     "content_length": 10776,
-    "wiki_title": "Govind Swarup"
+    "wiki_title": "Govind Swarup",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/govind_swarup.jpg"
   },
   {
     "name": "Yash Pal",
@@ -1648,7 +1684,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 7476,
-    "wiki_title": "Yash Pal"
+    "wiki_title": "Yash Pal",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/yash_pal.jpg"
   },
   {
     "name": "Devendra Lal",
@@ -1793,7 +1830,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 6697,
-    "wiki_title": "Sisir Kumar Mitra"
+    "wiki_title": "Sisir Kumar Mitra",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/sisir_kumar_mitra.jpg"
   },
   {
     "name": "D. M. Bose",
@@ -1825,7 +1863,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 6949,
-    "wiki_title": "Debendra Mohan Bose"
+    "wiki_title": "Debendra Mohan Bose",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/d_m_bose.jpg"
   },
   {
     "name": "Piara Singh Gill",
@@ -1883,7 +1922,8 @@
     ],
     "working_style": "C. N. R. Rao thrived in collaborative environments pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 18228,
-    "wiki_title": "C. N. R. Rao"
+    "wiki_title": "C. N. R. Rao",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/c_n_r_rao.jpg"
   },
   {
     "name": "Venkatraman Ramakrishnan",
@@ -1946,7 +1986,8 @@
     ],
     "working_style": "Prafulla Chandra Ray thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 21244,
-    "wiki_title": "Prafulla Chandra Ray"
+    "wiki_title": "Prafulla Chandra Ray",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/prafulla_chandra_ray.jpg"
   },
   {
     "name": "Shanti Swaroop Bhatnagar",
@@ -2155,7 +2196,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 10396,
-    "wiki_title": "Har Gobind Khorana"
+    "wiki_title": "Har Gobind Khorana",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/har_gobind_khorana.jpg"
   },
   {
     "name": "Yellapragada Subbarow",
@@ -2182,7 +2224,8 @@
     "moments": [],
     "working_style": "Yellapragada Subbarow preferred working in focused solitude.",
     "content_length": 5247,
-    "wiki_title": "Yellapragada Subbarow"
+    "wiki_title": "Yellapragada Subbarow",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/yellapragada_subbarow.jpg"
   },
   {
     "name": "Goverdhan Mehta",
@@ -2271,7 +2314,8 @@
     ],
     "working_style": "while nurturing the next generation of scientists.",
     "content_length": 4759,
-    "wiki_title": "Man Mohan Sharma"
+    "wiki_title": "Man Mohan Sharma",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/m_m_sharma.jpg"
   },
   {
     "name": "M. S. Swaminathan",
@@ -2302,7 +2346,8 @@
     ],
     "working_style": "M. S. Swaminathan thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 27282,
-    "wiki_title": "M. S. Swaminathan"
+    "wiki_title": "M. S. Swaminathan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/m_s_swaminathan.jpg"
   },
   {
     "name": "Salim Ali",
@@ -2365,7 +2410,8 @@
     ],
     "working_style": "while nurturing the next generation of scientists.",
     "content_length": 13619,
-    "wiki_title": "Birbal Sahni"
+    "wiki_title": "Birbal Sahni",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/birbal_sahni.jpg"
   },
   {
     "name": "Janaki Ammal",
@@ -2479,7 +2525,8 @@
     "moments": [],
     "working_style": "V. Shanta made notable contributions to Oncology, embodying the institution builder approach.",
     "content_length": 5021,
-    "wiki_title": "V. Shanta"
+    "wiki_title": "V. Shanta",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/v_shanta.jpg"
   },
   {
     "name": "Gagandeep Kang",
@@ -2601,7 +2648,8 @@
     ],
     "working_style": "spending long hours in the laboratory.",
     "content_length": 14248,
-    "wiki_title": "Lalji Singh"
+    "wiki_title": "Lalji Singh",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/lalji_singh.jpg"
   },
   {
     "name": "Pushpa Bhargava",
@@ -2815,7 +2863,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 29430,
-    "wiki_title": "A. P. J. Abdul Kalam"
+    "wiki_title": "A. P. J. Abdul Kalam",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/a_p_j_abdul_kalam.jpg"
   },
   {
     "name": "K. Kasturirangan",
@@ -2874,7 +2923,8 @@
     ],
     "working_style": "Kalpana Chawla thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 13283,
-    "wiki_title": "Kalpana Chawla"
+    "wiki_title": "Kalpana Chawla",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/kalpana_chawla.jpg"
   },
   {
     "name": "Rakesh Sharma",
@@ -2903,7 +2953,8 @@
     ],
     "working_style": "Rakesh Sharma thrived in collaborative environments spending long hours in the laboratory.",
     "content_length": 5076,
-    "wiki_title": "Rakesh Sharma"
+    "wiki_title": "Rakesh Sharma",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/rakesh_sharma.jpg"
   },
   {
     "name": "Tessy Thomas",
@@ -2930,7 +2981,8 @@
     "moments": [],
     "working_style": "Tessy Thomas made notable contributions to Missile Technology, embodying the national champion approach.",
     "content_length": 2338,
-    "wiki_title": "Tessy Thomas"
+    "wiki_title": "Tessy Thomas",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/tessy_thomas.jpg"
   },
   {
     "name": "Ritu Karidhal",
@@ -2957,7 +3009,8 @@
     "moments": [],
     "working_style": "while nurturing the next generation of scientists.",
     "content_length": 3360,
-    "wiki_title": "Ritu Karidhal"
+    "wiki_title": "Ritu Karidhal",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/ritu_karidhal.jpg"
   },
   {
     "name": "Roddam Narasimha",
@@ -2986,7 +3039,8 @@
     ],
     "working_style": "Roddam Narasimha thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 7357,
-    "wiki_title": "Roddam Narasimha"
+    "wiki_title": "Roddam Narasimha",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/roddam_narasimha.jpg"
   },
   {
     "name": "M. Annadurai",
@@ -3015,7 +3069,8 @@
     ],
     "working_style": "M. Annadurai thrived in collaborative environments while nurturing the next generation of scientists.",
     "content_length": 13981,
-    "wiki_title": "Mylswamy Annadurai"
+    "wiki_title": "Mylswamy Annadurai",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/m_annadurai.jpg"
   },
   {
     "name": "Nambi Narayanan",
@@ -3046,7 +3101,8 @@
     ],
     "working_style": "Nambi Narayanan thrived in collaborative environments.",
     "content_length": 7851,
-    "wiki_title": "Nambi Narayanan"
+    "wiki_title": "Nambi Narayanan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/nambi_narayanan.jpg"
   },
   {
     "name": "V. K. Saraswat",
@@ -3134,7 +3190,8 @@
     ],
     "working_style": "spending long hours in the laboratory.",
     "content_length": 10402,
-    "wiki_title": "M. Visvesvaraya"
+    "wiki_title": "M. Visvesvaraya",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/m_visvesvaraya.jpg"
   },
   {
     "name": "Ajay Bhatt",
@@ -3163,7 +3220,8 @@
     ],
     "working_style": "Ajay Bhatt thrived in collaborative environments.",
     "content_length": 2493,
-    "wiki_title": "Ajay Bhatt"
+    "wiki_title": "Ajay Bhatt",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/ajay_bhatt.jpg"
   },
   {
     "name": "Raj Reddy",
@@ -3194,7 +3252,8 @@
     ],
     "working_style": "Raj Reddy thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 9321,
-    "wiki_title": "Raj Reddy"
+    "wiki_title": "Raj Reddy",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/raj_reddy.jpg"
   },
   {
     "name": "Rajeev Motwani",
@@ -3221,7 +3280,8 @@
     "moments": [],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 3500,
-    "wiki_title": "Rajeev Motwani"
+    "wiki_title": "Rajeev Motwani",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/rajeev_motwani.jpg"
   },
   {
     "name": "Manindra Agrawal",
@@ -3248,7 +3308,8 @@
     "moments": [],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 1759,
-    "wiki_title": "Manindra Agrawal"
+    "wiki_title": "Manindra Agrawal",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/manindra_agrawal.jpg"
   },
   {
     "name": "Vijay Vazirani",
@@ -3279,7 +3340,8 @@
     ],
     "working_style": "Vijay Vazirani preferred working in focused solitude spending long hours in the laboratory.",
     "content_length": 3391,
-    "wiki_title": "Vijay Vazirani"
+    "wiki_title": "Vijay Vazirani",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/vijay_vazirani.jpg"
   },
   {
     "name": "Umesh Vazirani",
@@ -3370,7 +3432,8 @@
     ],
     "working_style": "Vandana Shiva thrived in collaborative environments spending long hours in the laboratory.",
     "content_length": 23120,
-    "wiki_title": "Vandana Shiva"
+    "wiki_title": "Vandana Shiva",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/vandana_shiva.jpg"
   },
   {
     "name": "Madhav Gadgil",
@@ -3401,7 +3464,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 12537,
-    "wiki_title": "Madhav Gadgil"
+    "wiki_title": "Madhav Gadgil",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/madhav_gadgil.jpg"
   },
   {
     "name": "D. N. Wadia",
@@ -3520,7 +3584,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 28046,
-    "wiki_title": "Amartya Sen"
+    "wiki_title": "Amartya Sen",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/amartya_sen.jpg"
   },
   {
     "name": "Abhijit Banerjee",
@@ -3551,7 +3616,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 12075,
-    "wiki_title": "Abhijit Banerjee"
+    "wiki_title": "Abhijit Banerjee",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/abhijit_banerjee.jpg"
   },
   {
     "name": "Jagdish Bhagwati",
@@ -3582,7 +3648,8 @@
     ],
     "working_style": "while nurturing the next generation of scientists.",
     "content_length": 9317,
-    "wiki_title": "Jagdish Bhagwati"
+    "wiki_title": "Jagdish Bhagwati",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/jagdish_bhagwati.jpg"
   },
   {
     "name": "Manmohan Singh",
@@ -3613,7 +3680,8 @@
     ],
     "working_style": "while nurturing the next generation of scientists.",
     "content_length": 29742,
-    "wiki_title": "Manmohan Singh"
+    "wiki_title": "Manmohan Singh",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/manmohan_singh.jpg"
   },
   {
     "name": "Bimal Jalan",
@@ -3642,7 +3710,8 @@
     ],
     "working_style": "Bimal Jalan made notable contributions to Banking, embodying the distinguished researcher approach.",
     "content_length": 1775,
-    "wiki_title": "Bimal Jalan"
+    "wiki_title": "Bimal Jalan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/bimal_jalan.jpg"
   },
   {
     "name": "Arvind Panagariya",
@@ -3669,7 +3738,8 @@
     "moments": [],
     "working_style": "Arvind Panagariya thrived in collaborative environments.",
     "content_length": 6177,
-    "wiki_title": "Arvind Panagariya"
+    "wiki_title": "Arvind Panagariya",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/arvind_panagariya.jpg"
   },
   {
     "name": "Arvind Subramanian",
@@ -3700,7 +3770,8 @@
     ],
     "working_style": "while nurturing the next generation of scientists.",
     "content_length": 5723,
-    "wiki_title": "Arvind Subramanian"
+    "wiki_title": "Arvind Subramanian",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/arvind_subramanian.jpg"
   },
   {
     "name": "Kaushik Basu",
@@ -3730,7 +3801,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 9705,
-    "wiki_title": "Kaushik Basu"
+    "wiki_title": "Kaushik Basu",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/kaushik_basu.jpg"
   },
   {
     "name": "Norman Borlaug",
@@ -3761,7 +3833,8 @@
     ],
     "working_style": "Norman Borlaug thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 50533,
-    "wiki_title": "Norman Borlaug"
+    "wiki_title": "Norman Borlaug",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/norman_borlaug.jpg"
   },
   {
     "name": "S. K. Sinha",
@@ -3819,7 +3892,8 @@
     ],
     "working_style": "Swaminathan Award thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 27282,
-    "wiki_title": "M. S. Swaminathan"
+    "wiki_title": "M. S. Swaminathan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/swaminathan_award.jpg"
   },
   {
     "name": "Ruchi Ram Sahni",
@@ -3848,7 +3922,8 @@
     ],
     "working_style": "spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 4491,
-    "wiki_title": "Ruchi Ram Sahni"
+    "wiki_title": "Ruchi Ram Sahni",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/ruchi_ram_sahni.jpg"
   },
   {
     "name": "Upendranath Brahmachari",
@@ -3879,7 +3954,8 @@
     ],
     "working_style": "Upendranath Brahmachari made notable contributions to Kala-azar Treatment, embodying the experimental pioneer approach.",
     "content_length": 3989,
-    "wiki_title": "Upendranath Brahmachari"
+    "wiki_title": "Upendranath Brahmachari",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/upendranath_brahmachari.jpg"
   },
   {
     "name": "K. Chandrasekharan",
@@ -3908,7 +3984,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 2240,
-    "wiki_title": "K. S. Chandrasekharan"
+    "wiki_title": "K. S. Chandrasekharan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/k_chandrasekharan.jpg"
   },
   {
     "name": "Shreeram Abhyankar",
@@ -4344,7 +4421,8 @@
     "moments": [],
     "working_style": "G. Padmanaban thrived in collaborative environments.",
     "content_length": 1622,
-    "wiki_title": "Govindarajan Padmanaban"
+    "wiki_title": "Govindarajan Padmanaban",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/g_padmanaban.jpg"
   },
   {
     "name": "P. T. Narasimhan",
@@ -4516,7 +4594,8 @@
     ],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 3240,
-    "wiki_title": "Shubha Tole"
+    "wiki_title": "Shubha Tole",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/shubha_tole.jpg"
   },
   {
     "name": "Shahid Jameel",
@@ -4891,7 +4970,8 @@
     ],
     "working_style": "Prabhakar Raghavan thrived in collaborative environments while nurturing the next generation of scientists.",
     "content_length": 3741,
-    "wiki_title": "Prabhakar Raghavan"
+    "wiki_title": "Prabhakar Raghavan",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/prabhakar_raghavan.jpg"
   },
   {
     "name": "Sanjay Ghemawat",
@@ -4974,7 +5054,8 @@
     "moments": [],
     "working_style": "Jitendra Malik thrived in collaborative environments while nurturing the next generation of scientists.",
     "content_length": 3460,
-    "wiki_title": "Jitendra Malik"
+    "wiki_title": "Jitendra Malik",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/jitendra_malik.jpg"
   },
   {
     "name": "Fei-Fei Li",
@@ -5006,7 +5087,8 @@
     ],
     "working_style": "Fei-Fei Li thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 17247,
-    "wiki_title": "Fei-Fei Li"
+    "wiki_title": "Fei-Fei Li",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/fei-fei_li.jpg"
   },
   {
     "name": "Daphne Koller",
@@ -5099,7 +5181,8 @@
     ],
     "working_style": "S. Chandrashekhar thrived in collaborative environments with meticulous attention to detail spending long hours in the laboratory while nurturing the next generation of scientists.",
     "content_length": 22743,
-    "wiki_title": "Subrahmanyan Chandrasekhar"
+    "wiki_title": "Subrahmanyan Chandrasekhar",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/s_chandrashekhar.jpg"
   },
   {
     "name": "Venki Ramakrishnan",
@@ -5193,7 +5276,8 @@
     ],
     "working_style": "Kadambini Ganguly made notable contributions to Physician, embodying the institution builder approach.",
     "content_length": 5204,
-    "wiki_title": "Kadambini Ganguly"
+    "wiki_title": "Kadambini Ganguly",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/kadambini_ganguly.jpg"
   },
   {
     "name": "Kamla Sohonie",
@@ -5247,7 +5331,8 @@
     "moments": [],
     "working_style": "pursuing elegant mathematical formulations while nurturing the next generation of scientists.",
     "content_length": 3648,
-    "wiki_title": "Mangala Narlikar"
+    "wiki_title": "Mangala Narlikar",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/mangala_narlikar.jpg"
   },
   {
     "name": "Charusita Chakravarty",
@@ -5279,7 +5364,8 @@
     ],
     "working_style": "Charusita Chakravarty thrived in collaborative environments pursuing elegant mathematical formulations.",
     "content_length": 5268,
-    "wiki_title": "Charusita Chakravarty"
+    "wiki_title": "Charusita Chakravarty",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/charusita_chakravarty.jpg"
   },
   {
     "name": "Vidita Vaidya",
@@ -5392,7 +5478,8 @@
     "moments": [],
     "working_style": "pursuing elegant mathematical formulations.",
     "content_length": 22131,
-    "wiki_title": "Aryabhata"
+    "wiki_title": "Aryabhata",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/aryabhata.jpg"
   },
   {
     "name": "Brahmagupta",
@@ -5535,7 +5622,8 @@
     ],
     "working_style": "Sushruta preferred working in focused solitude with meticulous attention to detail while nurturing the next generation of scientists.",
     "content_length": 5695,
-    "wiki_title": "Sushruta"
+    "wiki_title": "Sushruta",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/sushruta.jpg"
   },
   {
     "name": "Charaka",
@@ -5564,7 +5652,8 @@
     ],
     "working_style": "Charaka made notable contributions to Ayurveda, embodying the distinguished researcher approach.",
     "content_length": 5255,
-    "wiki_title": "Charaka"
+    "wiki_title": "Charaka",
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/charaka.jpg"
   },
   {
     "name": "Satish Dhawan",
@@ -5591,7 +5680,8 @@
     "summary": "Satish Dhawan (25 September 1920 – 3 January 2002) was an Indian mathematician and aerospace engineer. He served as the chairman of ISRO from 1972 to 1984 and is often regarded as the father of experimental fluid dynamics research in India.\nBorn in Srinagar, Dhawan was educated in India and further on in United States. Dhawan was one of the most eminent researchers in the field of turbulence and boundary layers, leading the successful and indigenous development of the Indian space programme.The second launch pad of ISRO, Satish Dhawan Space Centre is named after him. He is greatly regarded as the man behind A. P. J. Abdul Kalam.",
     "moments": [],
     "working_style": "Satish Dhawan made significant contributions to Space Engineering.",
-    "content_length": 6750
+    "content_length": 6750,
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/satish_dhawan.jpg"
   },
   {
     "name": "U. R. Rao",
@@ -5645,7 +5735,8 @@
     "summary": "Meghnad Saha (6 October 1893 – 16 February 1956) was an Indian astrophysicist and politician who helped devise the theory of thermal ionisation. His Saha ionisation equation allowed astronomers to accurately relate the spectral classes of stars to their actual temperatures.",
     "moments": [],
     "working_style": "Meghnad Saha made significant contributions to Astrophysics.",
-    "content_length": 8591
+    "content_length": 8591,
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/meghnad_saha.jpg"
   },
   {
     "name": "G. Madhavan Nair",
@@ -5672,7 +5763,8 @@
     "summary": "G. Madhavan Nair (born 31 October 1943) is an Indian space scientist and a former chairman of ISRO, and Secretary to the Department of Space, Government of India. His tenure saw commencement of Indian Human Spaceflight Programme and launch of extraterrestrial exploration mission Chandrayaan-I.\nHe was Chairman of the Board of Governors of the Indian Institute of Technology Patna until he stepped down due to his involvement in a controversial deal relating to sale of radio spectrum bandwidth involving Antrix. He was subsequently barred from holding any private position.\nNair was awarded the Padma Vibhushan, India's second highest civilian honour, on 26 January 2009.",
     "moments": [],
     "working_style": "G. Madhavan Nair made significant contributions to Space Technology.",
-    "content_length": 9469
+    "content_length": 9469,
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/g_madhavan_nair.jpg"
   },
   {
     "name": "K. Radhakrishnan",
@@ -5726,7 +5818,8 @@
     "summary": "Anil Kakodkar (born 11 November 1943) is an Indian nuclear physicist and mechanical engineer. He was the chairman of the Atomic Energy Commission of India and the Secretary to the Government of India, he was the Director of the Bhabha Atomic Research Centre, Trombay (or Turbhe) from 1996 to 2000. He was awarded the Padma Vibhushan, India's second highest civilian honour, on 26 January 2009.\nApart from playing a major role in India's nuclear tests asserting sovereignty, Kakodkar champions India's self-reliance on thorium as a fuel for nuclear energy.",
     "moments": [],
     "working_style": "Anil Kakodkar made significant contributions to Nuclear Physics.",
-    "content_length": 5185
+    "content_length": 5185,
+    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/anil_kakodkar.jpg"
   },
   {
     "name": "Homi N. Sethna",
