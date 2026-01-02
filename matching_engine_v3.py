@@ -170,15 +170,29 @@ class MatchingEngineV3:
         pairs = related_pairs.get(dimension, [])
         return (val1, val2) in pairs or (val2, val1) in pairs
 
-    def find_matches(self, user_profile: dict, domain_filter: str = None, top_n: int = 3) -> list:
-        """Find top matching scientists"""
+    def find_matches(self, user_profile: dict, domain_filter: str = None, top_n: int = 3, recently_shown: list = None) -> list:
+        """Find top matching scientists with anti-repetition system
+
+        Args:
+            user_profile: User's trait profile
+            domain_filter: Scientific domain to filter by
+            top_n: Number of matches to return (default 3)
+            recently_shown: List of scientist names shown in recent attempts
+
+        Returns:
+            List of top matches with variety ensured across attempts
+        """
+        import random
+
         candidates = self.scientists
+        recently_shown = recently_shown or []
 
         if domain_filter:
             domain_map = {
                 "cosmos": ["Physics", "Space Science", "Astrophysics", "Astronomy", "Aerospace"],
                 "quantum": ["Physics", "Mathematics", "Computer Science"],
-                "life": ["Biology", "Medicine", "Biochemistry", "Neuroscience", "Chemistry"],
+                "chemistry": ["Chemistry", "Material Science", "Biochemistry"],  # New chemistry domain
+                "life": ["Biology", "Medicine", "Neuroscience", "Genetics"],  # Removed Chemistry
                 "earth": ["Environmental Science", "Agriculture", "Ecology", "Earth Science"],
                 "engineering": ["Engineering", "Technology", "Computer Science", "Aerospace"]
             }
@@ -186,6 +200,7 @@ class MatchingEngineV3:
             if allowed:
                 candidates = [s for s in candidates if s.get('field') in allowed]
 
+        # Calculate scores for all candidates
         scored = []
         for scientist in candidates:
             score, matching, differing = self.calculate_match_score(user_profile, scientist)
@@ -193,10 +208,45 @@ class MatchingEngineV3:
                 "scientist": scientist,
                 "score": score,
                 "matching_traits": matching,
-                "differing_traits": differing
+                "differing_traits": differing,
+                "was_recently_shown": scientist['name'] in recently_shown
             })
 
+        # Sort by score
         scored.sort(key=lambda x: x['score'], reverse=True)
+
+        # Anti-repetition logic: Among top matches, prioritize unshown scientists
+        if len(scored) > 0:
+            top_score = scored[0]['score']
+
+            # Define "top tier" as scientists within 15% of the best score
+            # This creates a pool of good matches to choose from
+            threshold = top_score * 0.85
+            top_tier = [s for s in scored if s['score'] >= threshold]
+
+            # Separate recently shown from fresh scientists in top tier
+            fresh = [s for s in top_tier if not s['was_recently_shown']]
+            shown = [s for s in top_tier if s['was_recently_shown']]
+
+            # If we have fresh scientists in top tier, prioritize them
+            if len(fresh) >= top_n:
+                # Randomize among fresh top-tier matches for variety
+                random.shuffle(fresh)
+                return fresh[:top_n]
+            elif len(fresh) > 0:
+                # Mix fresh scientists with some shown ones if needed
+                random.shuffle(fresh)
+                random.shuffle(shown)
+                selected = fresh + shown
+                return selected[:top_n]
+            else:
+                # All top tier were recently shown - apply decay to recently shown
+                # This prevents the exact same scientist from being #1 every time
+                if len(shown) >= top_n:
+                    random.shuffle(shown)
+                    return shown[:top_n]
+
+        # Fallback: just return top scored (shouldn't normally reach here)
         return scored[:top_n]
 
     def build_rich_resonance(self, name: str, trait: dict, summary: str, achievements: str, moments: list, user_profile: dict = None) -> dict:
@@ -653,9 +703,15 @@ Return ONLY valid JSON. Keep it concise."""
                 "character_moment": moment_text
             }
 
-    def get_full_matches(self, user_profile: dict, domain: str = None) -> list:
-        """Get full match results with rich narratives"""
-        matches = self.find_matches(user_profile, domain)
+    def get_full_matches(self, user_profile: dict, domain: str = None, recently_shown: list = None) -> list:
+        """Get full match results with rich narratives
+
+        Args:
+            user_profile: User's trait profile
+            domain: Scientific domain to filter by
+            recently_shown: List of scientist names shown in recent attempts (for anti-repetition)
+        """
+        matches = self.find_matches(user_profile, domain, recently_shown=recently_shown)
 
         results = []
         for match in matches:

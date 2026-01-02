@@ -9,7 +9,7 @@ import json
 import random
 import hashlib
 from datetime import datetime, timedelta
-from questions_v2 import QUESTIONS, map_answer_to_trait, build_user_profile
+from questions_v3_simplified import QUESTIONS, map_answer_to_trait, build_user_profile
 from matching_engine_v3 import MatchingEngineV3
 
 # Try to import Supabase client
@@ -42,9 +42,14 @@ DOMAINS = {
         "description": "Physics, Mathematics, Computer Science",
         "icon": "atom"
     },
+    "chemistry": {
+        "name": "Chemistry",
+        "description": "Chemical Science, Material Science, Organic & Inorganic Chemistry",
+        "icon": "flask"
+    },
     "life": {
         "name": "Life Sciences",
-        "description": "Biology, Medicine, Chemistry",
+        "description": "Biology, Medicine, Genetics",
         "icon": "dna"
     },
     "earth": {
@@ -138,7 +143,23 @@ def get_matches():
     domain = session.get('domain', 'cosmos')
 
     user_profile = build_user_profile(answers)
-    matches = matching_engine.get_full_matches(user_profile, domain)
+
+    # Anti-repetition: Get recently shown scientists from session
+    # Keep track of last 9 scientists shown (3 attempts × 3 matches)
+    recently_shown = session.get('recently_shown_scientists', [])
+
+    # Get matches with anti-repetition
+    matches = matching_engine.get_full_matches(user_profile, domain, recently_shown=recently_shown)
+
+    # Update recently shown list with current matches
+    current_scientists = [m['name'] for m in matches]
+    recently_shown.extend(current_scientists)
+
+    # Keep only the last 9 entries (prevent list from growing indefinitely)
+    # This gives variety across ~3 quiz attempts
+    recently_shown = recently_shown[-9:]
+    session['recently_shown_scientists'] = recently_shown
+    session.modified = True
 
     # Calculate trait percentages based on answer positions
     # Each answer (0-3) maps to different intensity levels

@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Indian Scientist Twin</title>
+
+    <!-- Open Graph / Facebook / Instagram Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="Find Your Indian Scientist Twin 🔬">
+    <meta property="og:description" content="Discover which legendary Indian scientist shares your personality and working style! Take our interactive quiz featuring 500+ pioneering scientists.">
+    <meta property="og:image" content="{{ url_for('static', filename='scientist-twin-og.jpg', _external=True) if config.get('SERVER_NAME') else '/static/scientist-twin-og.jpg' }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:title" content="Find Your Indian Scientist Twin 🔬">
+    <meta name="twitter:description" content="Discover which legendary Indian scientist shares your personality and working style!">
+    <meta name="twitter:image" content="{{ url_for('static', filename='scientist-twin-og.jpg', _external=True) if config.get('SERVER_NAME') else '/static/scientist-twin-og.jpg' }}">
+
+    <!-- Additional Meta Tags -->
+    <meta name="description" content="Interactive personality quiz matching you with Indian scientists based on your traits, working style, and approach to discovery.">
+    <meta name="keywords" content="Indian scientists, personality quiz, science, STEM, education, scientist twin">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -673,13 +694,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .alt-match:hover {
-            background: #fef2f2;
-            transform: translateX(8px);
         }
 
         .alt-match-info h4 {
@@ -884,13 +898,14 @@
         <div class="card">
             <!-- Step 1: Domain Selection -->
             <div class="step active" id="step-domain">
-                <h2>&#127919; Choose Your Scientific Domain</h2>
+                <h2>&#127919; What excites you the most?</h2>
                 <div class="domain-grid">
                     {% for key, domain in domains.items() %}
                     <div class="domain-card" data-domain="{{ key }}">
                         <span class="domain-icon">
                             {% if key == 'cosmos' %}&#127775;{% endif %}
                             {% if key == 'quantum' %}&#9883;{% endif %}
+                            {% if key == 'chemistry' %}&#129514;{% endif %}
                             {% if key == 'life' %}&#129516;{% endif %}
                             {% if key == 'earth' %}&#127793;{% endif %}
                             {% if key == 'engineering' %}&#9881;{% endif %}
@@ -1098,13 +1113,29 @@
                 'collaboration': { icon: '&#128101;', label: 'Work Style', values: { solo: 'Independent', small_team: 'Team Player', large_team: 'Leader', mentor: 'Mentor' }},
                 'risk': { icon: '&#127919;', label: 'Risk Taking', values: { conservative: 'Careful', calculated: 'Strategic', bold: 'Bold', hedged: 'Balanced' }},
                 'motivation': { icon: '&#128161;', label: 'Motivation', values: { curiosity: 'Curious', impact: 'Impactful', recognition: 'Ambitious', duty: 'Dutiful' }},
-                'adversity': { icon: '&#128170;', label: 'Resilience', values: { persist: 'Persistent', pivot: 'Adaptable', fight: 'Fighter', accept: 'Accepting' }},
-                'breadth': { icon: '&#128214;', label: 'Focus', values: { deep: 'Deep Focus', broad: 'Broad Explorer', hybrid: 'Balanced' }},
-                'authority': { icon: '&#128081;', label: 'Authority', values: { challenge: 'Challenger', work_within: 'Pragmatic', build_own: 'Builder' }},
-                'communication': { icon: '&#128172;', label: 'Communication', values: { public: 'Public Voice', private: 'Private', selective: 'Selective' }},
-                'legacy': { icon: '&#127942;', label: 'Legacy', values: { knowledge: 'Knowledge', students: 'Teaching', institutions: 'Building', applications: 'Applications' }},
-                'failure': { icon: '&#128736;', label: 'Failure Response', values: { learn: 'Learner', persist: 'Fighter', reframe: 'Reframer', move_on: 'Pragmatic' }}
+                'adversity': { icon: '&#128170;', label: 'Resilience', values: { persist: 'Persistent', pivot: 'Flexible', fight: 'Fighter', accept: 'Adaptable' }},
+                'breadth': { icon: '&#128214;', label: 'Learning Style', values: { specialist: 'Focused Expert', generalist: 'Curious Explorer', interdisciplinary: 'Connector', expanding: 'Growing' }},
+                'authority': { icon: '&#128081;', label: 'Approach to Systems', values: { independent: 'Independent', institutional: 'Team Builder', reformer: 'Improver', revolutionary: 'Innovator' }},
+                'communication': { icon: '&#128172;', label: 'Communication', values: { reserved: 'Quiet Achiever', charismatic: 'Inspiring Speaker', written: 'Clear Writer', demonstrative: 'Hands-On Teacher' }},
+                'time_horizon': { icon: '&#9200;', label: 'Time Perspective', values: { immediate: 'Action-Focused', medium: 'Goal-Oriented', long_term: 'Visionary', eternal: 'Timeless Thinker' }},
+                'resources': { icon: '&#128176;', label: 'Resource Approach', values: { frugal: 'Resourceful', adequate: 'Balanced', abundant: 'Big Thinker', ideas_first: 'Ideas-Driven' }},
+                'legacy': { icon: '&#127942;', label: 'Legacy', values: { knowledge: 'Knowledge Creator', people: 'People Inspirer', institutions: 'System Builder', movement: 'Change Maker' }},
+                'failure': { icon: '&#128736;', label: 'Failure Response', values: { analytical: 'Analytical Learner', persistent: 'Never Give Up', serendipitous: 'Opportunity Finder', pragmatic: 'Forward Mover' }}
             };
+
+            // Function to make trait names more relatable
+            const sanitizeTraitName = (name) => {
+                const replacements = {
+                    'Accepting': 'Adaptable',
+                    'Institutional': 'Team Builder',
+                    'Generalist': 'Curious Explorer',
+                    'accepting': 'Adaptable',
+                    'institutional': 'Team Builder',
+                    'generalist': 'Curious Explorer'
+                };
+                return replacements[name] || name;
+            };
+
             // Use top 5 traits with actual percentages from API
             const traitData = Object.entries(profile).slice(0, 5).map(([key, value]) => {
                 const info = traitMap[key] || { icon: '&#9733;', label: key, values: {} };
@@ -1137,6 +1168,8 @@
                             <span class="heart-icon">&#9825;</span>
                         </button>
                         <button class="share-btn" onclick="shareTwitter()" title="Share on Twitter">&#120143;</button>
+                        <button class="share-btn" onclick="shareFacebook()" title="Share on Facebook">&#128077;</button>
+                        <button class="share-btn" onclick="shareInstagram()" title="Share on Instagram">&#128247;</button>
                         <button class="share-btn" onclick="shareWhatsApp()" title="Share on WhatsApp">&#128172;</button>
                         <button class="share-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">&#128279;</button>
                         <button class="share-btn" onclick="copyLink()" title="Copy Link">&#128203;</button>
@@ -1201,7 +1234,7 @@
                     </h3>
                     ${primary.resonances.map(r => `
                         <div class="trait-card">
-                            <div class="trait-name">${r.trait}</div>
+                            <div class="trait-name">${sanitizeTraitName(r.trait)}</div>
                             <div class="trait-explanation">${r.explanation}</div>
                         </div>
                     `).join('')}
@@ -1215,7 +1248,7 @@
                     </h3>
                     ${primary.contrasts.map(c => `
                         <div class="trait-card">
-                            <div class="trait-name">${c.trait}</div>
+                            <div class="trait-name">${sanitizeTraitName(c.trait)}</div>
                             <div class="trait-explanation">${c.explanation}</div>
                         </div>
                     `).join('')}
@@ -1300,21 +1333,58 @@
         function shareTwitter() {
             const text = "I just found my Indian Scientist Twin! Take the quiz to find yours! 🔬";
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+            trackShare('twitter');
+        }
+
+        function shareFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+            trackShare('facebook');
+        }
+
+        function shareInstagram() {
+            // Instagram doesn't support direct web sharing
+            // Copy link and prompt user to share via Instagram app
+            const text = "I just found my Indian Scientist Twin! 🔬\n\n";
+            const fullText = text + window.location.href;
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(fullText).then(() => {
+                showToast('Link copied! Open Instagram and paste in your story or post 📸');
+            }).catch(() => {
+                // Fallback if clipboard fails
+                showToast('To share on Instagram: Screenshot your result and share via the Instagram app 📱');
+            });
+            trackShare('instagram');
         }
 
         function shareWhatsApp() {
             const text = "I just found my Indian Scientist Twin! 🔬 Take the quiz: " + window.location.href;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+            trackShare('whatsapp');
         }
 
         function shareLinkedIn() {
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+            trackShare('linkedin');
         }
 
         function copyLink() {
             navigator.clipboard.writeText(window.location.href).then(() => {
                 showToast('Link copied to clipboard! 📋');
             });
+        }
+
+        function trackShare(platform) {
+            // Track share event in backend analytics
+            const scientistName = currentMatches && currentMatches[0] ? currentMatches[0].name : '';
+            fetch('/api/share', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    scientist: scientistName,
+                    platform: platform
+                })
+            }).catch(err => console.log('Share tracking failed:', err));
         }
 
         function showToast(message) {
