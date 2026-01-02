@@ -931,7 +931,7 @@
                         <div class="spinner-inner"></div>
                     </div>
                     <h2>Finding Your Scientific Twin...</h2>
-                    <p>Analyzing your profile against 213+ Indian scientists</p>
+                    <p>Analyzing your profile against 500+ Indian scientists</p>
                 </div>
             </div>
 
@@ -959,12 +959,8 @@
         let selectedAnswer = null;
         let userTraitPercentages = {};
 
-        // Load scientist count
-        fetch('/api/scientists/count')
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('scientist-count').textContent = data.count + ' Scientists to Match With';
-            });
+        // Display scientist count
+        document.getElementById('scientist-count').textContent = '500+ Scientists to Match With';
 
         // Domain selection
         document.querySelectorAll('[data-domain]').forEach(card => {
