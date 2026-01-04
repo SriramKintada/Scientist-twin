@@ -267,13 +267,29 @@ def dashboard():
 
                 detailed_stats['all_results'] = results.data if results.data else []
 
+                # Calculate summary stats from the data we already have
+                total_completed = len(sessions.data) if sessions.data else 0
+
+                # Count likes and shares
+                likes = client.table("likes").select("id", count="exact").execute()
+                shares = client.table("shares").select("id", count="exact").execute()
+
+                detailed_stats['summary'] = {
+                    'total_plays': total_completed,
+                    'favorites': likes.count or 0,
+                    'share_count': shares.count or 0,
+                    'share_rate': round((shares.count or 0) * 100 / total_completed) if total_completed > 0 else 0
+                }
+
             except Exception as e:
                 print(f"Dashboard error: {e}")
                 detailed_stats['error'] = str(e)
-
-    # Also get regular analytics
-    if SUPABASE_AVAILABLE and db:
-        detailed_stats['summary'] = db.get_real_analytics()
+                # Provide fallback summary
+                detailed_stats['summary'] = {
+                    'total_plays': 0,
+                    'favorites': 0,
+                    'share_count': 0
+                }
 
     detailed_stats['total_scientists'] = len(matching_engine.scientists)
 
