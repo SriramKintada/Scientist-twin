@@ -228,7 +228,7 @@ def dashboard():
                 sessions = client.table("quiz_sessions")\
                     .select("*")\
                     .not_.is_("completed_at", "null")\
-                    .order("created_at", desc=True)\
+                    .order("completed_at", desc=True)\
                     .limit(50)\
                     .execute()
 
@@ -261,7 +261,7 @@ def dashboard():
                 # All quiz results for detailed view
                 results = client.table("quiz_results")\
                     .select("*")\
-                    .order("created_at", desc=True)\
+                    .order("id", desc=True)\
                     .limit(100)\
                     .execute()
 

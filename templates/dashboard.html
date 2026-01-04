@@ -266,9 +266,9 @@
                 <tbody>
                     {% for session in stats.recent_sessions[:20] %}
                     <tr>
-                        <td><code>{{ session.session_id[:8] }}</code></td>
+                        <td><code>{{ session.session_id[:8] if session.session_id else 'N/A' }}</code></td>
                         <td><span class="badge badge-{{ session.domain }}">{{ session.domain }}</span></td>
-                        <td>{{ session.completed_at[:16] if session.completed_at else 'N/A' }}</td>
+                        <td>{{ session.completed_at[:19] if session.completed_at else 'N/A' }}</td>
                         <td>
                             <details>
                                 <summary style="cursor: pointer; color: #667eea;">View Profile</summary>
@@ -313,7 +313,7 @@
                                 #{{ result.rank }}
                             {% endif %}
                         </td>
-                        <td>{{ result.created_at[:16] if result.created_at else 'N/A' }}</td>
+                        <td>{{ result.created_at[:19] if result.get('created_at') else (result.completed_at[:19] if result.get('completed_at') else 'Recent') }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
