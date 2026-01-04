@@ -95,10 +95,10 @@ QUESTIONS = [
         "dimension": "authority",
         "text": "How do you feel about rules and the way things are usually done?",
         "options": [
-            {"text": "I prefer doing my own thing in my own way", "maps_to": "independent"},
-            {"text": "Rules and teams help everyone work better together", "maps_to": "institutional"},
-            {"text": "I follow most rules but speak up when something needs fixing", "maps_to": "reformer"},
-            {"text": "Sometimes you need to throw out the old playbook entirely", "maps_to": "revolutionary"}
+            {"text": "I like doing things my way, even if it's different", "maps_to": "independent"},
+            {"text": "Rules help us all get along and do things well", "maps_to": "institutional"},
+            {"text": "Most rules are good, but some could be better", "maps_to": "reformer"},
+            {"text": "Sometimes the old ways don't work anymore", "maps_to": "revolutionary"}
         ],
         "rationale": "Raman (independent), Bhabha (institution builder), Sarabhai (reformer)"
     },
@@ -135,12 +135,12 @@ QUESTIONS = [
     {
         "id": 10,
         "dimension": "resources",
-        "text": "If you had a big project or goal, how would you feel about the money and resources needed?",
+        "text": "When you want to do something amazing, how do you think about what you need?",
         "options": [
-            {"text": "I can work with very little - limits make me creative", "maps_to": "frugal"},
-            {"text": "I'd want enough to do it properly, but nothing extra", "maps_to": "adequate"},
-            {"text": "Big goals need big resources - I'd find what I need", "maps_to": "abundant"},
-            {"text": "I'd start with the idea and figure out resources later", "maps_to": "ideas_first"}
+            {"text": "I can do great things with very little - limits make me creative", "maps_to": "frugal"},
+            {"text": "I need enough to do it well, but not too much extra", "maps_to": "adequate"},
+            {"text": "Big dreams need big support - I'll find what I need", "maps_to": "abundant"},
+            {"text": "I start with the idea first, then worry about the rest", "maps_to": "ideas_first"}
         ],
         "rationale": "Raman (built spectrograph from scraps) vs Bhabha (atomic program funding)"
     },
@@ -149,28 +149,28 @@ QUESTIONS = [
     {
         "id": 11,
         "dimension": "legacy",
-        "text": "What would make you feel most proud when you look back at your life?",
+        "text": "What do you think would be the greatest achievement in life?",
         "options": [
-            {"text": "Finding out something new and important", "maps_to": "knowledge"},
-            {"text": "Helping people grow and succeed", "maps_to": "people"},
-            {"text": "Building something that lasts beyond me", "maps_to": "institutions"},
-            {"text": "Changing the way people see the world", "maps_to": "movement"}
+            {"text": "Discovering something new that no one knew before", "maps_to": "knowledge"},
+            {"text": "Helping others become the best they can be", "maps_to": "people"},
+            {"text": "Creating something that helps people for years to come", "maps_to": "institutions"},
+            {"text": "Changing how everyone thinks about something important", "maps_to": "movement"}
         ],
         "rationale": "Ramanujan (theorems), Raman (students), Bhabha (TIFR/BARC), Swaminathan (green revolution)"
     },
 
-    # Q12: Failure Philosophy (Learn vs Persist vs Reframe vs Avoid)
+    # Q12: Learning from Experience (Analytical vs Persistent vs Serendipitous vs Pragmatic)
     {
         "id": 12,
         "dimension": "failure",
-        "text": "After making a mistake or getting something wrong, what do you do?",
+        "text": "When you discover something unexpected while working, you:",
         "options": [
-            {"text": "Study it carefully to understand exactly why it went wrong", "maps_to": "analytical"},
-            {"text": "Keep trying different approaches until I get it right", "maps_to": "persistent"},
-            {"text": "See if there's something valuable I learned by accident", "maps_to": "serendipitous"},
-            {"text": "Move forward to the next thing without dwelling on it", "maps_to": "pragmatic"}
+            {"text": "Figure out what went wrong so I can learn from it", "maps_to": "analytical"},
+            {"text": "Try again with a new approach that might work better", "maps_to": "persistent"},
+            {"text": "Get curious about what else I might discover", "maps_to": "serendipitous"},
+            {"text": "Note it down and keep moving toward my main goal", "maps_to": "pragmatic"}
         ],
-        "rationale": "Different scientists have different relationships with failure and learning from mistakes"
+        "rationale": "Different scientists have different relationships with unexpected findings and learning from experience"
     }
 ]
 
