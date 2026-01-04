@@ -195,6 +195,91 @@ def scientist_count():
     })
 
 
+@app.route('/dashboard')
+def dashboard():
+    """Backend dashboard for Suchitha - detailed analytics with password protection"""
+    from flask import request, redirect, url_for, session as flask_session
+
+    # Simple password protection
+    if not flask_session.get('dashboard_auth'):
+        password = request.args.get('password', '')
+        if password == 'SciRio2025':
+            flask_session['dashboard_auth'] = True
+        else:
+            return '''
+            <html><body style="font-family: Arial; max-width: 500px; margin: 100px auto; text-align: center;">
+            <h2>🔐 Backend Dashboard Access</h2>
+            <form>
+                <input type="password" name="password" placeholder="Enter password" style="padding: 12px; width: 250px; font-size: 16px;"><br><br>
+                <button type="submit" style="padding: 12px 24px; font-size: 16px; cursor: pointer;">Access Dashboard</button>
+            </form>
+            <p style="color: #666; margin-top: 32px;">Contact admin for password</p>
+            </body></html>
+            '''
+
+    # Get detailed analytics
+    detailed_stats = {}
+
+    if SUPABASE_AVAILABLE and db:
+        client = db.get_client()
+        if client:
+            try:
+                # Get all sessions with user profiles
+                sessions = client.table("quiz_sessions")\
+                    .select("*")\
+                    .not_.is_("completed_at", "null")\
+                    .order("created_at", desc=True)\
+                    .limit(50)\
+                    .execute()
+
+                detailed_stats['recent_sessions'] = sessions.data if sessions.data else []
+
+                # Domain distribution
+                domain_counts = {}
+                trait_counts = {}
+
+                for session in (sessions.data or []):
+                    domain = session.get('domain', 'unknown')
+                    domain_counts[domain] = domain_counts.get(domain, 0) + 1
+
+                    # Collect trait data
+                    profile = session.get('user_profile', {})
+                    for dim, value in profile.items():
+                        key = f"{dim}:{value}"
+                        trait_counts[key] = trait_counts.get(key, 0) + 1
+
+                detailed_stats['domain_distribution'] = [
+                    {"domain": d, "count": c}
+                    for d, c in sorted(domain_counts.items(), key=lambda x: -x[1])
+                ]
+
+                detailed_stats['trait_distribution'] = [
+                    {"trait": t, "count": c}
+                    for t, c in sorted(trait_counts.items(), key=lambda x: -x[1])[:20]
+                ]
+
+                # All quiz results for detailed view
+                results = client.table("quiz_results")\
+                    .select("*")\
+                    .order("created_at", desc=True)\
+                    .limit(100)\
+                    .execute()
+
+                detailed_stats['all_results'] = results.data if results.data else []
+
+            except Exception as e:
+                print(f"Dashboard error: {e}")
+                detailed_stats['error'] = str(e)
+
+    # Also get regular analytics
+    if SUPABASE_AVAILABLE and db:
+        detailed_stats['summary'] = db.get_real_analytics()
+
+    detailed_stats['total_scientists'] = len(matching_engine.scientists)
+
+    return render_template('dashboard.html', stats=detailed_stats, is_admin=True)
+
+
 @app.route('/analytics')
 def analytics():
     """Analytics dashboard with real or fallback stats"""

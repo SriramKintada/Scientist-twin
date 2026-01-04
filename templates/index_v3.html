@@ -1217,7 +1217,8 @@
 
             // Use Supabase image if available, fallback to Wikipedia
             const imageUrl = primary.image_url || `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(primary.name.replace(/ /g, '_'))}.jpg`;
-            const fallbackImage = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="#f3f4f6" width="100" height="100"/><circle cx="50" cy="35" r="18" fill="#9ca3af"/><ellipse cx="50" cy="75" rx="28" ry="20" fill="#9ca3af"/></svg>');
+            // Professional placeholder avatar with scientist theme
+            const fallbackImage = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#f87171;stop-opacity:1" /><stop offset="100%" style="stop-color:#fb923c;stop-opacity:1" /></linearGradient></defs><rect fill="#f3f4f6" width="200" height="200"/><circle cx="100" cy="70" r="35" fill="url(#grad)"/><ellipse cx="100" cy="150" rx="55" ry="40" fill="url(#grad)"/><text x="100" y="185" font-family="Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle">No Photo Available</text></svg>');
 
             let html = `
                 <div class="result-header">
@@ -1355,7 +1356,7 @@
                 <!-- Wikipedia Link -->
                 <div style="text-align: center; margin: 32px 0;">
                     <a href="${primary.wiki_url}" target="_blank" class="btn" style="font-size: 1.1em; padding: 20px 48px;">
-                        &#127760; Learn More on Wikipedia
+                        &#127760; Know More About Your Twin
                     </a>
                 </div>
 
