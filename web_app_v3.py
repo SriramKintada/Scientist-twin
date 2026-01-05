@@ -181,6 +181,14 @@ def get_matches():
             # Save match results
             db.save_quiz_results(session_uuid, matches)
 
+    # Store result in session for "Back to results" functionality
+    session['last_result'] = {
+        "user_profile": user_profile,
+        "trait_percentages": trait_percentages,
+        "matches": matches
+    }
+    session.modified = True
+
     return jsonify({
         "user_profile": user_profile,
         "trait_percentages": trait_percentages,
@@ -322,13 +330,16 @@ def analytics():
             "image_url": s.get("image_url", "")
         })
 
+    # Calculate total plays first (needed for player IDs)
+    total_plays = random.randint(1200, 2500)
+
     # Recent activity
     recent_activity = []
     activity_scientists = random.sample(scientists, min(6, len(scientists)))
     times = ["Just now", "2 min ago", "5 min ago", "12 min ago", "23 min ago", "1 hour ago"]
     for i, s in enumerate(activity_scientists):
         recent_activity.append({
-            "id": random.randint(1000, 9999),
+            "id": total_plays - i,  # Descending order from total_plays
             "scientist": s["name"],
             "time": times[i] if i < len(times) else f"{random.randint(1, 12)} hours ago"
         })
@@ -354,7 +365,7 @@ def analytics():
     ]
 
     stats = {
-        "total_plays": random.randint(1200, 2500),
+        "total_plays": total_plays,
         "hall_of_fame": hall_of_fame,
         "recent_activity": recent_activity,
         "top_traits": top_traits,
@@ -367,6 +378,21 @@ def analytics():
     }
 
     return render_template('analytics.html', stats=stats, is_real=False)
+
+
+@app.route('/results')
+def view_results():
+    """Display the last quiz result"""
+    last_result = session.get('last_result')
+
+    if not last_result:
+        # No result in session, redirect to home
+        return redirect('/')
+
+    # Render the same index template but with result data pre-loaded
+    return render_template('index_v3.html',
+                         result_data=last_result,
+                         show_result=True)
 
 
 @app.route('/api/like', methods=['POST'])

@@ -843,9 +843,16 @@
             .scientist-photo { height: 300px; border-width: 5px; }
             .scientist-meta { font-size: 0.95em; }
             .match-quality-badge { padding: 10px 20px; font-size: 0.9em; }
-            .action-row { gap: 10px; }
-            .heart-btn { width: 46px; height: 46px; font-size: 1.3em; }
-            .share-btn { width: 42px; height: 42px; font-size: 1.1em; }
+            .action-row { gap: 8px; }
+            .heart-btn { width: 48px; height: 48px; font-size: 1.3em; }
+            .share-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 1.1em;
+                padding: 12px;
+            }
+            .share-btn .share-text { display: none; }
+            .share-btn .share-icon { margin: 0; }
             .scientist-bio { padding: 20px; font-size: 0.95em; line-height: 1.7; border-radius: 16px; }
             .section { margin: 28px 0; }
             .section-title { font-size: 1.1em; gap: 10px; margin-bottom: 14px; }
@@ -1234,19 +1241,16 @@
                             <span class="heart-icon">&#9825;</span>
                         </button>
                         <button class="share-btn" onclick="shareTwitter()" title="Share on Twitter">
-                            <span>𝕏</span><span>Twitter</span>
+                            <span class="share-icon">𝕏</span><span class="share-text">Twitter</span>
                         </button>
                         <button class="share-btn" onclick="shareFacebook()" title="Share on Facebook">
-                            <span>f</span><span>Facebook</span>
+                            <span class="share-icon">f</span><span class="share-text">Facebook</span>
                         </button>
                         <button class="share-btn" onclick="shareInstagram()" title="Share on Instagram">
-                            <span><img src="/static/instagram.avif" alt="Instagram" style="width: 20px; height: 20px; object-fit: contain;"></span><span>Instagram</span>
-                        </button>
-                        <button class="share-btn" onclick="shareWhatsApp()" title="Share on WhatsApp">
-                            <span><img src="/static/whatsapp.png" alt="WhatsApp" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px;"></span><span>WhatsApp</span>
+                            <span class="share-icon"><img src="/static/instagram.avif" alt="Instagram" style="width: 20px; height: 20px; object-fit: contain;"></span><span class="share-text">Instagram</span>
                         </button>
                         <button class="share-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">
-                            <span>in</span><span>LinkedIn</span>
+                            <span class="share-icon">in</span><span class="share-text">LinkedIn</span>
                         </button>
                     </div>
                 </div>
