@@ -1249,8 +1249,8 @@
                         <button class="share-btn" onclick="shareInstagram()" title="Share on Instagram">
                             <span class="share-icon"><img src="/static/instagram.avif" alt="Instagram" style="width: 20px; height: 20px; object-fit: contain;"></span><span class="share-text">Instagram</span>
                         </button>
-                        <button class="share-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">
-                            <span class="share-icon">in</span><span class="share-text">LinkedIn</span>
+                        <button class="share-btn" onclick="shareWhatsApp()" title="Share on WhatsApp">
+                            <span class="share-icon"><img src="/static/whatsapp.png" alt="WhatsApp" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px;"></span><span class="share-text">WhatsApp</span>
                         </button>
                     </div>
                 </div>
@@ -1482,6 +1482,21 @@
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
+
+        // Auto-load stored result if coming from "Back to Results"
+        {% if stored_result %}
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                const storedResult = {{ stored_result | safe }};
+                if (storedResult) {
+                    displayResults(storedResult);
+                }
+            } catch (e) {
+                console.error('Error loading stored result:', e);
+                window.location.href = '/';
+            }
+        });
+        {% endif %}
     </script>
 </body>
 </html>

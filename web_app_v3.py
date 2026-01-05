@@ -389,10 +389,8 @@ def view_results():
         # No result in session, redirect to home
         return redirect('/')
 
-    # Render the same index template but with result data pre-loaded
-    return render_template('index_v3.html',
-                         result_data=last_result,
-                         show_result=True)
+    # Return stored result as JSON for client-side rendering
+    return render_template('index_v3.html', stored_result=json.dumps(last_result))
 
 
 @app.route('/api/like', methods=['POST'])
