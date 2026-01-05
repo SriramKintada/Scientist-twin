@@ -1230,6 +1230,8 @@
                     <img src="${imageUrl}"
                          alt="${primary.name}"
                          class="scientist-photo"
+                         loading="eager"
+                         decoding="async"
                          onerror="this.src='${fallbackImage}'">
                     <h1 class="scientist-name">${primary.name}</h1>
                     <p class="scientist-meta">${primary.field} &bull; ${primary.era}</p>

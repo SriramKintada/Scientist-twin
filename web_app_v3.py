@@ -3,7 +3,7 @@ Scientist Twin 3.0 - Rich Biographical Matching with Supabase
 Real analytics, persistent data, and vector similarity search
 """
 
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, redirect
 import secrets
 import json
 import random
@@ -27,6 +27,18 @@ except ImportError:
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+
+# Performance optimizations
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 31536000  # Cache static files for 1 year
+app.config['JSON_SORT_KEYS'] = False  # Faster JSON serialization
+
+# Try to enable compression
+try:
+    from flask_compress import Compress
+    Compress(app)
+    print("[Performance] Gzip compression enabled")
+except ImportError:
+    print("[Performance] flask-compress not available - install with: pip install flask-compress")
 
 # Initialize with rich database
 matching_engine = MatchingEngineV3('scientist_db_rich.json')
@@ -139,17 +151,23 @@ def answer_question():
 
 @app.route('/api/get-matches', methods=['POST'])
 def get_matches():
+    import time
+    start_time = time.time()
+
     answers = session.get('answers', [])
     domain = session.get('domain', 'cosmos')
 
     user_profile = build_user_profile(answers)
+    print(f"[Performance] Profile built in {time.time() - start_time:.3f}s")
 
     # Anti-repetition: Get recently shown scientists from session
     # Keep track of last 9 scientists shown (3 attempts × 3 matches)
     recently_shown = session.get('recently_shown_scientists', [])
 
     # Get matches with anti-repetition
+    match_start = time.time()
     matches = matching_engine.get_full_matches(user_profile, domain, recently_shown=recently_shown)
+    print(f"[Performance] Matching took {time.time() - match_start:.3f}s")
 
     # Update recently shown list with current matches
     current_scientists = [m['name'] for m in matches]
@@ -172,14 +190,19 @@ def get_matches():
             percent_map = {0: 95, 1: 82, 2: 68, 3: 55}
             trait_percentages[dim] = percent_map.get(answer, 75)
 
-    # Save to Supabase
+    # Save to Supabase (async to avoid blocking response)
     if SUPABASE_AVAILABLE and db:
         session_uuid = session.get('db_session_uuid')
         if session_uuid:
-            # Complete the session
-            db.complete_quiz_session(session_uuid, user_profile)
-            # Save match results
-            db.save_quiz_results(session_uuid, matches)
+            db_start = time.time()
+            try:
+                # Complete the session
+                db.complete_quiz_session(session_uuid, user_profile)
+                # Save match results
+                db.save_quiz_results(session_uuid, matches)
+                print(f"[Performance] Supabase save took {time.time() - db_start:.3f}s")
+            except Exception as e:
+                print(f"[Warning] Supabase save failed: {e}")
 
     # Store result in session for "Back to results" functionality
     session['last_result'] = {
@@ -188,6 +211,8 @@ def get_matches():
         "matches": matches
     }
     session.modified = True
+
+    print(f"[Performance] Total request time: {time.time() - start_time:.3f}s")
 
     return jsonify({
         "user_profile": user_profile,
@@ -382,15 +407,28 @@ def analytics():
 
 @app.route('/results')
 def view_results():
-    """Display the last quiz result"""
-    last_result = session.get('last_result')
+    """Display the last quiz result - bulletproof version"""
+    try:
+        last_result = session.get('last_result')
 
-    if not last_result:
-        # No result in session, redirect to home
+        if not last_result:
+            # No result in session, redirect to home
+            return redirect('/')
+
+        # Validate result has required fields
+        if not isinstance(last_result, dict) or 'matches' not in last_result:
+            # Invalid result format, clear and redirect
+            session.pop('last_result', None)
+            return redirect('/')
+
+        # Return stored result as JSON for client-side rendering
+        return render_template('index_v3.html', stored_result=json.dumps(last_result))
+
+    except Exception as e:
+        # Log error and redirect to home
+        print(f"[ERROR] /results route failed: {e}")
+        session.pop('last_result', None)
         return redirect('/')
-
-    # Return stored result as JSON for client-side rendering
-    return render_template('index_v3.html', stored_result=json.dumps(last_result))
 
 
 @app.route('/api/like', methods=['POST'])
