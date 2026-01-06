@@ -462,6 +462,50 @@ def share_result():
     return jsonify({"success": True})
 
 
+@app.route('/api/analytics-live')
+def analytics_live():
+    """Live analytics data for auto-refresh"""
+    if SUPABASE_AVAILABLE and db:
+        try:
+            # Get just the live data that changes frequently
+            client = db.get_client()
+
+            # Total plays
+            stats = client.table("quiz_sessions").select("id", count="exact").not_.is_("completed_at", "null").execute()
+            total_plays = stats.count or 0
+
+            # Recent activity (last 6)
+            recent = client.table("quiz_results")\
+                .select("scientist_name, created_at")\
+                .eq("rank", 1)\
+                .order("created_at", desc=True)\
+                .limit(6)\
+                .execute()
+
+            recent_activity = []
+            if recent.data:
+                for i, r in enumerate(recent.data):
+                    from datetime import datetime
+                    created = datetime.fromisoformat(r["created_at"].replace("Z", "+00:00"))
+                    time_ago = db.get_time_ago(created)
+                    recent_activity.append({
+                        "id": total_plays - i,
+                        "scientist": r["scientist_name"],
+                        "time": time_ago
+                    })
+
+            return jsonify({
+                "total_plays": total_plays,
+                "recent_activity": recent_activity
+            })
+
+        except Exception as e:
+            print(f"[Error] Analytics live refresh failed: {e}")
+            return jsonify({"error": str(e)}), 500
+
+    return jsonify({"total_plays": 0, "recent_activity": []})
+
+
 @app.route('/api/stats')
 def get_stats():
     """API endpoint for real-time stats"""

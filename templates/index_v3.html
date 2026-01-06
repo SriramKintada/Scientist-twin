@@ -850,9 +850,20 @@
                 height: 48px;
                 font-size: 1.1em;
                 padding: 12px;
+                overflow: hidden;
             }
-            .share-btn .share-text { display: none; }
-            .share-btn .share-icon { margin: 0; }
+            .share-btn .share-text {
+                display: none !important;
+                visibility: hidden !important;
+                width: 0 !important;
+                height: 0 !important;
+            }
+            .share-btn .share-icon {
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             .scientist-bio { padding: 20px; font-size: 0.95em; line-height: 1.7; border-radius: 16px; }
             .section { margin: 28px 0; }
             .section-title { font-size: 1.1em; gap: 10px; margin-bottom: 14px; }
@@ -1273,14 +1284,21 @@
                             if (/\) is a[n]?\s/i.test(s)) return false;
                             return s.length > 20;
                         });
-                        // Take first 2 good sentences, join them
-                        const result = goodSentences.slice(0, 2).join(' ').trim();
-                        // Clean ending - if ends mid-sentence, cut at last period
-                        if (result.length > 280) {
-                            const lastPeriod = result.lastIndexOf('.', 280);
-                            return lastPeriod > 100 ? result.substring(0, lastPeriod + 1) : result.substring(0, 280);
+                        // Build bio from complete sentences only
+                        let bio = '';
+                        for (let i = 0; i < goodSentences.length && i < 3; i++) {
+                            const sentence = goodSentences[i].trim();
+                            // Check if adding this sentence would exceed limit
+                            if ((bio + sentence).length > 350) {
+                                break; // Stop before exceeding limit
+                            }
+                            bio += (bio ? ' ' : '') + sentence;
                         }
-                        return result;
+                        // Always ensure we end with proper punctuation
+                        if (bio && !bio.match(/[.!?]$/)) {
+                            bio += '.';
+                        }
+                        return bio || 'A distinguished scientist with remarkable contributions to their field.';
                     })()}
                 </div>
 

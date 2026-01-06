@@ -152,19 +152,45 @@ def get_real_analytics() -> Dict[str, Any]:
         analytics["total_plays"] = stats.count or 0
 
         # Hall of Fame - most matched scientists
-        hall_of_fame = client.rpc("get_hall_of_fame").execute()
-        if hall_of_fame.data:
-            analytics["hall_of_fame"] = hall_of_fame.data[:5]
-        else:
-            # Fallback query
-            hof = client.table("quiz_results").select("scientist_name").execute()
+        try:
+            hall_of_fame = client.rpc("get_hall_of_fame").execute()
+            if hall_of_fame.data:
+                analytics["hall_of_fame"] = hall_of_fame.data[:5]
+            else:
+                raise Exception("RPC not available")
+        except:
+            # Fallback query - get most matched scientists
+            hof = client.table("quiz_results")\
+                .select("scientist_name, scientist_field, scientist_era, scientist_image, match_score")\
+                .eq("rank", 1)\
+                .execute()
+
             if hof.data:
-                from collections import Counter
-                counts = Counter(r["scientist_name"] for r in hof.data)
-                analytics["hall_of_fame"] = [
-                    {"name": name, "match_count": count}
-                    for name, count in counts.most_common(5)
-                ]
+                from collections import Counter, defaultdict
+
+                # Count matches and aggregate data for each scientist
+                scientist_data = defaultdict(lambda: {"count": 0, "scores": [], "field": None, "era": None, "image": None})
+                for r in hof.data:
+                    name = r["scientist_name"]
+                    scientist_data[name]["count"] += 1
+                    scientist_data[name]["scores"].append(r.get("match_score", 0))
+                    scientist_data[name]["field"] = r.get("scientist_field", "Science")
+                    scientist_data[name]["era"] = r.get("scientist_era", "Contemporary")
+                    scientist_data[name]["image"] = r.get("scientist_image", "")
+
+                # Sort by count and get top 5
+                top_scientists = sorted(scientist_data.items(), key=lambda x: -x[1]["count"])[:5]
+
+                analytics["hall_of_fame"] = []
+                for name, data in top_scientists:
+                    avg_score = sum(data["scores"]) / len(data["scores"]) if data["scores"] else 0
+                    analytics["hall_of_fame"].append({
+                        "name": name,
+                        "field": data["field"],
+                        "era": data["era"],
+                        "image_url": data["image"],
+                        "match_rate": round(avg_score * 100) if avg_score else 0
+                    })
 
         # Recent activity
         recent = client.table("quiz_results")\
@@ -176,10 +202,11 @@ def get_real_analytics() -> Dict[str, Any]:
 
         if recent.data:
             analytics["recent_activity"] = []
-            for r in recent.data:
+            for i, r in enumerate(recent.data):
                 created = datetime.fromisoformat(r["created_at"].replace("Z", "+00:00"))
                 time_ago = get_time_ago(created)
                 analytics["recent_activity"].append({
+                    "id": analytics["total_plays"] - i,  # Descending player number
                     "scientist": r["scientist_name"],
                     "time": time_ago
                 })
