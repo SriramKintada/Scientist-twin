@@ -185,7 +185,12 @@ def embed_code():
             ✓ Auto-height adjustment<br>
             ✓ Clean styling with rounded corners<br>
             ✓ Secure iframe embedding<br>
-            ✓ Works on scirio.in domain
+            ✓ Works ONLY on scirio.in domains
+        </div>
+        <div class="info" style="background: #dbeafe; border-left: 4px solid #3b82f6;">
+            <strong>🔒 Security Note:</strong><br>
+            This quiz is configured to work <strong>ONLY on https://www.scirio.in/</strong> and related SciRio domains.<br>
+            It will NOT work if embedded on other websites (security restriction to prevent unauthorized use).
         </div>
     </div>
     <script>
