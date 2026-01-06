@@ -32,6 +32,14 @@ app.secret_key = secrets.token_hex(16)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 31536000  # Cache static files for 1 year
 app.config['JSON_SORT_KEYS'] = False  # Faster JSON serialization
 
+# Allow embedding in iframes (for SciRio website)
+@app.after_request
+def add_header(response):
+    # Allow embedding from scirio.in and localhost
+    response.headers['X-Frame-Options'] = 'ALLOW-FROM https://www.scirio.in'
+    response.headers['Content-Security-Policy'] = "frame-ancestors 'self' https://www.scirio.in https://scirio.in"
+    return response
+
 # Try to enable compression
 try:
     from flask_compress import Compress
@@ -87,6 +95,112 @@ def get_client_ip():
 @app.route('/')
 def index():
     return render_template('index_v3.html', domains=DOMAINS)
+
+
+@app.route('/embed-code')
+def embed_code():
+    """Provide embed code for SciRio website"""
+    # Get the current deployment URL (Vercel or local)
+    base_url = request.host_url.rstrip('/')
+
+    embed_snippet = f'''<!-- SciRio Scientist Twin Quiz Embed Code -->
+<div id="scirio-scientist-twin" style="width: 100%; max-width: 1200px; margin: 0 auto;">
+    <iframe
+        src="{base_url}/"
+        width="100%"
+        height="800"
+        frameborder="0"
+        scrolling="auto"
+        allow="clipboard-write"
+        style="border: none; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);"
+        title="Curious Minds Club - Find Your Indian Scientist Twin">
+    </iframe>
+</div>
+
+<!-- Optional: Make iframe responsive -->
+<script>
+    (function() {{
+        const iframe = document.querySelector('#scirio-scientist-twin iframe');
+
+        // Auto-resize iframe based on content
+        window.addEventListener('message', function(e) {{
+            if (e.origin === '{base_url}') {{
+                if (e.data.height) {{
+                    iframe.style.height = e.data.height + 'px';
+                }}
+            }}
+        }});
+
+        // Responsive sizing
+        function resizeIframe() {{
+            const container = document.getElementById('scirio-scientist-twin');
+            const width = container.offsetWidth;
+
+            if (width < 640) {{
+                iframe.style.height = '900px'; // Mobile
+            }} else {{
+                iframe.style.height = '800px'; // Desktop
+            }}
+        }}
+
+        resizeIframe();
+        window.addEventListener('resize', resizeIframe);
+    }})();
+</script>'''
+
+    return f'''<!DOCTYPE html>
+<html>
+<head>
+    <title>Scientist Twin - Embed Code</title>
+    <style>
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; background: #f5f5f5; }}
+        .container {{ background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }}
+        h1 {{ color: #f87171; margin-bottom: 10px; }}
+        .subtitle {{ color: #6b7280; margin-bottom: 30px; }}
+        pre {{ background: #1f2937; color: #f3f4f6; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.6; }}
+        .copy-btn {{ background: #f87171; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 10px; font-weight: 600; }}
+        .copy-btn:hover {{ background: #ef4444; }}
+        .info {{ background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px 20px; margin: 20px 0; border-radius: 4px; }}
+        .success {{ background: #d1fae5; border-left: 4px solid #10b981; padding: 15px 20px; margin: 20px 0; border-radius: 4px; display: none; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Scientist Twin Quiz - Embed Code</h1>
+        <p class="subtitle">Copy and paste this code into your SciRio website</p>
+        <div class="info">
+            <strong>📋 Instructions:</strong>
+            <ol style="margin: 10px 0 0 0; padding-left: 20px;">
+                <li>Click "Copy Embed Code" below</li>
+                <li>Paste into your HTML where you want the quiz to appear</li>
+                <li>The quiz will automatically fit the container width</li>
+            </ol>
+        </div>
+        <pre id="embed-code">{embed_snippet}</pre>
+        <button class="copy-btn" onclick="copyCode()">📋 Copy Embed Code</button>
+        <div class="success" id="success-msg">✅ <strong>Copied!</strong> Paste this code into your website.</div>
+        <div class="info" style="margin-top: 30px;">
+            <strong>🔧 Features:</strong><br>
+            ✓ Fully responsive (mobile & desktop)<br>
+            ✓ Auto-height adjustment<br>
+            ✓ Clean styling with rounded corners<br>
+            ✓ Secure iframe embedding<br>
+            ✓ Works on scirio.in domain
+        </div>
+    </div>
+    <script>
+        function copyCode() {{
+            const code = document.getElementById('embed-code').textContent;
+            navigator.clipboard.writeText(code).then(function() {{
+                document.getElementById('success-msg').style.display = 'block';
+                setTimeout(function() {{
+                    document.getElementById('success-msg').style.display = 'none';
+                }}, 3000);
+            }});
+        }}
+    </script>
+</body>
+</html>'''
 
 
 @app.route('/api/start-quiz', methods=['POST'])
