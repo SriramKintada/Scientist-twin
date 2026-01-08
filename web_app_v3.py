@@ -223,31 +223,39 @@ def embed_code():
 def start_quiz():
     data = request.json
     domain = data.get('domain', 'cosmos')
+    client_uuid = data.get('client_uuid')  # Get UUID from client
 
-    # Initialize session
+    # Initialize session (keep for backwards compatibility)
     session['domain'] = domain
     session['answers'] = []
     session['current_question'] = 0
     session['quiz_session_id'] = secrets.token_hex(8)
 
-    print(f"[Session Debug] START QUIZ - Created quiz_session_id: {session['quiz_session_id']}")
+    # IMPORTANT: Store client UUID in session for this quiz
+    if client_uuid:
+        session['client_uuid'] = client_uuid
+        print(f"[Client UUID] Received from frontend: {client_uuid}")
+
     print(f"[Session Debug] SUPABASE_AVAILABLE: {SUPABASE_AVAILABLE}")
 
-    # Track in Supabase
-    if SUPABASE_AVAILABLE and db:
+    # Track in Supabase using CLIENT UUID (not server session)
+    if SUPABASE_AVAILABLE and db and client_uuid:
         session_uuid = db.create_quiz_session(
-            session_id=session['quiz_session_id'],
+            session_id=client_uuid,  # Use client UUID!
             domain=domain,
             ip_address=get_client_ip()
         )
-        print(f"[Session Debug] Supabase returned session_uuid: {session_uuid}")
+        print(f"[Supabase] Created session with client UUID, returned: {session_uuid}")
         if session_uuid:
             session['db_session_uuid'] = session_uuid
-            print(f"[Session Debug] ✓ Saved db_session_uuid to Flask session: {session_uuid}")
+            print(f"[Supabase] ✓ Successfully created Supabase session!")
         else:
-            print(f"[Session Debug] ✗ Supabase did NOT return session_uuid!")
+            print(f"[Supabase] ✗ Failed to create Supabase session")
     else:
-        print(f"[Session Debug] ✗ Supabase not available - data will NOT be saved!")
+        if not SUPABASE_AVAILABLE:
+            print(f"[Supabase] ✗ Supabase not available")
+        if not client_uuid:
+            print(f"[Client UUID] ✗ No client UUID received from frontend!")
 
     question = QUESTIONS[0]
     return jsonify({
@@ -301,11 +309,16 @@ def get_matches():
     import time
     start_time = time.time()
 
+    # Try to get client UUID from request body OR session
+    data = request.json or {}
+    client_uuid = data.get('client_uuid') or session.get('client_uuid')
+
     answers = session.get('answers', [])
     domain = session.get('domain', 'cosmos')
 
     user_profile = build_user_profile(answers)
     print(f"[Performance] Profile built in {time.time() - start_time:.3f}s")
+    print(f"[Client UUID] Using UUID for save: {client_uuid}")
 
     # Anti-repetition: Get recently shown scientists from session
     # Keep track of last 9 scientists shown (3 attempts × 3 matches)
@@ -337,11 +350,14 @@ def get_matches():
             percent_map = {0: 95, 1: 82, 2: 68, 3: 55}
             trait_percentages[dim] = percent_map.get(answer, 75)
 
-    # Save to Supabase (async to avoid blocking response)
+    # Save to Supabase using client UUID (doesn't depend on server session!)
     if SUPABASE_AVAILABLE and db:
-        session_uuid = session.get('db_session_uuid')
-        print(f"[Session Debug] Attempting to save to Supabase")
-        print(f"[Session Debug] DB UUID from session: {session_uuid}")
+        # Use db_session_uuid from session if it exists, otherwise use client_uuid directly
+        session_uuid = session.get('db_session_uuid') or client_uuid
+
+        print(f"[Supabase] Attempting to save results")
+        print(f"[Supabase] Using UUID: {session_uuid}")
+
         if session_uuid:
             db_start = time.time()
             try:
@@ -350,12 +366,14 @@ def get_matches():
                 # Save match results
                 db.save_quiz_results(session_uuid, matches)
                 print(f"[Performance] Supabase save took {time.time() - db_start:.3f}s")
-                print(f"[Session Debug] ✓ Successfully saved to Supabase!")
+                print(f"[Supabase] ✓ Successfully saved quiz results!")
             except Exception as e:
-                print(f"[Warning] Supabase save failed: {e}")
+                print(f"[Supabase] ✗ Save failed: {e}")
+                import traceback
+                traceback.print_exc()
         else:
-            print(f"[Session Debug] ✗ NO DB UUID - results will NOT be saved to Supabase!")
-            print(f"[Session Debug] This means session was lost between start-quiz and get-matches")
+            print(f"[Supabase] ✗ NO UUID available (neither db_session_uuid nor client_uuid)!")
+            print(f"[Supabase] Results will NOT be saved")
 
     # Store result in session for "Back to results" functionality
     session['last_result'] = {
