@@ -1081,10 +1081,13 @@
                 card.textContent = labels[index] + '. ' + option;
 
                 card.addEventListener('click', function() {
+                    console.log('[Quiz] Option clicked:', index);
                     document.querySelectorAll('#quiz-options .option-card').forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
                     selectedAnswer = parseInt(this.dataset.answer);
+                    console.log('[Quiz] Selected answer:', selectedAnswer);
                     document.getElementById('btn-answer').disabled = false;
+                    console.log('[Quiz] Button enabled');
                 });
 
                 container.appendChild(card);
@@ -1118,19 +1121,28 @@
         }
 
         document.getElementById('btn-answer').addEventListener('click', async function() {
-            const response = await fetch('/api/answer-question', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answer: selectedAnswer })
-            });
+            console.log('[Quiz] Next button clicked, selectedAnswer:', selectedAnswer);
 
-            const data = await response.json();
+            try {
+                const response = await fetch('/api/answer-question', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ answer: selectedAnswer })
+                });
 
-            if (data.complete) {
-                showLoading();
-                await getMatches();
-            } else {
-                showQuestion(data.question);
+                console.log('[Quiz] API response status:', response.status);
+                const data = await response.json();
+                console.log('[Quiz] API response data:', data);
+
+                if (data.complete) {
+                    showLoading();
+                    await getMatches();
+                } else {
+                    showQuestion(data.question);
+                }
+            } catch (error) {
+                console.error('[Quiz] ERROR:', error);
+                alert('An error occurred. Please try again.');
             }
         });
 
