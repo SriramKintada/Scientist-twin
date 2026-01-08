@@ -3826,38 +3826,6 @@
     "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/kaushik_basu.jpg"
   },
   {
-    "name": "Norman Borlaug",
-    "field": "Agriculture",
-    "subfield": "Plant Genetics",
-    "traits": {
-      "approach": "applied",
-      "collaboration": "large_team",
-      "risk": "calculated",
-      "motivation": "impact",
-      "adversity": "persist",
-      "breadth": "expanding",
-      "authority": "institutional",
-      "communication": "written",
-      "time_horizon": "long_term",
-      "resources": "frugal",
-      "legacy": "institutions",
-      "failure": "persistent"
-    },
-    "archetype": "Institution Builder",
-    "era": "Pre-Independence Pioneer",
-    "achievements": "awarded multiple honors for his work, including the Nobel Peace Prize, the Presidential Medal of Freedom and the Congressional Gold Medal, one of only seven people to have received all three awards. awarded the 1970 Nobel Peace Prize in recognition of his contributions to world peace through increasing food supply. discovered that special plant breeding methods produced plants resistant to rust. discovered that his seeds were germinating at less than half the normal rate. developed semi-dwarf, high-yield, disease-resistant wheat varieties.",
-    "summary": "Norman Ernest Borlaug (; March 25, 1914 – September 12, 2009) was an American agronomist who led initiatives worldwide that contributed to the extensive increases in agricultural production termed the Green Revolution. Borlaug was awarded multiple honors for his work, including the Nobel Peace Prize, the Presidential Medal of Freedom and the Congressional Gold Medal, one of only seven people to have received all three awards. in forestry in 1937 and PhD in plant pathology and genetics from the University of Minnesota in 1942. He took up an agricultural research position with CIMMYT in Mexico, where he developed semi-dwarf, high-yield, disease-resistant wheat varieties.",
-    "moments": [
-      "In 2009, Josette Sheeran, then the Executive Director of the World Food Programme, stated that Borlaug \"saved more lives than any man in human history\".",
-      "In 1940, the Avila Camacho administration took office in Mexico.",
-      "In 1964, Borlaug was made the director of the International Wheat Improvement Program at El Batán, Texcoco, on the eastern fringes of Mexico City, as part of the newly established Consultative Group on International Agricultural Research's International Maize and Wheat Improvement Center (Centro Internacional de Mejoramiento de Maíz y Trigo, or CIMMYT)."
-    ],
-    "working_style": "Norman Borlaug thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
-    "content_length": 50533,
-    "wiki_title": "Norman Borlaug",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/norman_borlaug.jpg"
-  },
-  {
     "name": "S. K. Sinha",
     "field": "Agriculture",
     "subfield": "Plant Physiology",
