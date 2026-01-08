@@ -252,12 +252,20 @@ def answer_question():
     data = request.json
     answer = data.get('answer', 0)
 
+    # Debug logging
+    print(f"[Session Debug] Session ID: {session.get('quiz_session_id', 'NO SESSION ID')}")
+    print(f"[Session Debug] DB UUID: {session.get('db_session_uuid', 'NO DB UUID')}")
+    print(f"[Session Debug] Current answers: {session.get('answers', [])}")
+    print(f"[Session Debug] New answer: {answer}")
+
     if 'answers' not in session:
+        print("[Session Debug] WARNING: No answers in session - session may have been lost!")
         session['answers'] = []
     session['answers'].append(answer)
     session.modified = True
 
     current = len(session['answers'])
+    print(f"[Session Debug] Total answers now: {current}/{len(QUESTIONS)}")
 
     if current >= len(QUESTIONS):
         return jsonify({"complete": True})
@@ -318,6 +326,8 @@ def get_matches():
     # Save to Supabase (async to avoid blocking response)
     if SUPABASE_AVAILABLE and db:
         session_uuid = session.get('db_session_uuid')
+        print(f"[Session Debug] Attempting to save to Supabase")
+        print(f"[Session Debug] DB UUID from session: {session_uuid}")
         if session_uuid:
             db_start = time.time()
             try:
@@ -326,8 +336,12 @@ def get_matches():
                 # Save match results
                 db.save_quiz_results(session_uuid, matches)
                 print(f"[Performance] Supabase save took {time.time() - db_start:.3f}s")
+                print(f"[Session Debug] ✓ Successfully saved to Supabase!")
             except Exception as e:
                 print(f"[Warning] Supabase save failed: {e}")
+        else:
+            print(f"[Session Debug] ✗ NO DB UUID - results will NOT be saved to Supabase!")
+            print(f"[Session Debug] This means session was lost between start-quiz and get-matches")
 
     # Store result in session for "Back to results" functionality
     session['last_result'] = {
