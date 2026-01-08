@@ -1215,6 +1215,14 @@
         }
 
         function showResults(data) {
+            // Save results to localStorage so they persist across navigation
+            try {
+                localStorage.setItem('lastQuizResults', JSON.stringify(data));
+                localStorage.setItem('lastQuizTimestamp', Date.now().toString());
+            } catch (e) {
+                console.error('[Results] Failed to save to localStorage:', e);
+            }
+
             const container = document.getElementById('results-container');
             const primary = data.matches[0];
 
@@ -1539,7 +1547,7 @@
             try {
                 const storedResult = {{ stored_result | safe }};
                 if (storedResult) {
-                    displayResults(storedResult);
+                    showResults(storedResult);
                 }
             } catch (e) {
                 console.error('Error loading stored result:', e);
@@ -1547,6 +1555,23 @@
             }
         });
         {% endif %}
+
+        // Check if URL has ?showResults=true and load from localStorage
+        if (window.location.search.includes('showResults=true')) {
+            window.addEventListener('DOMContentLoaded', function() {
+                try {
+                    const savedResults = localStorage.getItem('lastQuizResults');
+                    if (savedResults) {
+                        const data = JSON.parse(savedResults);
+                        showResults(data);
+                    } else {
+                        console.log('[Results] No saved results found in localStorage');
+                    }
+                } catch (e) {
+                    console.error('[Results] Error loading from localStorage:', e);
+                }
+            });
+        }
     </script>
 </body>
 </html>
