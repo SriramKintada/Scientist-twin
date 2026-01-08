@@ -392,6 +392,30 @@ def get_matches():
     })
 
 
+@app.route('/api/health')
+def health_check():
+    """Check if Supabase is connected and working"""
+    health = {
+        "supabase_available": SUPABASE_AVAILABLE,
+        "supabase_connected": False,
+        "scientist_count": len(matching_engine.scientists)
+    }
+
+    if SUPABASE_AVAILABLE and db:
+        try:
+            # Try a simple query
+            from supabase_client import supabase
+            client = supabase()
+            result = client.table("quiz_sessions").select("id", count="exact").limit(1).execute()
+            health["supabase_connected"] = True
+            health["test_query_success"] = True
+        except Exception as e:
+            health["supabase_error"] = str(e)
+            health["supabase_connected"] = False
+
+    return jsonify(health)
+
+
 @app.route('/api/scientists/count')
 def scientist_count():
     return jsonify({
