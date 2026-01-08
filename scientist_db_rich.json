@@ -4877,38 +4877,6 @@
     "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/rajeev_alur.jpg"
   },
   {
-    "name": "Shafi Goldwasser",
-    "field": "Computer Science",
-    "subfield": "Cryptography",
-    "traits": {
-      "approach": "theoretical",
-      "collaboration": "small_team",
-      "risk": "bold",
-      "motivation": "recognition",
-      "adversity": "pivot",
-      "breadth": "interdisciplinary",
-      "authority": "institutional",
-      "communication": "written",
-      "time_horizon": "immediate",
-      "resources": "ideas_first",
-      "legacy": "knowledge",
-      "failure": "analytical"
-    },
-    "archetype": "Bridge Builder",
-    "era": "Modernization Era",
-    "achievements": "awarded the 2012 Turing Award along with Silvio Micali for having \"pioneered the field of provable security, which laid the mathematical foundations that made modern cryptography possible. awarded her its Computer Science Distinguished Alumni Award. developed interactively by answering a series of questions about a problem. developed protocols for delegating computations to untrusted servers. founded Duality Technologies in order to commercialize fully homomorphic encryption.",
-    "summary": "Shafrira Goldwasser (Hebrew: שפרירה גולדווסר; born 1959) is an Israeli-American computer scientist. She is the RSA Professor of Electrical Engineering and Computer Science at the Massachusetts Institute of Technology, a professor of mathematical sciences at the Weizmann Institute of Science, the former director of the Simons Institute for the Theory of Computing, and co-founder and chief scientist of Duality Technologies. In 2012, she and Silvio Micali won the ACM Turing Award. Education and early life\nGoldwaseer was born in New York City and grew up in Tel Aviv.",
-    "moments": [
-      "In 2012, she and Silvio Micali won the ACM Turing Award.",
-      "In 1984, along with Silvio Micali, she introduced probabilistic encryption, which has become the basis for most public-key cryptographic schemes.",
-      "In 1985, Goldwasser, Silvio Micali, and Charles Rackoff introduced zero-knowledge proofs, which became a fundamental cryptographic primitive used to probabilistically and interactively demonstrate the validity of an assertion without conveying any additional knowledge."
-    ],
-    "working_style": "Shafi Goldwasser thrived in collaborative environments spending long hours in the laboratory.",
-    "content_length": 5790,
-    "wiki_title": "Shafi Goldwasser",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/shafi_goldwasser.jpg"
-  },
-  {
     "name": "Prabhakar Raghavan",
     "field": "Computer Science",
     "subfield": "Algorithms",
@@ -5025,71 +4993,6 @@
     "content_length": 3460,
     "wiki_title": "Jitendra Malik",
     "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/jitendra_malik.jpg"
-  },
-  {
-    "name": "Fei-Fei Li",
-    "field": "Computer Science",
-    "subfield": "AI",
-    "traits": {
-      "approach": "experimental",
-      "collaboration": "large_team",
-      "risk": "calculated",
-      "motivation": "impact",
-      "adversity": "pivot",
-      "breadth": "specialist",
-      "authority": "institutional",
-      "communication": "written",
-      "time_horizon": "medium",
-      "resources": "ideas_first",
-      "legacy": "knowledge",
-      "failure": "analytical"
-    },
-    "archetype": "Distinguished Researcher",
-    "era": "Contemporary Leader",
-    "achievements": "awarded the Queen Elizabeth Prize for Engineering, recognizing her role in advancing deep learning. founded AI4ALL, a nonprofit organization working to increase diversity in the field of artificial intelligence. founded to develop a \"spatial intelligence\" AI technology that can understand how the three-dimensional physical world works.",
-    "summary": "Fei-Fei Li (Chinese: 李飞飞; pinyin: Lǐ Fēifēi; born July 3, 1976) is a Chinese-born American computer scientist best known for establishing ImageNet, the dataset that enabled rapid advances in computer vision in the 2010s. She is the Sequoia Capital professor of computer science at Stanford University, with research expertise in artificial intelligence, machine learning, deep learning, computer vision, and cognitive neuroscience. Li is a co-director of the Stanford Institute for Human-Centered Artificial Intelligence and a co-director of the Stanford Vision and Learning Lab, and served as Chief Scientist of AI/ML at Google Cloud and the director of the Stanford Artificial Intelligence Laboratory from 2013 to 2018. In 2017, she co-founded AI4ALL, a nonprofit organization working to increase diversity in the field of artificial intelligence.",
-    "moments": [
-      "In 2017, she co-founded AI4ALL, a nonprofit organization working to increase diversity in the field of artificial intelligence.",
-      "In 2023, Li was named one of the Time 100 AI Most Influential People.",
-      "In 2025, she was named as one of the \"Architects of AI\" for Time's Person of the Year.",
-      "\n\nWe are at a turning point."
-    ],
-    "working_style": "Fei-Fei Li thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
-    "content_length": 17247,
-    "wiki_title": "Fei-Fei Li",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/fei-fei_li.jpg"
-  },
-  {
-    "name": "Daphne Koller",
-    "field": "Computer Science",
-    "subfield": "Machine Learning",
-    "traits": {
-      "approach": "applied",
-      "collaboration": "large_team",
-      "risk": "bold",
-      "motivation": "recognition",
-      "adversity": "persist",
-      "breadth": "expanding",
-      "authority": "institutional",
-      "communication": "written",
-      "time_horizon": "immediate",
-      "resources": "adequate",
-      "legacy": "knowledge",
-      "failure": "analytical"
-    },
-    "archetype": "Distinguished Researcher",
-    "era": "Nation Builder",
-    "achievements": "awarded the first ever $150,000 ACM-Infosys Foundation Award in Computing Sciences. developed PhysiScore, which uses various data elements to predict whether premature babies are likely to have health issues. developed an alternative to the Zoom app. founded Coursera in 2012. founded the startup Engageli, which developed an alternative to the Zoom app.",
-    "summary": "Daphne Koller (Hebrew: דפנה קולר; born August 27, 1968) is an Israeli-American computer scientist. She was a professor in the department of computer science at Stanford University and a MacArthur Foundation fellowship recipient. She is one of the founders of Coursera, an online education platform. Her general research area is artificial intelligence and its applications in the biomedical sciences.",
-    "moments": [
-      "In 2018, she left Calico to start and lead Insitro, a drug discovery startup.",
-      "In 2009, she published a textbook on probabilistic graphical models together with Nir Friedman.",
-      "In 2020, Koller co-founded the startup Engageli, which developed an alternative to the Zoom app."
-    ],
-    "working_style": "while nurturing the next generation of scientists.",
-    "content_length": 5565,
-    "wiki_title": "Daphne Koller",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/daphne_koller.jpg"
   },
   {
     "name": "Sunita Narain",
