@@ -1792,38 +1792,6 @@
     "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/d_s_kothari.jpg"
   },
   {
-    "name": "Brebis Bleaney",
-    "field": "Physics",
-    "subfield": "Spectroscopy",
-    "traits": {
-      "approach": "experimental",
-      "collaboration": "large_team",
-      "risk": "calculated",
-      "motivation": "recognition",
-      "adversity": "persist",
-      "breadth": "specialist",
-      "authority": "institutional",
-      "communication": "written",
-      "time_horizon": "long_term",
-      "resources": "adequate",
-      "legacy": "knowledge",
-      "failure": "analytical"
-    },
-    "archetype": "Distinguished Researcher",
-    "era": "Nation Builder",
-    "achievements": "Nobel Prize for Physics regarding two separate achievements but never received the award. developed by Bell Labs. fellow of St John's College in 1947. Fellow of the Royal Society (FRS).",
-    "summary": "Brebis Bleaney (6 June 1915 – 4 November 2006) was a British physicist. His main area of research was the use of microwave techniques to study the magnetic properties of solids. He was head of the Clarendon Laboratory at the University of Oxford from 1957 to 1977. In 1992, Bleaney received the International Zavoisky Award \"for his contribution to the theory and practice of electron paramagnetic resonance of transition ions in crystals.",
-    "moments": [
-      "In 1992, Bleaney received the International Zavoisky Award \"for his contribution to the theory and practice of electron paramagnetic resonance of transition ions in crystals.",
-      "In 1933, he obtained an open scholarship in science to St John's College, Oxford, to read physics.",
-      "In 1943, the group was visited by Jerrold R."
-    ],
-    "working_style": "Brebis Bleaney thrived in collaborative environments spending long hours in the laboratory.",
-    "content_length": 3573,
-    "wiki_title": "Brebis Bleaney",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/brebis_bleaney.jpg"
-  },
-  {
     "name": "Sisir Kumar Mitra",
     "field": "Physics",
     "subfield": "Radio Physics",
@@ -4063,34 +4031,6 @@
     "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/subbayya_sivasankaranarayana_pillai.jpg"
   },
   {
-    "name": "K. Mahler",
-    "field": "Mathematics",
-    "subfield": "Number Theory",
-    "traits": {
-      "approach": "theoretical",
-      "collaboration": "mentor",
-      "risk": "bold",
-      "motivation": "recognition",
-      "adversity": "accept",
-      "breadth": "specialist",
-      "authority": "institutional",
-      "communication": "written",
-      "time_horizon": "immediate",
-      "resources": "adequate",
-      "legacy": "knowledge",
-      "failure": "analytical"
-    },
-    "archetype": "Distinguished Researcher",
-    "era": "Pre-Independence Pioneer",
-    "achievements": "awarded the London Mathematical Society's Senior Berwick Prize in 1950, the De Morgan Medal, 1971, and the Thomas Ranken Lyle Medal, 1977. fellow of the Royal Society in 1948 and a fellow of the Australian Academy of Science in 1965. first to give an explicit irrationality measure for π, in 1953 (of 42).",
-    "summary": "Kurt Mahler FRS (26 July 1903 – 25 February 1988) was a German mathematician who worked in the fields of transcendental number theory, diophantine approximation, p-adic analysis, and the geometry of numbers. Career\nMahler was a student at the universities in Frankfurt and Göttingen, graduating with a Ph. from Johann Wolfgang Goethe University of Frankfurt am Main in 1927; his advisor was Carl Ludwig Siegel. He left Germany with the rise of Adolf Hitler and accepted an invitation by Louis Mordell to go to Manchester.",
-    "moments": [],
-    "working_style": "pursuing elegant mathematical formulations.",
-    "content_length": 2472,
-    "wiki_title": "Kurt Mahler",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/k_mahler.jpg"
-  },
-  {
     "name": "V. S. Varadarajan",
     "field": "Mathematics",
     "subfield": "Lie Groups",
@@ -4306,39 +4246,6 @@
     "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/ramamurti_rajaraman.jpg"
   },
   {
-    "name": "Cumrun Vafa",
-    "field": "Physics",
-    "subfield": "String Theory",
-    "traits": {
-      "approach": "theoretical",
-      "collaboration": "solo",
-      "risk": "bold",
-      "motivation": "recognition",
-      "adversity": "persist",
-      "breadth": "expanding",
-      "authority": "independent",
-      "communication": "written",
-      "time_horizon": "long_term",
-      "resources": "adequate",
-      "legacy": "knowledge",
-      "failure": "analytical"
-    },
-    "archetype": "Intuitive Visionary",
-    "era": "Nation Builder",
-    "achievements": "awarded the Dannie Heineman Prize for Mathematical Physics. awarded the Mustafa Prize. developed his interest in math in high school, fascinated by how mathematics could predict the movement of objects. developed F-theory, a 12-dimensional theory that compactifies to 10-D Type IIB superstring theory.",
-    "summary": "Cumrun Vafa (Persian: کامران وفا, Persian pronunciation: [kɒːmˈrɒːn væˈfɒː]; born 1 August 1960) is an Iranian-American theoretical physicist and the Hollis Professor of Mathematicks and Natural Philosophy at Harvard University. In October 2025, Vafa was appointed the Timken University Professor at Harvard, the highest distinction a faculty member can receive at the University. Early life and education\nCumrun Vafa was born in Tehran, Iran on 1 August 1960. He became interested in physics as a young child (with such questions as why the moon did not fall from the sky), and developed his interest in math in high school, fascinated by how mathematics could predict the movement of objects.",
-    "moments": [
-      "In 1989 he was offered a senior faculty position, and he has been there ever since.",
-      "In 1997, he developed F-theory, a 12-dimensional theory that compactifies to 10-D Type IIB superstring theory.",
-      "In 2017, Vafa, alongside Andrew Strominger and Joseph Polchinski, jointly won the Breakthrough Prize in Fundamental Physics for their advancement of string theory and jointly won the 2014 Breakthrough Prize in Physics Frontiers Prize.",
-      "\n\nAwards and honors\nIn 2017, Vafa, alongside Andrew Strominger and Joseph Polchinski, jointly won the Breakthrough Prize in Fundamental Physics for their advancement of string theory and jointly won the 2014 Breakthrough Prize in Physics Frontiers Prize."
-    ],
-    "working_style": "pursuing elegant mathematical formulations.",
-    "content_length": 5807,
-    "wiki_title": "Cumrun Vafa",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/cumrun_vafa.jpg"
-  },
-  {
     "name": "G. Padmanaban",
     "field": "Chemistry",
     "subfield": "Biochemistry",
@@ -4423,38 +4330,6 @@
     "content_length": 5722,
     "wiki_title": "T. Ramasami",
     "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/t_ramasami.jpg"
-  },
-  {
-    "name": "V. Prelog",
-    "field": "Chemistry",
-    "subfield": "Stereochemistry",
-    "traits": {
-      "approach": "theoretical",
-      "collaboration": "mentor",
-      "risk": "bold",
-      "motivation": "recognition",
-      "adversity": "accept",
-      "breadth": "expanding",
-      "authority": "institutional",
-      "communication": "written",
-      "time_horizon": "immediate",
-      "resources": "adequate",
-      "legacy": "knowledge",
-      "failure": "analytical"
-    },
-    "archetype": "Distinguished Researcher",
-    "era": "Nation Builder",
-    "achievements": "Nobel Prize in chemistry for his research into the stereochemistry of organic molecules and reactions. Nobel Prize in Chemistry for his research into the stereochemistry of organic molecules and reaction, sharing it with the Australian/British research chemist John Cornforth. developed a financially successful method of producing Streptazol, one of the first commercial sulfonamides. developed the first synthesis of adamantane, a hydrocarbon with an unusual structure that was isolated from Moravian oil fields. first World War, at 9 Prelog moved to Zagreb (then part of Austria-Hungary) with his parents.",
-    "summary": "Vladimir Prelog (23 July 1906 – 7 January 1998) was a Croatian-Swiss organic chemist who received the 1975 Nobel Prize in chemistry for his research into the stereochemistry of organic molecules and reactions. Prelog was born, and spent his infancy, in Sarajevo, and youth in Zagreb, Osijek and Prague. He later lived and worked in Prague, Zagreb and Zürich. Early life Prelog was born in Sarajevo, Condominium of Bosnia and Herzegovina, at that time within Austria-Hungary, to Croat parents who were working there.",
-    "moments": [
-      "In 1915, at the beginning of the first World War, at 9 Prelog moved to Zagreb (then part of Austria-Hungary) with his parents.",
-      "In 1941, while at Zagreb, Prelog developed the first synthesis of adamantane, a hydrocarbon with an unusual structure that was isolated from Moravian oil fields.",
-      "In 1941, in the midst of World War II, Prelog was invited to lecture in Germany by Richard Kuhn."
-    ],
-    "working_style": "V. Prelog thrived in collaborative environments spending long hours in the laboratory while nurturing the next generation of scientists.",
-    "content_length": 10108,
-    "wiki_title": "Vladimir Prelog",
-    "image_url": "https://nlgcvxygeicujcqwomut.supabase.co/storage/v1/object/public/scientist-images/v_prelog.jpg"
   },
   {
     "name": "P. Balaram",

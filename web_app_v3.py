@@ -230,6 +230,9 @@ def start_quiz():
     session['current_question'] = 0
     session['quiz_session_id'] = secrets.token_hex(8)
 
+    print(f"[Session Debug] START QUIZ - Created quiz_session_id: {session['quiz_session_id']}")
+    print(f"[Session Debug] SUPABASE_AVAILABLE: {SUPABASE_AVAILABLE}")
+
     # Track in Supabase
     if SUPABASE_AVAILABLE and db:
         session_uuid = db.create_quiz_session(
@@ -237,8 +240,14 @@ def start_quiz():
             domain=domain,
             ip_address=get_client_ip()
         )
+        print(f"[Session Debug] Supabase returned session_uuid: {session_uuid}")
         if session_uuid:
             session['db_session_uuid'] = session_uuid
+            print(f"[Session Debug] ✓ Saved db_session_uuid to Flask session: {session_uuid}")
+        else:
+            print(f"[Session Debug] ✗ Supabase did NOT return session_uuid!")
+    else:
+        print(f"[Session Debug] ✗ Supabase not available - data will NOT be saved!")
 
     question = QUESTIONS[0]
     return jsonify({
