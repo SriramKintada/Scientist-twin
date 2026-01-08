@@ -28,6 +28,12 @@ except ImportError:
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
+# Session cookie configuration for iframe embedding
+# Required for third-party cookie support in iframes
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True  # Required when SameSite=None
+app.config['SESSION_COOKIE_HTTPONLY'] = True  # Security best practice
+
 # Performance optimizations
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 31536000  # Cache static files for 1 year
 app.config['JSON_SORT_KEYS'] = False  # Faster JSON serialization
