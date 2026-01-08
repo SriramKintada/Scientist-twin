@@ -28,11 +28,16 @@ except ImportError:
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
+# Trust proxy headers (required for Vercel/production)
+from werkzeug.middleware.proxy_fix import ProxyFix
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
 # Session cookie configuration for iframe embedding
 # Required for third-party cookie support in iframes
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = True  # Required when SameSite=None
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Security best practice
+app.config['SESSION_COOKIE_DOMAIN'] = None  # Allow subdomain cookies
 
 # Performance optimizations
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 31536000  # Cache static files for 1 year

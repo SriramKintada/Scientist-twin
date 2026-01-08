@@ -1563,6 +1563,11 @@
                     const savedResults = localStorage.getItem('lastQuizResults');
                     if (savedResults) {
                         const data = JSON.parse(savedResults);
+                        // Hide all other screens first
+                        document.getElementById('step-domain').classList.remove('active');
+                        document.getElementById('step-quiz').classList.remove('active');
+                        // Show results
+                        document.getElementById('step-results').classList.add('active');
                         showResults(data);
                     } else {
                         console.log('[Results] No saved results found in localStorage');
