@@ -657,26 +657,6 @@ def get_stats():
     })
 
 
-@app.route('/api/health')
-def health_check():
-    """Health check endpoint for monitoring"""
-    health = {
-        "status": "healthy",
-        "scientists_loaded": len(matching_engine.scientists),
-        "supabase_connected": SUPABASE_AVAILABLE
-    }
-
-    # Get Supabase connection health if available
-    if SUPABASE_AVAILABLE and db:
-        try:
-            conn_health = db.get_connection_health()
-            health["supabase_health"] = conn_health
-        except:
-            health["supabase_health"] = {"status": "unknown"}
-
-    return jsonify(health)
-
-
 if __name__ == '__main__':
     print("="*60)
     print(f"Scientist Twin 3.0 - Optimized for Nano Plan")
