@@ -455,6 +455,11 @@
         <div class="stats-hero">
             <div class="big-number" id="total-plays">{{ stats.total_plays }}</div>
             <div class="stats-label">Curious Minds Have Played!</div>
+            {% if stats.total_plays == 0 %}
+            <p style="margin-top: 16px; color: #6b7280; font-size: 0.95em;">
+                🎯 Analytics will appear here once people start taking the quiz!
+            </p>
+            {% endif %}
         </div>
 
         <div class="grid">
@@ -467,20 +472,24 @@
                         <div class="card-subtitle">Most matched scientists</div>
                     </div>
                 </div>
-                {% for scientist in stats.hall_of_fame %}
-                <div class="hall-of-fame-item">
-                    <div class="rank">#{{ loop.index }}</div>
-                    <img src="{{ scientist.image_url if scientist.image_url else 'https://en.wikipedia.org/wiki/Special:FilePath/' + scientist.name | replace(' ', '_') + '.jpg' }}"
-                         alt="{{ scientist.name }}"
-                         class="scientist-avatar"
-                         onerror="this.onerror=null; this.src='data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/><circle cx=\'50\' cy=\'35\' r=\'18\' fill=\'%239ca3af\'/><ellipse cx=\'50\' cy=\'75\' rx=\'28\' ry=\'20\' fill=\'%239ca3af\'/></svg>');">
-                    <div class="scientist-info">
-                        <h4>{{ scientist.name }}</h4>
-                        <p>{{ scientist.field }} &bull; {{ scientist.era }}</p>
+                {% if stats.hall_of_fame %}
+                    {% for scientist in stats.hall_of_fame %}
+                    <div class="hall-of-fame-item">
+                        <div class="rank">#{{ loop.index }}</div>
+                        <img src="{{ scientist.image_url if scientist.image_url else 'https://en.wikipedia.org/wiki/Special:FilePath/' + scientist.name | replace(' ', '_') + '.jpg' }}"
+                             alt="{{ scientist.name }}"
+                             class="scientist-avatar"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/><circle cx=\'50\' cy=\'35\' r=\'18\' fill=\'%239ca3af\'/><ellipse cx=\'50\' cy=\'75\' rx=\'28\' ry=\'20\' fill=\'%239ca3af\'/></svg>');">
+                        <div class="scientist-info">
+                            <h4>{{ scientist.name }}</h4>
+                            <p>{{ scientist.field }} &bull; {{ scientist.era }}</p>
+                        </div>
+                        <span class="match-rate">{{ scientist.match_rate }}%</span>
                     </div>
-                    <span class="match-rate">{{ scientist.match_rate }}%</span>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No matches yet</p>
+                {% endif %}
             </div>
 
             <!-- Live Activity -->
@@ -492,15 +501,19 @@
                         <div class="card-subtitle">Recent quiz completions</div>
                     </div>
                 </div>
-                {% for activity in stats.recent_activity %}
-                <div class="activity-item">
-                    <div class="activity-avatar">&#129300;</div>
-                    <div class="activity-text">
-                        <strong>Player #{{ activity.id }}</strong> matched with <span class="scientist-name">{{ activity.scientist }}</span>
+                {% if stats.recent_activity %}
+                    {% for activity in stats.recent_activity %}
+                    <div class="activity-item">
+                        <div class="activity-avatar">&#129300;</div>
+                        <div class="activity-text">
+                            <strong>Player #{{ activity.id }}</strong> matched with <span class="scientist-name">{{ activity.scientist }}</span>
+                        </div>
+                        <div class="activity-time">{{ activity.time }}</div>
                     </div>
-                    <div class="activity-time">{{ activity.time }}</div>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No recent activity</p>
+                {% endif %}
             </div>
 
             <!-- Top Traits -->
@@ -512,16 +525,20 @@
                         <div class="card-subtitle">Most common in our community</div>
                     </div>
                 </div>
-                {% for trait in stats.top_traits %}
-                <div class="trait-item">
-                    <span class="trait-icon">{{ trait.icon }}</span>
-                    <span class="trait-name">{{ trait.name }}</span>
-                    <div class="trait-bar-bg">
-                        <div class="trait-bar-fill" style="width: {{ trait.percent }}%"></div>
+                {% if stats.top_traits %}
+                    {% for trait in stats.top_traits %}
+                    <div class="trait-item">
+                        <span class="trait-icon">{{ trait.icon }}</span>
+                        <span class="trait-name">{{ trait.name }}</span>
+                        <div class="trait-bar-bg">
+                            <div class="trait-bar-fill" style="width: {{ trait.percent }}%"></div>
+                        </div>
+                        <span class="trait-percent">{{ trait.percent }}%</span>
                     </div>
-                    <span class="trait-percent">{{ trait.percent }}%</span>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No trait data yet</p>
+                {% endif %}
             </div>
 
             <!-- Popular Fields -->
@@ -533,12 +550,16 @@
                         <div class="card-subtitle">Top matched scientific areas</div>
                     </div>
                 </div>
-                {% for field in stats.popular_fields %}
-                <div class="field-item">
-                    <span class="field-name">{{ field.name }}</span>
-                    <span class="field-count">{{ field.count }} matches</span>
-                </div>
-                {% endfor %}
+                {% if stats.popular_fields %}
+                    {% for field in stats.popular_fields %}
+                    <div class="field-item">
+                        <span class="field-name">{{ field.name }}</span>
+                        <span class="field-count">{{ field.count }} matches</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No field data yet</p>
+                {% endif %}
             </div>
 
             <!-- Engagement Stats -->

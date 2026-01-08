@@ -129,6 +129,9 @@ def save_quiz_results(session_uuid: str, matches: List[Dict]) -> bool:
             results.append({
                 "session_id": session_uuid,
                 "scientist_name": match.get("name", ""),
+                "scientist_field": match.get("field", ""),
+                "scientist_era": match.get("era", ""),
+                "scientist_image": match.get("image_url", ""),
                 "match_score": match.get("score", 0),
                 "match_quality": match.get("match_quality", ""),
                 "rank": i + 1
@@ -280,17 +283,17 @@ def get_real_analytics() -> Dict[str, Any]:
                 for t, c in top_traits
             ]
 
-        # Popular fields
-        results = client.table("quiz_results").select("scientist_name").execute()
+        # Popular fields - get from quiz_results with scientist field data
+        results = client.table("quiz_results").select("scientist_field").eq("rank", 1).execute()
         if results.data:
-            # We'd need scientist field info - for now estimate from names
+            from collections import Counter
+            field_counts = Counter(r.get("scientist_field", "Unknown") for r in results.data if r.get("scientist_field"))
             analytics["popular_fields"] = [
-                {"name": "Physics", "count": len([r for r in results.data if "Physics" in str(r)])},
-                {"name": "Biology", "count": 15},
-                {"name": "Chemistry", "count": 12},
-                {"name": "Mathematics", "count": 10},
-                {"name": "Engineering", "count": 8}
+                {"name": field, "count": count}
+                for field, count in field_counts.most_common(5)
             ]
+        else:
+            analytics["popular_fields"] = []
 
         # Engagement stats
         likes_count = client.table("likes").select("id", count="exact").execute()
@@ -304,9 +307,71 @@ def get_real_analytics() -> Dict[str, Any]:
         else:
             analytics["share_rate"] = 0
 
-        # Peak times (simplified)
-        analytics["peak_hour"] = "7-9 PM"
-        analytics["peak_day"] = "Sunday"
+        # Retake rate - users who completed multiple times
+        try:
+            # Get all completed sessions with IP hashes
+            all_sessions = client.table("quiz_sessions")\
+                .select("ip_hash")\
+                .not_.is_("completed_at", "null")\
+                .not_.is_("ip_hash", "null")\
+                .execute()
+
+            if all_sessions.data:
+                # Count unique IP hashes
+                unique_ips = len(set(s["ip_hash"] for s in all_sessions.data if s.get("ip_hash")))
+                total_sessions = len(all_sessions.data)
+
+                # If we have more sessions than unique IPs, some users retook
+                if unique_ips > 0 and total_sessions > unique_ips:
+                    analytics["retake_rate"] = round(((total_sessions - unique_ips) * 100) / total_sessions)
+                else:
+                    analytics["retake_rate"] = 0
+            else:
+                analytics["retake_rate"] = 0
+        except Exception as e:
+            print(f"[Analytics] Retake rate calculation error: {e}")
+            analytics["retake_rate"] = 0
+
+        # Peak times - calculate from session timestamps
+        try:
+            sessions = client.table("quiz_sessions")\
+                .select("created_at")\
+                .not_.is_("completed_at", "null")\
+                .execute()
+
+            if sessions.data and len(sessions.data) > 5:
+                from collections import Counter
+                hours = []
+                days = []
+
+                for s in sessions.data:
+                    try:
+                        dt = datetime.fromisoformat(s["created_at"].replace("Z", "+00:00"))
+                        hours.append(dt.hour)
+                        days.append(dt.strftime("%A"))  # Day name
+                    except:
+                        pass
+
+                if hours:
+                    hour_counts = Counter(hours)
+                    peak_hour_num = hour_counts.most_common(1)[0][0]
+                    # Format as time range
+                    analytics["peak_hour"] = f"{peak_hour_num}:00-{peak_hour_num+1}:00"
+                else:
+                    analytics["peak_hour"] = "N/A"
+
+                if days:
+                    day_counts = Counter(days)
+                    analytics["peak_day"] = day_counts.most_common(1)[0][0]
+                else:
+                    analytics["peak_day"] = "N/A"
+            else:
+                analytics["peak_hour"] = "N/A"
+                analytics["peak_day"] = "N/A"
+        except Exception as e:
+            print(f"[Analytics] Peak time calculation error: {e}")
+            analytics["peak_hour"] = "N/A"
+            analytics["peak_day"] = "N/A"
 
         return analytics
 

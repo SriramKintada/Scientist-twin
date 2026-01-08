@@ -456,78 +456,39 @@ def dashboard():
 
 @app.route('/analytics')
 def analytics():
-    """Analytics dashboard with real or fallback stats"""
+    """Analytics dashboard with ONLY real data from Supabase"""
 
     # Try to get real analytics from Supabase
     if SUPABASE_AVAILABLE and db:
         real_stats = db.get_real_analytics()
-        if real_stats and real_stats.get('total_plays', 0) > 0:
+        if real_stats:
+            # Provide empty defaults for any missing data
+            real_stats.setdefault('hall_of_fame', [])
+            real_stats.setdefault('recent_activity', [])
+            real_stats.setdefault('top_traits', [])
+            real_stats.setdefault('popular_fields', [])
+            real_stats.setdefault('share_rate', 0)
+            real_stats.setdefault('retake_rate', 0)
+            real_stats.setdefault('favorites', 0)
+            real_stats.setdefault('peak_hour', 'N/A')
+            real_stats.setdefault('peak_day', 'N/A')
             return render_template('analytics.html', stats=real_stats, is_real=True)
 
-    # Fallback to generated stats
-    scientists = matching_engine.scientists
-
-    # Hall of Fame - top matched scientists (sample from database)
-    sample_scientists = random.sample(scientists, min(5, len(scientists)))
-    hall_of_fame = []
-    match_rates = [87, 72, 68, 54, 49]
-    for i, s in enumerate(sample_scientists):
-        hall_of_fame.append({
-            "name": s["name"],
-            "field": s["field"],
-            "era": s.get("era", "Modern"),
-            "match_rate": match_rates[i] if i < len(match_rates) else random.randint(30, 50),
-            "image_url": s.get("image_url", "")
-        })
-
-    # Calculate total plays first (needed for player IDs)
-    total_plays = random.randint(1200, 2500)
-
-    # Recent activity
-    recent_activity = []
-    activity_scientists = random.sample(scientists, min(6, len(scientists)))
-    times = ["Just now", "2 min ago", "5 min ago", "12 min ago", "23 min ago", "1 hour ago"]
-    for i, s in enumerate(activity_scientists):
-        recent_activity.append({
-            "id": total_plays - i,  # Descending order from total_plays
-            "scientist": s["name"],
-            "time": times[i] if i < len(times) else f"{random.randint(1, 12)} hours ago"
-        })
-
-    # Top traits
-    top_traits = [
-        {"name": "Curious", "icon": "🔍", "percent": 78},
-        {"name": "Collaborative", "icon": "🤝", "percent": 65},
-        {"name": "Risk-Taker", "icon": "🎯", "percent": 58},
-        {"name": "Visionary", "icon": "🌟", "percent": 52},
-        {"name": "Methodical", "icon": "📊", "percent": 47}
-    ]
-
-    # Popular fields
-    field_counts = {}
-    for s in scientists:
-        field = s["field"]
-        field_counts[field] = field_counts.get(field, 0) + random.randint(5, 25)
-
-    popular_fields = [
-        {"name": field, "count": count}
-        for field, count in sorted(field_counts.items(), key=lambda x: -x[1])[:5]
-    ]
-
-    stats = {
-        "total_plays": total_plays,
-        "hall_of_fame": hall_of_fame,
-        "recent_activity": recent_activity,
-        "top_traits": top_traits,
-        "popular_fields": popular_fields,
-        "share_rate": random.randint(35, 55),
-        "retake_rate": random.randint(20, 40),
-        "favorites": random.randint(150, 400),
-        "peak_hour": "7-9 PM",
-        "peak_day": "Sunday"
+    # No Supabase connection or no data yet - show empty state
+    empty_stats = {
+        "total_plays": 0,
+        "hall_of_fame": [],
+        "recent_activity": [],
+        "top_traits": [],
+        "popular_fields": [],
+        "share_rate": 0,
+        "retake_rate": 0,
+        "favorites": 0,
+        "peak_hour": "N/A",
+        "peak_day": "N/A"
     }
 
-    return render_template('analytics.html', stats=stats, is_real=False)
+    return render_template('analytics.html', stats=empty_stats, is_real=False)
 
 
 @app.route('/results')
