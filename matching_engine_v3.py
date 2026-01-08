@@ -4,10 +4,10 @@ Generates detailed explanations based on actual scientist biographies
 """
 
 import json
-import google.generativeai as genai
-from config import GEMINI_API_KEY
-
-genai.configure(api_key=GEMINI_API_KEY)
+# Gemini API temporarily disabled for next week
+# import google.generativeai as genai
+# from config import GEMINI_API_KEY
+# genai.configure(api_key=GEMINI_API_KEY)
 
 # Trait descriptions for generating meaningful explanations
 TRAIT_DESCRIPTIONS = {
@@ -92,7 +92,8 @@ class MatchingEngineV3:
     """
 
     def __init__(self, database_path='scientist_db_rich.json'):
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        # Gemini API disabled - using rich fallback instead
+        self.model = None
         self.load_database(database_path)
 
     def load_database(self, path):
@@ -565,22 +566,9 @@ Return JSON with SHORT, PUNCHY content. Each explanation should be 1-2 sentences
 
 Return ONLY valid JSON. Keep it concise."""
 
-        try:
-            response = self.model.generate_content(prompt)
-            text = response.text.strip()
-
-            if text.startswith('```'):
-                text = text.split('```')[1]
-                if text.startswith('json'):
-                    text = text[4:]
-            text = text.strip()
-
-            result = json.loads(text)
-            print(f"[AI] GEMINI GENERATED for {name}")
-            return result
-
-        except Exception as e:
-            print(f"[FALLBACK] Using template for {name}: {e}")
+        # Gemini API disabled - always use rich fallback
+        if True:  # Skip Gemini entirely
+            print(f"[FALLBACK] Using rich biographical template for {name}")
             # RICH FALLBACK using actual biographical data and user's specific answers
             resonances = []
             for t in matching[:3]:

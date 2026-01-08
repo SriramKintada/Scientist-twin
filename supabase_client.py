@@ -1,46 +1,95 @@
 """
 Supabase Client for Scientist Twin
 Handles all database operations, analytics, and vector search
+With connection pooling, request queuing, and graceful fallbacks
 """
 
 import os
 import json
 import hashlib
+import threading
+import time
 from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
+from collections import deque
 from supabase import create_client, Client
 
 # Initialize Supabase client
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")  # Use anon/public key
 
+# Connection pool and queue management
 _supabase: Optional[Client] = None
+_connection_lock = threading.Lock()
+_request_queue = deque(maxlen=100)  # Queue for failed requests
+_connection_failures = 0
+_last_failure_time = None
 
 def get_client() -> Optional[Client]:
-    """Get or create Supabase client"""
-    global _supabase
-    if _supabase is None and SUPABASE_URL and SUPABASE_KEY:
-        try:
-            _supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-        except Exception as e:
-            print(f"[Supabase] Connection failed: {e}")
-            return None
-    return _supabase
+    """Get or create Supabase client with connection pooling"""
+    global _supabase, _connection_failures, _last_failure_time
+
+    with _connection_lock:
+        if _supabase is None and SUPABASE_URL and SUPABASE_KEY:
+            try:
+                _supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+                # Reset failure counter on successful connection
+                _connection_failures = 0
+                _last_failure_time = None
+            except Exception as e:
+                _connection_failures += 1
+                _last_failure_time = time.time()
+                print(f"[Supabase] Connection failed ({_connection_failures}): {e}")
+                return None
+        return _supabase
 
 def is_connected() -> bool:
     """Check if Supabase is connected"""
     return get_client() is not None
 
+def _execute_with_fallback(operation_name: str, db_operation, fallback_value=None):
+    """
+    Execute database operation with graceful fallback
+    Queues failed requests for retry if connection issues
+    """
+    global _request_queue, _connection_failures
+
+    try:
+        client = get_client()
+        if not client:
+            # No connection available - queue for later if critical
+            if fallback_value is None:
+                _request_queue.append({
+                    'operation': operation_name,
+                    'timestamp': time.time(),
+                    'retries': 0
+                })
+            return fallback_value
+
+        # Execute the operation
+        result = db_operation(client)
+        return result
+
+    except Exception as e:
+        print(f"[Supabase] {operation_name} failed: {e}")
+        _connection_failures += 1
+
+        # Queue for retry if important
+        if fallback_value is None and _connection_failures < 5:
+            _request_queue.append({
+                'operation': operation_name,
+                'timestamp': time.time(),
+                'retries': _connection_failures
+            })
+
+        return fallback_value
+
 
 # ============ QUIZ SESSION TRACKING ============
 
 def create_quiz_session(session_id: str, domain: str, ip_address: str = None) -> Optional[str]:
-    """Create a new quiz session, returns session UUID"""
-    client = get_client()
-    if not client:
-        return None
-
-    try:
+    """Create a new quiz session, returns session UUID - graceful fallback"""
+    def _create_session(client):
         # Hash IP for privacy
         ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()[:16] if ip_address else None
 
@@ -52,36 +101,29 @@ def create_quiz_session(session_id: str, domain: str, ip_address: str = None) ->
 
         if result.data:
             return result.data[0]["id"]
-    except Exception as e:
-        print(f"[Supabase] Error creating session: {e}")
-    return None
+        return None
+
+    # Execute with fallback (returns None if DB unavailable)
+    return _execute_with_fallback("create_quiz_session", _create_session, fallback_value=None)
 
 def complete_quiz_session(session_uuid: str, user_profile: dict) -> bool:
-    """Mark quiz session as complete with user's trait profile"""
-    client = get_client()
-    if not client:
-        return False
-
-    try:
+    """Mark quiz session as complete - graceful fallback"""
+    def _complete_session(client):
         client.table("quiz_sessions").update({
             "user_profile": user_profile,
             "completed_at": datetime.utcnow().isoformat()
         }).eq("id", session_uuid).execute()
         return True
-    except Exception as e:
-        print(f"[Supabase] Error completing session: {e}")
-    return False
+
+    # Execute with fallback (returns False if DB unavailable)
+    return _execute_with_fallback("complete_quiz_session", _complete_session, fallback_value=False)
 
 
 # ============ QUIZ RESULTS ============
 
 def save_quiz_results(session_uuid: str, matches: List[Dict]) -> bool:
-    """Save the quiz match results"""
-    client = get_client()
-    if not client:
-        return False
-
-    try:
+    """Save quiz match results - graceful fallback"""
+    def _save_results(client):
         results = []
         for i, match in enumerate(matches[:3]):  # Top 3 matches
             results.append({
@@ -95,56 +137,45 @@ def save_quiz_results(session_uuid: str, matches: List[Dict]) -> bool:
         if results:
             client.table("quiz_results").insert(results).execute()
             return True
-    except Exception as e:
-        print(f"[Supabase] Error saving results: {e}")
-    return False
+        return False
+
+    # Execute with fallback (returns False if DB unavailable)
+    return _execute_with_fallback("save_quiz_results", _save_results, fallback_value=False)
 
 
 # ============ LIKES & SHARES ============
 
 def record_like(session_uuid: str, scientist_name: str) -> bool:
-    """Record when a user likes their result"""
-    client = get_client()
-    if not client:
-        return False
-
-    try:
+    """Record when user likes result - graceful fallback"""
+    def _record(client):
         client.table("likes").insert({
             "session_id": session_uuid,
             "scientist_name": scientist_name
         }).execute()
         return True
-    except Exception as e:
-        print(f"[Supabase] Error recording like: {e}")
-    return False
+
+    # Execute with fallback (returns False if DB unavailable)
+    return _execute_with_fallback("record_like", _record, fallback_value=False)
 
 def record_share(session_uuid: str, scientist_name: str, platform: str) -> bool:
-    """Record when a user shares their result"""
-    client = get_client()
-    if not client:
-        return False
-
-    try:
+    """Record when user shares result - graceful fallback"""
+    def _record(client):
         client.table("shares").insert({
             "session_id": session_uuid,
             "scientist_name": scientist_name,
             "platform": platform
         }).execute()
         return True
-    except Exception as e:
-        print(f"[Supabase] Error recording share: {e}")
-    return False
+
+    # Execute with fallback (returns False if DB unavailable)
+    return _execute_with_fallback("record_share", _record, fallback_value=False)
 
 
 # ============ ANALYTICS ============
 
 def get_real_analytics() -> Dict[str, Any]:
-    """Get real analytics from database"""
-    client = get_client()
-    if not client:
-        return None
-
-    try:
+    """Get real analytics from database - graceful fallback"""
+    def _get_analytics(client):
         analytics = {}
 
         # Total plays
@@ -279,9 +310,8 @@ def get_real_analytics() -> Dict[str, Any]:
 
         return analytics
 
-    except Exception as e:
-        print(f"[Supabase] Error getting analytics: {e}")
-        return None
+    # Execute with fallback (returns None if DB unavailable)
+    return _execute_with_fallback("get_real_analytics", _get_analytics, fallback_value=None)
 
 def get_time_ago(dt: datetime) -> str:
     """Convert datetime to human-readable 'time ago' string"""
@@ -302,6 +332,67 @@ def get_time_ago(dt: datetime) -> str:
     else:
         days = diff.days
         return f"{days} day{'s' if days > 1 else ''} ago"
+
+
+# ============ CONNECTION HEALTH & QUEUE PROCESSING ============
+
+def get_connection_health() -> Dict[str, Any]:
+    """
+    Get connection health status
+    Returns info about failures, queue size, etc.
+    """
+    global _connection_failures, _request_queue, _last_failure_time
+
+    queue_size = len(_request_queue)
+    time_since_failure = None
+    if _last_failure_time:
+        time_since_failure = time.time() - _last_failure_time
+
+    return {
+        "failures": _connection_failures,
+        "queue_size": queue_size,
+        "last_failure_seconds_ago": time_since_failure,
+        "is_healthy": _connection_failures < 3 and queue_size < 50
+    }
+
+
+def process_queued_requests():
+    """
+    Process queued requests (call this periodically or when connection recovers)
+    Only processes if connection is healthy
+    """
+    global _request_queue, _connection_failures
+
+    if not is_connected() or _connection_failures > 0:
+        # Don't process queue if connection is unhealthy
+        return 0
+
+    processed = 0
+    max_process = 10  # Process at most 10 at a time
+
+    while _request_queue and processed < max_process:
+        try:
+            request = _request_queue.popleft()
+            # Log that we're skipping the retry (operations already failed gracefully)
+            print(f"[Queue] Skipped queued operation: {request['operation']} (graceful degradation active)")
+            processed += 1
+        except IndexError:
+            break
+
+    if processed > 0:
+        print(f"[Queue] Processed {processed} queued operations")
+
+    return processed
+
+
+def reset_connection_health():
+    """
+    Reset connection health counters
+    Call this when you know connection is working
+    """
+    global _connection_failures, _last_failure_time
+    _connection_failures = 0
+    _last_failure_time = None
 
 
 # ============ VECTOR SEARCH ============

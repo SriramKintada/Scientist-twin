@@ -641,7 +641,7 @@
             observer.observe(item.closest('.card'));
         });
 
-        // Auto-refresh player count and live activity every 30 seconds
+        // Auto-refresh player count and live activity every 90 seconds (reduced DB load)
         setInterval(async () => {
             try {
                 const response = await fetch('/api/analytics-live');
@@ -672,8 +672,9 @@
                 console.log('[Analytics] Auto-refreshed at', new Date().toLocaleTimeString());
             } catch (error) {
                 console.error('[Analytics] Refresh failed:', error);
+                // Graceful degradation - continue showing current data
             }
-        }, 30000); // Refresh every 30 seconds
+        }, 90000); // Refresh every 90 seconds
     </script>
 </body>
 </html>

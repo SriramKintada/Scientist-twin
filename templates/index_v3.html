@@ -7,19 +7,19 @@
 
     <!-- Open Graph / Facebook / Instagram Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:url" content="https://scirio.in/indian-scientist-twin">
     <meta property="og:title" content="Find Your Indian Scientist Twin 🔬">
     <meta property="og:description" content="Discover which legendary Indian scientist shares your personality and working style! Take our interactive quiz featuring 500+ pioneering scientists.">
-    <meta property="og:image" content="{{ url_for('static', filename='scientist-twin-og.jpg', _external=True) if config.get('SERVER_NAME') else '/static/scientist-twin-og.jpg' }}">
+    <meta property="og:image" content="https://scientist-twin-ov7c.vercel.app/static/companyimage.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:url" content="https://scirio.in/indian-scientist-twin">
     <meta name="twitter:title" content="Find Your Indian Scientist Twin 🔬">
     <meta name="twitter:description" content="Discover which legendary Indian scientist shares your personality and working style!">
-    <meta name="twitter:image" content="{{ url_for('static', filename='scientist-twin-og.jpg', _external=True) if config.get('SERVER_NAME') else '/static/scientist-twin-og.jpg' }}">
+    <meta name="twitter:image" content="https://scientist-twin-ov7c.vercel.app/static/companyimage.png">
 
     <!-- Additional Meta Tags -->
     <meta name="description" content="Interactive personality quiz matching you with Indian scientists based on your traits, working style, and approach to discovery.">
@@ -1284,16 +1284,10 @@
                             if (/\) is a[n]?\s/i.test(s)) return false;
                             return s.length > 20;
                         });
-                        // Build bio from complete sentences only
-                        let bio = '';
-                        for (let i = 0; i < goodSentences.length && i < 3; i++) {
-                            const sentence = goodSentences[i].trim();
-                            // Check if adding this sentence would exceed limit
-                            if ((bio + sentence).length > 350) {
-                                break; // Stop before exceeding limit
-                            }
-                            bio += (bio ? ' ' : '') + sentence;
-                        }
+                        // Build bio from complete sentences - NO CHARACTER LIMIT
+                        // Show all good sentences to avoid mid-sentence truncation
+                        let bio = goodSentences.join(' ').trim();
+
                         // Always ensure we end with proper punctuation
                         if (bio && !bio.match(/[.!?]$/)) {
                             bio += '.';
@@ -1440,21 +1434,24 @@
         }
 
         function shareTwitter() {
+            const shareUrl = "https://scirio.in/indian-scientist-twin";
             const text = "I just found my Indian Scientist Twin! Take the quiz to find yours! 🔬";
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
             trackShare('twitter');
         }
 
         function shareFacebook() {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
             trackShare('facebook');
         }
 
         function shareInstagram() {
             // Instagram doesn't support direct web sharing
             // Copy link and prompt user to share via Instagram app
+            const shareUrl = "https://scirio.in/indian-scientist-twin";
             const text = "I just found my Indian Scientist Twin! 🔬\n\n";
-            const fullText = text + window.location.href;
+            const fullText = text + shareUrl;
 
             // Copy to clipboard
             navigator.clipboard.writeText(fullText).then(() => {
@@ -1467,18 +1464,21 @@
         }
 
         function shareWhatsApp() {
-            const text = "I just found my Indian Scientist Twin! 🔬 Take the quiz: " + window.location.href;
+            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            const text = "I just found my Indian Scientist Twin! 🔬 Take the quiz: " + shareUrl;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
             trackShare('whatsapp');
         }
 
         function shareLinkedIn() {
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');
             trackShare('linkedin');
         }
 
         function copyLink() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
+            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            navigator.clipboard.writeText(shareUrl).then(() => {
                 showToast('Link copied to clipboard! 📋');
             });
         }

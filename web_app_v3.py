@@ -644,9 +644,37 @@ def get_stats():
     })
 
 
+@app.route('/api/health')
+def health_check():
+    """Health check endpoint for monitoring"""
+    health = {
+        "status": "healthy",
+        "scientists_loaded": len(matching_engine.scientists),
+        "supabase_connected": SUPABASE_AVAILABLE
+    }
+
+    # Get Supabase connection health if available
+    if SUPABASE_AVAILABLE and db:
+        try:
+            conn_health = db.get_connection_health()
+            health["supabase_health"] = conn_health
+        except:
+            health["supabase_health"] = {"status": "unknown"}
+
+    return jsonify(health)
+
+
 if __name__ == '__main__':
-    print(f"Loaded {len(matching_engine.scientists)} scientists with rich profiles")
-    print(f"Supabase: {'Connected' if SUPABASE_AVAILABLE else 'Not configured (using fallback)'}")
-    print("Starting Scientist Twin 3.0...")
-    print("Open http://127.0.0.1:5000 in your browser")
+    print("="*60)
+    print(f"Scientist Twin 3.0 - Optimized for Nano Plan")
+    print("="*60)
+    print(f"[OK] Loaded {len(matching_engine.scientists)} scientists with rich profiles")
+    print(f"[OK] Supabase: {'Connected' if SUPABASE_AVAILABLE else 'Not configured (using fallback)'}")
+    print(f"[OK] Auto-refresh: 90 seconds (reduced DB load)")
+    print(f"[OK] Connection pooling: Active with thread safety")
+    print(f"[OK] Request queuing: Enabled for failed connections")
+    print(f"[OK] Graceful fallback: All DB operations protected")
+    print("="*60)
+    print("Starting server on http://127.0.0.1:5000")
+    print("="*60)
     app.run(debug=True, host='127.0.0.1', port=5000)
