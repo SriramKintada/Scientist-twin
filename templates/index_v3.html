@@ -1555,11 +1555,11 @@
 
         function shareWhatsApp() {
             const shareUrl = "https://www.scirio.in/indian-scientist-twin";
-            let text = "I just found my Indian Scientist Twin! 🔬\n\nTake the quiz: " + shareUrl;
+            let text = "I just found my Indian Scientist Twin!\n\nTake the quiz: " + shareUrl;
 
             // Add scientist name if available
             if (currentScientistData) {
-                text = `I just matched with *${currentScientistData.name}* (${currentScientistData.matchScore}% match)! 🔬✨\n\n${currentScientistData.field}\n\nFind your Indian Scientist Twin:\n${shareUrl}`;
+                text = `I just matched with *${currentScientistData.name}* (${currentScientistData.matchScore}% match)!\n\n${currentScientistData.field}\n\nFind your Indian Scientist Twin:\n${shareUrl}`;
             }
 
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
