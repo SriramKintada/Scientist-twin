@@ -1235,6 +1235,9 @@
             document.getElementById('btn-domain').disabled = true;
         }
 
+        // Global variable to store current scientist for sharing
+        let currentScientistData = null;
+
         function showResults(data) {
             // Save results to localStorage so they persist across navigation
             try {
@@ -1246,6 +1249,14 @@
 
             const container = document.getElementById('results-container');
             const primary = data.matches[0];
+
+            // Store scientist data globally for sharing
+            currentScientistData = {
+                name: primary.name,
+                field: primary.field,
+                matchScore: Math.round(primary.score * 100),
+                imageUrl: primary.image_url || `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(primary.name.replace(/ /g, '_'))}.jpg`
+            };
 
             // Build trait chart from actual user profile with real percentages
             const profile = data.user_profile || {};
@@ -1494,14 +1505,27 @@
 
         function shareTwitter() {
             const shareUrl = "https://scirio.in/indian-scientist-twin";
-            const text = "I just found my Indian Scientist Twin! Take the quiz to find yours! 🔬";
+            let text = "I just found my Indian Scientist Twin! 🔬";
+
+            // Add scientist name if available
+            if (currentScientistData) {
+                text = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)! 🔬✨\n\nFind your Indian Scientist Twin:`;
+            }
+
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
             trackShare('twitter');
         }
 
         function shareFacebook() {
             const shareUrl = "https://scirio.in/indian-scientist-twin";
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
+            let quote = "I just found my Indian Scientist Twin! 🔬";
+
+            // Add scientist name if available
+            if (currentScientistData) {
+                quote = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)! Find your Indian Scientist Twin! 🔬✨`;
+            }
+
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(quote)}`, '_blank');
             trackShare('facebook');
         }
 
@@ -1509,12 +1533,18 @@
             // Instagram doesn't support direct web sharing
             // Copy link and prompt user to share via Instagram app
             const shareUrl = "https://scirio.in/indian-scientist-twin";
-            const text = "I just found my Indian Scientist Twin! 🔬\n\n";
+            let text = "I just found my Indian Scientist Twin! 🔬\n\n";
+
+            // Add scientist name if available
+            if (currentScientistData) {
+                text = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)! 🔬✨\n\nFind your Indian Scientist Twin:\n`;
+            }
+
             const fullText = text + shareUrl;
 
             // Copy to clipboard
             navigator.clipboard.writeText(fullText).then(() => {
-                showToast('Link copied! Open Instagram and paste in your story or post 📸');
+                showToast('Caption copied! Screenshot your result and paste on Instagram 📸');
             }).catch(() => {
                 // Fallback if clipboard fails
                 showToast('To share on Instagram: Screenshot your result and share via the Instagram app 📱');
@@ -1524,15 +1554,30 @@
 
         function shareWhatsApp() {
             const shareUrl = "https://scirio.in/indian-scientist-twin";
-            const text = "I just found my Indian Scientist Twin! 🔬 Take the quiz: " + shareUrl;
+            let text = "I just found my Indian Scientist Twin! 🔬\n\nTake the quiz: " + shareUrl;
+
+            // Add scientist name if available
+            if (currentScientistData) {
+                text = `I just matched with *${currentScientistData.name}* (${currentScientistData.matchScore}% match)! 🔬✨\n\n${currentScientistData.field}\n\nFind your Indian Scientist Twin:\n${shareUrl}`;
+            }
+
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
             trackShare('whatsapp');
         }
 
         function shareLinkedIn() {
             const shareUrl = "https://scirio.in/indian-scientist-twin";
+            // LinkedIn doesn't support custom text in the share URL, but users can add it manually
+            // The quote will appear in the post composer
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');
             trackShare('linkedin');
+
+            // Show a toast with suggested text if scientist data is available
+            if (currentScientistData) {
+                setTimeout(() => {
+                    showToast(`💡 Suggested text: "I matched with ${currentScientistData.name}!"`);
+                }, 500);
+            }
         }
 
         function copyLink() {
@@ -1544,7 +1589,7 @@
 
         function trackShare(platform) {
             // Track share event in backend analytics
-            const scientistName = currentMatches && currentMatches[0] ? currentMatches[0].name : '';
+            const scientistName = currentScientistData ? currentScientistData.name : '';
             fetch('/api/share', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
