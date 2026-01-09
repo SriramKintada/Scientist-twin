@@ -1258,6 +1258,9 @@
                 imageUrl: primary.image_url || `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(primary.name.replace(/ /g, '_'))}.jpg`
             };
 
+            // Update Open Graph meta tags for social sharing
+            updateMetaTags(currentScientistData);
+
             // Build trait chart from actual user profile with real percentages
             const profile = data.user_profile || {};
             const percentages = data.trait_percentages || {};
@@ -1598,6 +1601,43 @@
                     platform: platform
                 })
             }).catch(err => console.log('Share tracking failed:', err));
+        }
+
+        function updateMetaTags(scientistData) {
+            if (!scientistData) return;
+
+            // Update page title
+            document.title = `I matched with ${scientistData.name}! | Indian Scientist Twin`;
+
+            // Helper function to update or create meta tag
+            function setMetaTag(property, content, isName = false) {
+                const attr = isName ? 'name' : 'property';
+                let tag = document.querySelector(`meta[${attr}="${property}"]`);
+                if (!tag) {
+                    tag = document.createElement('meta');
+                    tag.setAttribute(attr, property);
+                    document.head.appendChild(tag);
+                }
+                tag.setAttribute('content', content);
+            }
+
+            const shareTitle = `I matched with ${scientistData.name} (${scientistData.matchScore}% match)! 🔬`;
+            const shareDescription = `I just discovered my Indian Scientist Twin in ${scientistData.field}! Take the quiz to find yours!`;
+            const shareImage = scientistData.imageUrl;
+
+            // Update Open Graph tags
+            setMetaTag('og:title', shareTitle);
+            setMetaTag('og:description', shareDescription);
+            setMetaTag('og:image', shareImage);
+            setMetaTag('og:image:alt', `Photo of ${scientistData.name}`);
+
+            // Update Twitter Card tags
+            setMetaTag('twitter:title', shareTitle, true);
+            setMetaTag('twitter:description', shareDescription, true);
+            setMetaTag('twitter:image', shareImage, true);
+            setMetaTag('twitter:image:alt', `Photo of ${scientistData.name}`, true);
+
+            console.log('[Meta Tags] Updated with scientist data:', scientistData.name);
         }
 
         function showToast(message) {
