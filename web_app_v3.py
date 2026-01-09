@@ -624,7 +624,7 @@ def like_result():
 
 
 @app.route('/api/share', methods=['POST'])
-def share_result():
+def track_share():
     """Track when users share their result"""
     data = request.json
     scientist_name = data.get('scientist', '')
