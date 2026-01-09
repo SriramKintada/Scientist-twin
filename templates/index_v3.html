@@ -7,19 +7,19 @@
 
     <!-- Open Graph / Facebook / Instagram Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://scirio.in/indian-scientist-twin">
-    <meta property="og:title" content="Find Your Indian Scientist Twin 🔬">
-    <meta property="og:description" content="Discover which legendary Indian scientist shares your personality and working style! Take our interactive quiz featuring 500+ pioneering scientists.">
-    <meta property="og:image" content="https://scientist-twin-ov7c.vercel.app/static/companyimage.png">
+    <meta property="og:url" content="{% if og_data %}{{ og_data.url }}{% else %}https://scirio.in/indian-scientist-twin{% endif %}">
+    <meta property="og:title" content="{% if og_data %}{{ og_data.title }}{% else %}Find Your Indian Scientist Twin 🔬{% endif %}">
+    <meta property="og:description" content="{% if og_data %}{{ og_data.description }}{% else %}Discover which legendary Indian scientist shares your personality and working style! Take our interactive quiz featuring 500+ pioneering scientists.{% endif %}">
+    <meta property="og:image" content="{% if og_data %}{{ og_data.image }}{% else %}https://scientist-twin-ov7c.vercel.app/static/companyimage.png{% endif %}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://scirio.in/indian-scientist-twin">
-    <meta name="twitter:title" content="Find Your Indian Scientist Twin 🔬">
-    <meta name="twitter:description" content="Discover which legendary Indian scientist shares your personality and working style!">
-    <meta name="twitter:image" content="https://scientist-twin-ov7c.vercel.app/static/companyimage.png">
+    <meta name="twitter:url" content="{% if og_data %}{{ og_data.url }}{% else %}https://scirio.in/indian-scientist-twin{% endif %}">
+    <meta name="twitter:title" content="{% if og_data %}{{ og_data.title }}{% else %}Find Your Indian Scientist Twin 🔬{% endif %}">
+    <meta name="twitter:description" content="{% if og_data %}{{ og_data.description }}{% else %}Discover which legendary Indian scientist shares your personality and working style!{% endif %}">
+    <meta name="twitter:image" content="{% if og_data %}{{ og_data.image }}{% else %}https://scientist-twin-ov7c.vercel.app/static/companyimage.png{% endif %}">
 
     <!-- Additional Meta Tags -->
     <meta name="description" content="Interactive personality quiz matching you with Indian scientists based on your traits, working style, and approach to discovery.">
@@ -1507,7 +1507,12 @@
         }
 
         function shareTwitter() {
-            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            // Use shareable URL with session ID if available
+            const baseUrl = window.location.origin;
+            const shareUrl = clientSessionUUID
+                ? `${baseUrl}/share/${clientSessionUUID}`
+                : "https://scirio.in/indian-scientist-twin";
+
             let text = "I just found my Indian Scientist Twin! 🔬";
 
             // Add scientist name if available
@@ -1520,7 +1525,12 @@
         }
 
         function shareFacebook() {
-            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            // Use shareable URL with session ID if available
+            const baseUrl = window.location.origin;
+            const shareUrl = clientSessionUUID
+                ? `${baseUrl}/share/${clientSessionUUID}`
+                : "https://scirio.in/indian-scientist-twin";
+
             let quote = "I just found my Indian Scientist Twin! 🔬";
 
             // Add scientist name if available
@@ -1535,7 +1545,11 @@
         function shareInstagram() {
             // Instagram doesn't support direct web sharing
             // Copy link and prompt user to share via Instagram app
-            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            const baseUrl = window.location.origin;
+            const shareUrl = clientSessionUUID
+                ? `${baseUrl}/share/${clientSessionUUID}`
+                : "https://scirio.in/indian-scientist-twin";
+
             let text = "I just found my Indian Scientist Twin! 🔬\n\n";
 
             // Add scientist name if available
@@ -1556,7 +1570,12 @@
         }
 
         function shareWhatsApp() {
-            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            // Use shareable URL with session ID if available
+            const baseUrl = window.location.origin;
+            const shareUrl = clientSessionUUID
+                ? `${baseUrl}/share/${clientSessionUUID}`
+                : "https://scirio.in/indian-scientist-twin";
+
             let text = "I just found my Indian Scientist Twin! 🔬\n\nTake the quiz: " + shareUrl;
 
             // Add scientist name if available
@@ -1569,7 +1588,12 @@
         }
 
         function shareLinkedIn() {
-            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            // Use shareable URL with session ID if available
+            const baseUrl = window.location.origin;
+            const shareUrl = clientSessionUUID
+                ? `${baseUrl}/share/${clientSessionUUID}`
+                : "https://scirio.in/indian-scientist-twin";
+
             // LinkedIn doesn't support custom text in the share URL, but users can add it manually
             // The quote will appear in the post composer
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');

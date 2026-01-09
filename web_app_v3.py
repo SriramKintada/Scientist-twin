@@ -108,6 +108,51 @@ def index():
     return render_template('index_v3.html', domains=DOMAINS)
 
 
+@app.route('/share/<session_id>')
+def share_result(session_id):
+    """Shareable result page with dynamic Open Graph tags for social media"""
+    # Default OG data
+    og_data = {
+        'title': 'Find Your Indian Scientist Twin 🔬',
+        'description': 'Discover which legendary Indian scientist shares your personality and working style!',
+        'image': 'https://scientist-twin-ov7c.vercel.app/static/companyimage.png',
+        'url': request.url
+    }
+
+    # Try to fetch scientist data from Supabase if available
+    if SUPABASE_AVAILABLE and db:
+        try:
+            client = db.get_client()
+            # Get the top matched scientist for this session
+            result = client.table("quiz_results")\
+                .select("scientist_name, scientist_field, scientist_image, match_score")\
+                .eq("session_id", session_id)\
+                .eq("rank", 1)\
+                .limit(1)\
+                .execute()
+
+            if result.data and len(result.data) > 0:
+                scientist = result.data[0]
+                match_score = round(scientist.get('match_score', 0) * 100)
+
+                # Update OG tags with scientist data
+                og_data['title'] = f"I matched with {scientist['scientist_name']} ({match_score}% match)! 🔬"
+                og_data['description'] = f"I just discovered my Indian Scientist Twin in {scientist.get('scientist_field', 'Science')}! Take the quiz to find yours!"
+
+                # Use scientist image if available
+                if scientist.get('scientist_image'):
+                    og_data['image'] = scientist['scientist_image']
+                else:
+                    # Fallback to Wikipedia image
+                    scientist_name = scientist['scientist_name'].replace(' ', '_')
+                    og_data['image'] = f"https://en.wikipedia.org/wiki/Special:FilePath/{scientist_name}.jpg"
+
+        except Exception as e:
+            print(f"[Share] Error fetching scientist data: {e}")
+
+    return render_template('index_v3.html', domains=DOMAINS, og_data=og_data, session_id=session_id)
+
+
 @app.route('/embed-code')
 def embed_code():
     """Provide embed code for SciRio website"""
