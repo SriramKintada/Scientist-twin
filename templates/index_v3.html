@@ -1508,11 +1508,11 @@
 
         function shareTwitter() {
             const shareUrl = "https://www.scirio.in/indian-scientist-twin";
-            let text = "I just found my Indian Scientist Twin! 🔬";
+            let text = "I just found my Indian Scientist Twin!";
 
             // Add scientist name if available
             if (currentScientistData) {
-                text = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)! 🔬✨\n\nFind your Indian Scientist Twin:`;
+                text = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)!\n\nFind your Indian Scientist Twin:`;
             }
 
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
@@ -1521,11 +1521,11 @@
 
         function shareFacebook() {
             const shareUrl = "https://www.scirio.in/indian-scientist-twin";
-            let quote = "I just found my Indian Scientist Twin! 🔬";
+            let quote = "I just found my Indian Scientist Twin!";
 
             // Add scientist name if available
             if (currentScientistData) {
-                quote = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)! Find your Indian Scientist Twin! 🔬✨`;
+                quote = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)! Find your Indian Scientist Twin!`;
             }
 
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(quote)}`, '_blank');
@@ -1534,11 +1534,11 @@
 
         function shareInstagram() {
             const shareUrl = "https://www.scirio.in/indian-scientist-twin";
-            let text = "I just found my Indian Scientist Twin! 🔬\n\n";
+            let text = "I just found my Indian Scientist Twin!\n\n";
 
             // Add scientist name if available
             if (currentScientistData) {
-                text = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)! 🔬✨\n\nFind your Indian Scientist Twin:\n`;
+                text = `I just matched with ${currentScientistData.name} (${currentScientistData.matchScore}% match)!\n\nFind your Indian Scientist Twin:\n`;
             }
 
             const fullText = text + shareUrl;
