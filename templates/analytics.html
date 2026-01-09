@@ -484,7 +484,7 @@
                             <h4>{{ scientist.name }}</h4>
                             <p>{{ scientist.field }} &bull; {{ scientist.era }}</p>
                         </div>
-                        <span class="match-rate">{{ scientist.match_rate }}%</span>
+                        <span class="match-rate">{{ scientist.match_count }} match{{ 'es' if scientist.match_count != 1 else '' }}</span>
                     </div>
                     {% endfor %}
                 {% else %}

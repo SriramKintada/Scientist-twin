@@ -217,13 +217,12 @@ def get_real_analytics() -> Dict[str, Any]:
 
                 analytics["hall_of_fame"] = []
                 for name, data in top_scientists:
-                    avg_score = sum(data["scores"]) / len(data["scores"]) if data["scores"] else 0
                     analytics["hall_of_fame"].append({
                         "name": name,
                         "field": data["field"],
                         "era": data["era"],
                         "image_url": data["image"],
-                        "match_rate": round(avg_score * 100) if avg_score else 0
+                        "match_count": data["count"]
                     })
 
         # Recent activity
