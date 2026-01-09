@@ -1507,12 +1507,7 @@
         }
 
         function shareTwitter() {
-            // Use shareable URL with session ID if available
-            const baseUrl = window.location.origin;
-            const shareUrl = clientSessionUUID
-                ? `${baseUrl}/share/${clientSessionUUID}`
-                : "https://scirio.in/indian-scientist-twin";
-
+            const shareUrl = "https://www.scirio.in/indian-scientist-twin";
             let text = "I just found my Indian Scientist Twin! 🔬";
 
             // Add scientist name if available
@@ -1525,12 +1520,7 @@
         }
 
         function shareFacebook() {
-            // Use shareable URL with session ID if available
-            const baseUrl = window.location.origin;
-            const shareUrl = clientSessionUUID
-                ? `${baseUrl}/share/${clientSessionUUID}`
-                : "https://scirio.in/indian-scientist-twin";
-
+            const shareUrl = "https://www.scirio.in/indian-scientist-twin";
             let quote = "I just found my Indian Scientist Twin! 🔬";
 
             // Add scientist name if available
@@ -1543,13 +1533,7 @@
         }
 
         function shareInstagram() {
-            // Instagram doesn't support direct web sharing
-            // Copy link and prompt user to share via Instagram app
-            const baseUrl = window.location.origin;
-            const shareUrl = clientSessionUUID
-                ? `${baseUrl}/share/${clientSessionUUID}`
-                : "https://scirio.in/indian-scientist-twin";
-
+            const shareUrl = "https://www.scirio.in/indian-scientist-twin";
             let text = "I just found my Indian Scientist Twin! 🔬\n\n";
 
             // Add scientist name if available
@@ -1570,12 +1554,7 @@
         }
 
         function shareWhatsApp() {
-            // Use shareable URL with session ID if available
-            const baseUrl = window.location.origin;
-            const shareUrl = clientSessionUUID
-                ? `${baseUrl}/share/${clientSessionUUID}`
-                : "https://scirio.in/indian-scientist-twin";
-
+            const shareUrl = "https://www.scirio.in/indian-scientist-twin";
             let text = "I just found my Indian Scientist Twin! 🔬\n\nTake the quiz: " + shareUrl;
 
             // Add scientist name if available
@@ -1588,14 +1567,9 @@
         }
 
         function shareLinkedIn() {
-            // Use shareable URL with session ID if available
-            const baseUrl = window.location.origin;
-            const shareUrl = clientSessionUUID
-                ? `${baseUrl}/share/${clientSessionUUID}`
-                : "https://scirio.in/indian-scientist-twin";
+            const shareUrl = "https://www.scirio.in/indian-scientist-twin";
 
             // LinkedIn doesn't support custom text in the share URL, but users can add it manually
-            // The quote will appear in the post composer
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');
             trackShare('linkedin');
 
@@ -1608,7 +1582,7 @@
         }
 
         function copyLink() {
-            const shareUrl = "https://scirio.in/indian-scientist-twin";
+            const shareUrl = "https://www.scirio.in/indian-scientist-twin";
             navigator.clipboard.writeText(shareUrl).then(() => {
                 showToast('Link copied to clipboard! 📋');
             });
