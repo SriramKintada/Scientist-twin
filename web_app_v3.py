@@ -246,11 +246,11 @@ def embed_code():
         <div class="success" id="success-msg">✅ <strong>Copied!</strong> Paste this code into your website.</div>
         <div class="info" style="margin-top: 30px;">
             <strong>🔧 Features:</strong><br>
-            ✓ Fully responsive (mobile & desktop)<br>
-            ✓ Auto-height adjustment<br>
-            ✓ Clean styling with rounded corners<br>
-            ✓ Secure iframe embedding<br>
-            ✓ Works ONLY on scirio.in domains
+            OK Fully responsive (mobile & desktop)<br>
+            OK Auto-height adjustment<br>
+            OK Clean styling with rounded corners<br>
+            OK Secure iframe embedding<br>
+            OK Works ONLY on scirio.in domains
         </div>
         <div class="info" style="background: #dbeafe; border-left: 4px solid #3b82f6;">
             <strong>🔒 Security Note:</strong><br>
@@ -291,14 +291,14 @@ def start_quiz():
         )
         print(f"[Supabase] Created session with client UUID, returned: {session_uuid}")
         if session_uuid:
-            print(f"[Supabase] ✓ Successfully created Supabase session!")
+            print(f"[Supabase] OK Successfully created Supabase session!")
         else:
-            print(f"[Supabase] ✗ Failed to create Supabase session")
+            print(f"[Supabase] ERROR Failed to create Supabase session")
     else:
         if not SUPABASE_AVAILABLE:
-            print(f"[Supabase] ✗ Supabase not available")
+            print(f"[Supabase] ERROR Supabase not available")
         if not client_uuid:
-            print(f"[Client UUID] ✗ No client UUID received from frontend!")
+            print(f"[Client UUID] ERROR No client UUID received from frontend!")
 
     question = QUESTIONS[0]
     return jsonify({
@@ -396,13 +396,13 @@ def get_matches():
             # Save match results
             db.save_quiz_results(client_uuid, matches)
             print(f"[Performance] Supabase save took {time.time() - db_start:.3f}s")
-            print(f"[Supabase] ✓ Successfully saved quiz results!")
+            print(f"[Supabase] OK Successfully saved quiz results!")
         except Exception as e:
-            print(f"[Supabase] ✗ Save failed: {e}")
+            print(f"[Supabase] ERROR Save failed: {e}")
             import traceback
             traceback.print_exc()
     else:
-        print(f"[Supabase] ✗ NO UUID available or Supabase not configured!")
+        print(f"[Supabase] ERROR NO UUID available or Supabase not configured!")
         print(f"[Supabase] Results will NOT be saved")
 
     print(f"[Performance] Total request time: {time.time() - start_time:.3f}s")
@@ -601,7 +601,7 @@ def like_result():
     # Save to Supabase using client UUID
     if SUPABASE_AVAILABLE and db and client_uuid:
         db.record_like(client_uuid, scientist_name)
-        print(f"[Supabase] ✓ Recorded like for {scientist_name}")
+        print(f"[Supabase] OK Recorded like for {scientist_name}")
 
     return jsonify({"success": True, "message": f"Liked {scientist_name}!"})
 
@@ -619,7 +619,7 @@ def track_share():
     # Save to Supabase using client UUID
     if SUPABASE_AVAILABLE and db and client_uuid:
         db.record_share(client_uuid, scientist_name, platform)
-        print(f"[Supabase] ✓ Recorded {platform} share for {scientist_name}")
+        print(f"[Supabase] OK Recorded {platform} share for {scientist_name}")
 
     return jsonify({"success": True})
 
