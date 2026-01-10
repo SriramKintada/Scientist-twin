@@ -277,7 +277,11 @@ def start_quiz():
     domain = data.get('domain', 'cosmos')
     client_uuid = data.get('client_uuid')  # Get UUID from client
 
-    # Initialize session (keep for backwards compatibility)
+    # CRITICAL: Clear any previous session data to prevent contamination
+    session.clear()
+    print(f"[Session] Cleared previous session data")
+
+    # Initialize fresh session for this quiz
     session['domain'] = domain
     session['answers'] = {}  # Use dict for efficient sparse storage
     session['current_question'] = 0
@@ -286,7 +290,9 @@ def start_quiz():
     # IMPORTANT: Store client UUID in session for this quiz
     if client_uuid:
         session['client_uuid'] = client_uuid
-        print(f"[Client UUID] Received from frontend: {client_uuid}")
+        print(f"[Client UUID] New quiz started with UUID: {client_uuid}")
+    else:
+        print(f"[WARNING] No client UUID provided!")
 
     print(f"[Session Debug] SUPABASE_AVAILABLE: {SUPABASE_AVAILABLE}")
 
@@ -377,26 +383,44 @@ def get_matches():
         data = request.json or {}
         client_uuid = data.get('client_uuid') or session.get('client_uuid')
 
+        # Validate session integrity
+        session_uuid_from_session = session.get('client_uuid')
+        if client_uuid and session_uuid_from_session and client_uuid != session_uuid_from_session:
+            print(f"[WARNING] UUID mismatch! Request: {client_uuid}, Session: {session_uuid_from_session}")
+            print(f"[WARNING] Possible session contamination - clearing session")
+            raise ValueError("Session mismatch - please restart quiz")
+
         # Get answers - handle both dict (new) and list (old sessions)
         answers_data = session.get('answers', {})
         print(f"[Debug] Raw answers_data type: {type(answers_data)}, content: {answers_data}")
 
         if isinstance(answers_data, dict):
-            # Convert dict to sorted list by question number
-            if answers_data:
-                sorted_keys = sorted(int(k) for k in answers_data.keys())
-                answers = [answers_data[str(i)] for i in sorted_keys]
-                print(f"[Debug] Converted dict to list: {len(answers)} answers")
-            else:
+            # Convert dict to complete sequential list
+            # CRITICAL: Must have all 12 answers in order (0-11)
+            if len(answers_data) >= len(QUESTIONS):
+                # Build complete answer list in correct order
                 answers = []
-                print(f"[Debug] Empty dict, using empty list")
+                for i in range(len(QUESTIONS)):
+                    if str(i) in answers_data:
+                        answers.append(answers_data[str(i)])
+                    else:
+                        print(f"[ERROR] Missing answer for question {i}!")
+                        raise ValueError(f"Incomplete quiz data - missing question {i}")
+                print(f"[Debug] Converted dict to complete list: {len(answers)} answers")
+            else:
+                print(f"[ERROR] Only {len(answers_data)} answers, need {len(QUESTIONS)}")
+                raise ValueError(f"Incomplete quiz - only {len(answers_data)}/{len(QUESTIONS)} questions answered")
         else:
             # Legacy support for old list format - filter None values
             answers = [a for a in answers_data if a is not None]
+            if len(answers) < len(QUESTIONS):
+                print(f"[ERROR] Only {len(answers)} valid answers, need {len(QUESTIONS)}")
+                raise ValueError(f"Incomplete quiz - only {len(answers)}/{len(QUESTIONS)} questions answered")
             print(f"[Debug] Legacy list format: {len(answers)} answers")
 
         domain = session.get('domain', 'cosmos')
         print(f"[Debug] Final answers: {answers}")
+        print(f"[Debug] Domain: {domain}")
 
         user_profile = build_user_profile(answers)
         print(f"[Performance] Profile built in {time.time() - start_time:.3f}s")
