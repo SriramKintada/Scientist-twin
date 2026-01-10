@@ -1,0 +1,502 @@
+[
+  {
+    "name": "S. S. Shrikhande",
+    "field": "Mathematics",
+    "wiki_title": "S. S. Shrikhande"
+  },
+  {
+    "name": "R. C. Bose",
+    "field": "Mathematics",
+    "wiki_title": "Raj Chandra Bose"
+  },
+  {
+    "name": "Bhama Srinivasan",
+    "field": "Mathematics",
+    "wiki_title": "Bhama Srinivasan"
+  },
+  {
+    "name": "K. R. Parthasarathy",
+    "field": "Mathematics",
+    "wiki_title": "Kalyanapuram Rangachari Parthasarathy"
+  },
+  {
+    "name": "S. Ramanan",
+    "field": "Mathematics",
+    "wiki_title": "S. Ramanan"
+  },
+  {
+    "name": "T. N. Shorey",
+    "field": "Mathematics",
+    "wiki_title": "T. N. Shorey"
+  },
+  {
+    "name": "K. S. Krishnan",
+    "field": "Physics",
+    "wiki_title": "Kariamanickam Srinivasa Krishnan"
+  },
+  {
+    "name": "G. N. Ramachandran",
+    "field": "Physics",
+    "wiki_title": "G. N. Ramachandran"
+  },
+  {
+    "name": "Jayant Narlikar",
+    "field": "Physics",
+    "wiki_title": "Jayant Narlikar"
+  },
+  {
+    "name": "Raja Ramanna",
+    "field": "Physics",
+    "wiki_title": "Raja Ramanna"
+  },
+  {
+    "name": "P. K. Iyengar",
+    "field": "Physics",
+    "wiki_title": "P. K. Iyengar"
+  },
+  {
+    "name": "Sandip Trivedi",
+    "field": "Physics",
+    "wiki_title": "Sandip Trivedi"
+  },
+  {
+    "name": "Spenta Wadia",
+    "field": "Physics",
+    "wiki_title": "Spenta R. Wadia"
+  },
+  {
+    "name": "Probir Roy",
+    "field": "Physics",
+    "wiki_title": "Probir Roy"
+  },
+  {
+    "name": "C. V. Vishveshwara",
+    "field": "Physics",
+    "wiki_title": "C. V. Vishveshwara"
+  },
+  {
+    "name": "Anna Mani",
+    "field": "Physics",
+    "wiki_title": "Anna Mani"
+  },
+  {
+    "name": "Bimla Buti",
+    "field": "Physics",
+    "wiki_title": "Bimla Buti"
+  },
+  {
+    "name": "Narinder Singh Kapany",
+    "field": "Physics",
+    "wiki_title": "Narinder Singh Kapany"
+  },
+  {
+    "name": "Devendra Lal",
+    "field": "Physics",
+    "wiki_title": "Devendra Lal"
+  },
+  {
+    "name": "A. P. Mitra",
+    "field": "Physics",
+    "wiki_title": "Ashesh Prosad Mitra"
+  },
+  {
+    "name": "D. S. Kothari",
+    "field": "Physics",
+    "wiki_title": "D. S. Kothari"
+  },
+  {
+    "name": "Brebis Bleaney",
+    "field": "Physics",
+    "wiki_title": "Brebis Bleaney"
+  },
+  {
+    "name": "Piara Singh Gill",
+    "field": "Physics",
+    "wiki_title": "Piara Singh Gill"
+  },
+  {
+    "name": "Venkatraman Ramakrishnan",
+    "field": "Chemistry",
+    "wiki_title": "Venkatraman Ramakrishnan"
+  },
+  {
+    "name": "Shanti Swaroop Bhatnagar",
+    "field": "Chemistry",
+    "wiki_title": "Shanti Swaroop Bhatnagar"
+  },
+  {
+    "name": "Asima Chatterjee",
+    "field": "Chemistry",
+    "wiki_title": "Asima Chatterjee"
+  },
+  {
+    "name": "Darshan Ranganathan",
+    "field": "Chemistry",
+    "wiki_title": "Darshan Ranganathan"
+  },
+  {
+    "name": "Kamala Sohonie",
+    "field": "Chemistry",
+    "wiki_title": "Kamala Sohonie"
+  },
+  {
+    "name": "K. Venkataraman",
+    "field": "Chemistry",
+    "wiki_title": "K. Venkataraman"
+  },
+  {
+    "name": "Goverdhan Mehta",
+    "field": "Chemistry",
+    "wiki_title": "Goverdhan Mehta"
+  },
+  {
+    "name": "K. N. Ganesh",
+    "field": "Chemistry",
+    "wiki_title": "K. N. Ganesh"
+  },
+  {
+    "name": "Salim Ali",
+    "field": "Biology",
+    "wiki_title": "S\u00e1lim Ali"
+  },
+  {
+    "name": "Janaki Ammal",
+    "field": "Biology",
+    "wiki_title": "Janaki Ammal"
+  },
+  {
+    "name": "Obaid Siddiqi",
+    "field": "Biology",
+    "wiki_title": "Obaid Siddiqi"
+  },
+  {
+    "name": "Kamal Ranadive",
+    "field": "Medicine",
+    "wiki_title": "Kamal Ranadive"
+  },
+  {
+    "name": "Gagandeep Kang",
+    "field": "Medicine",
+    "wiki_title": "Gagandeep Kang"
+  },
+  {
+    "name": "Soumya Swaminathan",
+    "field": "Medicine",
+    "wiki_title": "Soumya Swaminathan"
+  },
+  {
+    "name": "K. VijayRaghavan",
+    "field": "Biology",
+    "wiki_title": "K. VijayRaghavan"
+  },
+  {
+    "name": "Pushpa Bhargava",
+    "field": "Biology",
+    "wiki_title": "Pushpa Mittra Bhargava"
+  },
+  {
+    "name": "M. G. K. Menon",
+    "field": "Physics",
+    "wiki_title": "Mambillikalathil Govind Kumar Menon"
+  },
+  {
+    "name": "B. P. Pal",
+    "field": "Biology",
+    "wiki_title": "Benjamin Peary Pal"
+  },
+  {
+    "name": "E. K. Janaki Ammal",
+    "field": "Biology",
+    "wiki_title": "Janaki Ammal"
+  },
+  {
+    "name": "S. K. Joshi",
+    "field": "Biology",
+    "wiki_title": "S. K. Joshi"
+  },
+  {
+    "name": "Nitya Anand",
+    "field": "Medicine",
+    "wiki_title": "Nitya Anand"
+  },
+  {
+    "name": "K. Kasturirangan",
+    "field": "Space Science",
+    "wiki_title": "K. Kasturirangan"
+  },
+  {
+    "name": "V. K. Saraswat",
+    "field": "Aerospace",
+    "wiki_title": "V. K. Saraswat"
+  },
+  {
+    "name": "Sivathanu Pillai",
+    "field": "Aerospace",
+    "wiki_title": "A. Sivathanu Pillai"
+  },
+  {
+    "name": "Umesh Vazirani",
+    "field": "Computer Science",
+    "wiki_title": "Umesh Vazirani"
+  },
+  {
+    "name": "Rajeshwari Chatterjee",
+    "field": "Engineering",
+    "wiki_title": "Rajeshwari Chatterjee"
+  },
+  {
+    "name": "D. N. Wadia",
+    "field": "Earth Science",
+    "wiki_title": "Darashaw Nosherwan Wadia"
+  },
+  {
+    "name": "M. S. Krishnan",
+    "field": "Earth Science",
+    "wiki_title": "M. S. Krishnan"
+  },
+  {
+    "name": "Aditi Pant",
+    "field": "Earth Science",
+    "wiki_title": "Aditi Pant"
+  },
+  {
+    "name": "S. K. Sinha",
+    "field": "Agriculture",
+    "wiki_title": "S. K. Sinha"
+  },
+  {
+    "name": "Shreeram Abhyankar",
+    "field": "Mathematics",
+    "wiki_title": "Shreeram Shankar Abhyankar"
+  },
+  {
+    "name": "R. Parimala",
+    "field": "Mathematics",
+    "wiki_title": "R. Parimala"
+  },
+  {
+    "name": "T. A. Sarasvati Amma",
+    "field": "Mathematics",
+    "wiki_title": "T. A. Sarasvati Amma"
+  },
+  {
+    "name": "Subbayya Sivasankaranarayana Pillai",
+    "field": "Mathematics",
+    "wiki_title": "S. S. Pillai"
+  },
+  {
+    "name": "K. Mahler",
+    "field": "Mathematics",
+    "wiki_title": "Kurt Mahler"
+  },
+  {
+    "name": "V. S. Varadarajan",
+    "field": "Mathematics",
+    "wiki_title": "Veeravalli S. Varadarajan"
+  },
+  {
+    "name": "R. Balasubramanian",
+    "field": "Mathematics",
+    "wiki_title": "R. Balasubramanian"
+  },
+  {
+    "name": "B. V. Sreekantan",
+    "field": "Physics",
+    "wiki_title": "B. V. Sreekantan"
+  },
+  {
+    "name": "S. Chandrasekhar",
+    "field": "Physics",
+    "wiki_title": "S. Chandrasekhar"
+  },
+  {
+    "name": "T. V. Ramakrishnan",
+    "field": "Physics",
+    "wiki_title": "T. V. Ramakrishnan"
+  },
+  {
+    "name": "N. Mukunda",
+    "field": "Physics",
+    "wiki_title": "N. Mukunda"
+  },
+  {
+    "name": "Ramamurti Rajaraman",
+    "field": "Physics",
+    "wiki_title": "R. Rajaraman"
+  },
+  {
+    "name": "T. Padmanabhan",
+    "field": "Physics",
+    "wiki_title": "Thanu Padmanabhan"
+  },
+  {
+    "name": "Cumrun Vafa",
+    "field": "Physics",
+    "wiki_title": "Cumrun Vafa"
+  },
+  {
+    "name": "P. T. Narasimhan",
+    "field": "Chemistry",
+    "wiki_title": "P. T. Narasimhan"
+  },
+  {
+    "name": "T. Ramasami",
+    "field": "Chemistry",
+    "wiki_title": "T. Ramasami"
+  },
+  {
+    "name": "V. Prelog",
+    "field": "Chemistry",
+    "wiki_title": "Vladimir Prelog"
+  },
+  {
+    "name": "P. Balaram",
+    "field": "Biology",
+    "wiki_title": "P. Balaram"
+  },
+  {
+    "name": "M. S. Valiathan",
+    "field": "Medicine",
+    "wiki_title": "M. S. Valiathan"
+  },
+  {
+    "name": "Shahid Jameel",
+    "field": "Biology",
+    "wiki_title": "Shahid Jameel"
+  },
+  {
+    "name": "Indira Nath",
+    "field": "Medicine",
+    "wiki_title": "Indira Nath"
+  },
+  {
+    "name": "Maharaj Kishan Bhan",
+    "field": "Medicine",
+    "wiki_title": "Maharaj Kishan Bhan"
+  },
+  {
+    "name": "N. Valarmathi",
+    "field": "Space Science",
+    "wiki_title": "N. Valarmathi"
+  },
+  {
+    "name": "M. Y. S. Prasad",
+    "field": "Space Science",
+    "wiki_title": "M. Y. S. Prasad"
+  },
+  {
+    "name": "P. Kunhikrishnan",
+    "field": "Space Science",
+    "wiki_title": "P. Kunhikrishnan"
+  },
+  {
+    "name": "Ashok Jhunjhunwala",
+    "field": "Technology",
+    "wiki_title": "Ashok Jhunjhunwala"
+  },
+  {
+    "name": "V. S. Ramamurthy",
+    "field": "Physics",
+    "wiki_title": "V. S. Ramamurthy"
+  },
+  {
+    "name": "Aravind Joshi",
+    "field": "Computer Science",
+    "wiki_title": "Aravind Joshi"
+  },
+  {
+    "name": "Rajeev Alur",
+    "field": "Computer Science",
+    "wiki_title": "Rajeev Alur"
+  },
+  {
+    "name": "Shafi Goldwasser",
+    "field": "Computer Science",
+    "wiki_title": "Shafi Goldwasser"
+  },
+  {
+    "name": "Sanjay Ghemawat",
+    "field": "Computer Science",
+    "wiki_title": "Sanjay Ghemawat"
+  },
+  {
+    "name": "Rakesh Agrawal",
+    "field": "Computer Science",
+    "wiki_title": "Rakesh Agrawal (computer scientist)"
+  },
+  {
+    "name": "Daphne Koller",
+    "field": "Computer Science",
+    "wiki_title": "Daphne Koller"
+  },
+  {
+    "name": "Sunita Narain",
+    "field": "Environmental Science",
+    "wiki_title": "Sunita Narain"
+  },
+  {
+    "name": "Venki Ramakrishnan",
+    "field": "Chemistry",
+    "wiki_title": "Venkatraman Ramakrishnan"
+  },
+  {
+    "name": "Anandibai Joshi",
+    "field": "Medicine",
+    "wiki_title": "Anandibai Joshi"
+  },
+  {
+    "name": "Kamla Sohonie",
+    "field": "Chemistry",
+    "wiki_title": "Kamala Sohonie"
+  },
+  {
+    "name": "Vidita Vaidya",
+    "field": "Biology",
+    "wiki_title": "Vidita Vaidya"
+  },
+  {
+    "name": "Yamuna Krishnan",
+    "field": "Chemistry",
+    "wiki_title": "Yamuna Krishnan"
+  },
+  {
+    "name": "Nandini Harinath",
+    "field": "Space Science",
+    "wiki_title": "Nandini Harinath"
+  },
+  {
+    "name": "Brahmagupta",
+    "field": "Mathematics",
+    "wiki_title": "Brahmagupta"
+  },
+  {
+    "name": "Bhaskara II",
+    "field": "Mathematics",
+    "wiki_title": "Bh\u0101skara II"
+  },
+  {
+    "name": "Varahamihira",
+    "field": "Mathematics",
+    "wiki_title": "Varahamihira"
+  },
+  {
+    "name": "Madhava",
+    "field": "Mathematics",
+    "wiki_title": "Madhava of Sangamagrama"
+  },
+  {
+    "name": "U. R. Rao",
+    "field": "Aerospace",
+    "wiki_title": "U. R. Rao"
+  },
+  {
+    "name": "K. Radhakrishnan",
+    "field": "Aerospace",
+    "wiki_title": "K. Radhakrishnan"
+  },
+  {
+    "name": "Homi N. Sethna",
+    "field": "Physics",
+    "wiki_title": "Homi N. Sethna"
+  }
+]

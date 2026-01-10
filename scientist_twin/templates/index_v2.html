@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientist Twin 2.0 - 500 Scientists</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+            max-width: 900px;
+            width: 100%;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            font-size: 2.8em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        .option-grid {
+            display: grid;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 18px 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .option-card:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+            transform: translateX(8px);
+        }
+
+        .option-card.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateX(8px);
+        }
+
+        .option-title {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 4px;
+        }
+
+        .option-desc {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 48px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+
+        .question-text {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .match-result {
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 25px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .match-name {
+            font-size: 2.2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .match-meta {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .match-quality {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-top: 28px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .trait-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .trait-item {
+            background: white;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .trait-name {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 6px;
+            font-size: 1.05em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alt-matches {
+            margin-top: 30px;
+        }
+
+        .alt-match {
+            background: white;
+            padding: 20px;
+            margin: 12px 0;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .alt-match-name {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .alt-match-field {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .alt-match-score {
+            background: #e9ecef;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .restart-btn {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+            margin-top: 30px;
+        }
+
+        .restart-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Scientist Twin 2.0</h1>
+        <p class="subtitle">Find your scientific kindred spirit among 500 Indian scientists</p>
+        <span class="badge" id="scientist-count">Loading...</span>
+
+        <!-- Step 1: Domain Selection -->
+        <div class="step active" id="step-domain">
+            <h2>Choose Your Scientific Domain</h2>
+            <div class="option-grid">
+                {% for key, domain in domains.items() %}
+                <div class="option-card" data-domain="{{ key }}">
+                    <div class="option-title">{{ domain.name }}</div>
+                    <div class="option-desc">{{ domain.description }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <button id="btn-domain" disabled>Begin 12-Question Assessment</button>
+        </div>
+
+        <!-- Step 2: Quiz -->
+        <div class="step" id="step-quiz">
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span>Question <span id="q-num">1</span> of 12</span>
+                    <span id="q-dimension"></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="question-text" id="question-text"></div>
+            <div class="option-grid" id="quiz-options"></div>
+            <button id="btn-answer" disabled>Next Question</button>
+        </div>
+
+        <!-- Step 3: Loading -->
+        <div class="step" id="step-loading">
+            <div class="loading">
+                <div class="spinner"></div>
+                <h2>Analyzing your personality profile...</h2>
+                <p>Matching against 500 legendary scientists</p>
+            </div>
+        </div>
+
+        <!-- Step 4: Results -->
+        <div class="step" id="step-results">
+            <h2>Your Scientific Twin</h2>
+            <div id="results-container"></div>
+            <button class="restart-btn" onclick="location.reload()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedDomain = null;
+        let currentQuestion = 0;
+        let totalQuestions = 12;
+        let selectedAnswer = null;
+
+        // Load scientist count
+        fetch('/api/scientists/count')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('scientist-count').textContent =
+                    `${data.count} Scientists in Database`;
+            });
+
+        // Domain selection
+        document.querySelectorAll('[data-domain]').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('[data-domain]').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedDomain = this.dataset.domain;
+                document.getElementById('btn-domain').disabled = false;
+            });
+        });
+
+        document.getElementById('btn-domain').addEventListener('click', function() {
+            startQuiz();
+        });
+
+        // Start quiz
+        async function startQuiz() {
+            const response = await fetch('/api/start-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain: selectedDomain })
+            });
+
+            const data = await response.json();
+            totalQuestions = data.total_questions;
+
+            document.getElementById('step-domain').classList.remove('active');
+            document.getElementById('step-quiz').classList.add('active');
+
+            showQuestion(data.question);
+        }
+
+        // Show question
+        function showQuestion(question) {
+            document.getElementById('question-text').textContent = question.text;
+            document.getElementById('q-num').textContent = question.number;
+            document.getElementById('q-dimension').textContent = formatDimension(question.dimension);
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const card = document.createElement('div');
+                card.className = 'option-card';
+                card.dataset.answer = index;
+                card.textContent = option;
+
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('#quiz-options .option-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedAnswer = parseInt(this.dataset.answer);
+                    document.getElementById('btn-answer').disabled = false;
+                });
+
+                optionsContainer.appendChild(card);
+            });
+
+            selectedAnswer = null;
+            document.getElementById('btn-answer').disabled = true;
+            document.getElementById('btn-answer').textContent =
+                question.number === totalQuestions ? 'Find My Match' : 'Next Question';
+
+            const progress = (question.number / totalQuestions) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function formatDimension(dim) {
+            const labels = {
+                'approach': 'Problem-Solving',
+                'collaboration': 'Working Style',
+                'risk': 'Risk Tolerance',
+                'motivation': 'Core Motivation',
+                'adversity': 'Facing Obstacles',
+                'breadth': 'Knowledge Style',
+                'authority': 'Authority Relation',
+                'communication': 'Communication',
+                'time_horizon': 'Time Perspective',
+                'resources': 'Resource Philosophy',
+                'legacy': 'Legacy Focus',
+                'failure': 'Handling Failure'
+            };
+            return labels[dim] || dim;
+        }
+
+        // Answer question
+        document.getElementById('btn-answer').addEventListener('click', async function() {
+            const response = await fetch('/api/answer-question', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answer: selectedAnswer })
+            });
+
+            const data = await response.json();
+
+            if (data.complete) {
+                showLoading();
+                await getMatches();
+            } else {
+                showQuestion(data.question);
+            }
+        });
+
+        // Show loading
+        function showLoading() {
+            document.getElementById('step-quiz').classList.remove('active');
+            document.getElementById('step-loading').classList.add('active');
+        }
+
+        // Get matches
+        async function getMatches() {
+            const response = await fetch('/api/get-matches', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+            showResults(data);
+        }
+
+        // Show results
+        function showResults(data) {
+            const resultsContainer = document.getElementById('results-container');
+            const primaryMatch = data.matches[0];
+
+            let html = `
+                <div class="match-result">
+                    <div class="match-name">${primaryMatch.name}</div>
+                    <div class="match-meta">${primaryMatch.field} - ${primaryMatch.subfield} | ${primaryMatch.era}</div>
+                    <span class="match-quality">${primaryMatch.match_quality}</span>
+                    <div style="color: #666; margin: 15px 0; font-style: italic;">"${primaryMatch.archetype}"</div>
+                    <p style="margin: 15px 0;">${primaryMatch.achievements}</p>
+
+                    <div class="section-title">Why You Match</div>
+                    <ul class="trait-list">
+                        ${primaryMatch.resonances.map(r => `
+                            <li class="trait-item">
+                                <div class="trait-name">${r.trait}</div>
+                                <div>${r.explanation}</div>
+                            </li>
+                        `).join('')}
+                    </ul>
+
+                    ${primaryMatch.contrasts && primaryMatch.contrasts.length > 0 ? `
+                    <div class="section-title">Productive Differences</div>
+                    <ul class="trait-list">
+                        ${primaryMatch.contrasts.map(c => `
+                            <li class="trait-item">
+                                <div class="trait-name">${c.trait}</div>
+                                <div>${c.explanation}</div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    ` : ''}
+
+                    <div class="section-title">Their Working Style</div>
+                    <p style="padding: 18px; background: white; border-radius: 12px; line-height: 1.6;">${primaryMatch.working_style}</p>
+
+                    <div class="section-title">A Defining Moment</div>
+                    <p style="padding: 18px; background: white; border-radius: 12px; line-height: 1.6; font-style: italic;">${primaryMatch.character_moment}</p>
+                </div>
+
+                ${data.matches.length > 1 ? `
+                <div class="alt-matches">
+                    <h3 style="margin-bottom: 15px; color: #333;">Other Strong Matches</h3>
+                    ${data.matches.slice(1).map(m => `
+                        <div class="alt-match">
+                            <div>
+                                <div class="alt-match-name">${m.name}</div>
+                                <div class="alt-match-field">${m.archetype} - ${m.field}</div>
+                            </div>
+                            <span class="alt-match-score">${Math.round(m.score * 100)}% Match</span>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+            `;
+
+            resultsContainer.innerHTML = html;
+
+            document.getElementById('step-loading').classList.remove('active');
+            document.getElementById('step-results').classList.add('active');
+        }
+    </script>
+</body>
+</html>
