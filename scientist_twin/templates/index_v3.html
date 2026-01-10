@@ -1223,14 +1223,20 @@
 
                 clearTimeout(timeoutId);
 
+                console.log('[getMatches] Response received!');
                 console.log('[getMatches] Response status:', response.status);
+                console.log('[getMatches] Response ok:', response.ok);
 
                 if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('[getMatches] Error response:', errorText);
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
+                console.log('[getMatches] Parsing JSON...');
                 const data = await response.json();
-                console.log('[getMatches] Data received:', data);
+                console.log('[getMatches] Data received successfully!');
+                console.log('[getMatches] Data:', data);
 
                 // Check if there's an error in the response
                 if (data.error) {
@@ -1243,11 +1249,16 @@
                 // Minimum 3 seconds loading
                 const elapsed = Date.now() - startTime;
                 const minDelay = 3000;
+                console.log('[getMatches] Elapsed time:', elapsed, 'ms');
                 if (elapsed < minDelay) {
-                    await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+                    const waitTime = minDelay - elapsed;
+                    console.log('[getMatches] Waiting', waitTime, 'ms for minimum delay...');
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
                 }
 
+                console.log('[getMatches] Calling showResults()...');
                 showResults(data);
+                console.log('[getMatches] showResults() completed!');
             } catch (error) {
                 console.error('[getMatches] ERROR:', error);
                 // Hide loading screen and show error
@@ -1292,16 +1303,29 @@
         let currentScientistData = null;
 
         function showResults(data) {
-            // Save results to localStorage so they persist across navigation
-            try {
-                localStorage.setItem('lastQuizResults', JSON.stringify(data));
-                localStorage.setItem('lastQuizTimestamp', Date.now().toString());
-            } catch (e) {
-                console.error('[Results] Failed to save to localStorage:', e);
-            }
+            console.log('[showResults] Function called with data:', data);
 
-            const container = document.getElementById('results-container');
-            const primary = data.matches[0];
+            try {
+                // Save results to localStorage so they persist across navigation
+                try {
+                    localStorage.setItem('lastQuizResults', JSON.stringify(data));
+                    localStorage.setItem('lastQuizTimestamp', Date.now().toString());
+                } catch (e) {
+                    console.error('[Results] Failed to save to localStorage:', e);
+                }
+
+                console.log('[showResults] Getting container element...');
+                const container = document.getElementById('results-container');
+                if (!container) {
+                    throw new Error('Results container element not found!');
+                }
+
+                console.log('[showResults] Getting primary match...');
+                const primary = data.matches[0];
+                if (!primary) {
+                    throw new Error('No primary match found in data!');
+                }
+                console.log('[showResults] Primary match:', primary);
 
             // Store scientist data globally for sharing
             currentScientistData = {
@@ -1542,10 +1566,23 @@
                 </div>
             `;
 
-            container.innerHTML = html;
+                console.log('[showResults] Setting container HTML...');
+                container.innerHTML = html;
 
-            document.getElementById('step-loading').classList.remove('active');
-            document.getElementById('step-results').classList.add('active');
+                console.log('[showResults] Hiding loading screen...');
+                document.getElementById('step-loading').classList.remove('active');
+
+                console.log('[showResults] Showing results screen...');
+                document.getElementById('step-results').classList.add('active');
+
+                console.log('[showResults] ✓ Results displayed successfully!');
+            } catch (error) {
+                console.error('[showResults] FATAL ERROR:', error);
+                console.error('[showResults] Error stack:', error.stack);
+                document.getElementById('step-loading').classList.remove('active');
+                alert('Error displaying results: ' + error.message + '\n\nPlease try again.');
+                restartQuiz();
+            }
         }
 
         // Social sharing functions
