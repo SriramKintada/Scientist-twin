@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Flask
+instance/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+nul
+
+# Local development
+.claude/
+.playwright-mcp/
+
+# Project specific
+Feedback/
+Reference screenshots image/
+Scientist imsges/
+icons/
+*.tex
+companyimage.png
