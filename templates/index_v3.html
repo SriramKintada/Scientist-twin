@@ -1175,6 +1175,11 @@
                 });
 
                 console.log('[Quiz] API response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
                 const data = await response.json();
                 console.log('[Quiz] API response data:', data);
 
@@ -1186,7 +1191,9 @@
                 }
             } catch (error) {
                 console.error('[Quiz] ERROR:', error);
-                alert('An error occurred. Please try again.');
+                console.error('[Quiz] Error details:', error.message, error.stack);
+                showToast('⚠️ Connection error. Retrying...');
+                // Don't block - let user try again
             }
         });
 
