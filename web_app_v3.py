@@ -59,8 +59,17 @@ try:
 except ImportError:
     print("[Performance] flask-compress not available - install with: pip install flask-compress")
 
-# Initialize with rich database
-matching_engine = MatchingEngineV3('scientist_db_rich.json')
+# Lazy load matching engine to avoid slow cold starts
+matching_engine = None
+
+def get_matching_engine():
+    """Lazy load matching engine on first use"""
+    global matching_engine
+    if matching_engine is None:
+        print("[Performance] Loading scientist database...")
+        matching_engine = MatchingEngineV3('scientist_db_rich.json')
+        print("[Performance] Database loaded successfully")
+    return matching_engine
 
 DOMAINS = {
     "cosmos": {
@@ -386,7 +395,8 @@ def get_matches():
 
     # Get matches with anti-repetition
     match_start = time.time()
-    matches = matching_engine.get_full_matches(user_profile, domain, recently_shown=recently_shown)
+    engine = get_matching_engine()
+    matches = engine.get_full_matches(user_profile, domain, recently_shown=recently_shown)
     print(f"[Performance] Matching took {time.time() - match_start:.3f}s")
 
     # Update recently shown list with current matches
@@ -455,7 +465,7 @@ def get_matches():
 @app.route('/api/scientists/count')
 def scientist_count():
     return jsonify({
-        "count": len(matching_engine.scientists)
+        "count": len(get_matching_engine().scientists)
     })
 
 
@@ -555,7 +565,7 @@ def dashboard():
                     'share_count': 0
                 }
 
-    detailed_stats['total_scientists'] = len(matching_engine.scientists)
+    detailed_stats['total_scientists'] = len(get_matching_engine().scientists)
 
     return render_template('dashboard.html', stats=detailed_stats, is_admin=True)
 
@@ -721,7 +731,7 @@ if __name__ == '__main__':
     print("="*60)
     print(f"Scientist Twin 3.0 - Optimized for Nano Plan")
     print("="*60)
-    print(f"[OK] Loaded {len(matching_engine.scientists)} scientists with rich profiles")
+    print(f"[OK] Loaded {len(get_matching_engine().scientists)} scientists with rich profiles")
     print(f"[OK] Supabase: {'Connected' if SUPABASE_AVAILABLE else 'Not configured (using fallback)'}")
     print(f"[OK] Auto-refresh: 90 seconds (reduced DB load)")
     print(f"[OK] Connection pooling: Active with thread safety")
