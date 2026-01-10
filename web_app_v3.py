@@ -279,20 +279,10 @@ def start_quiz():
     domain = data.get('domain', 'cosmos')
     client_uuid = data.get('client_uuid')  # Get UUID from client
 
-    # Initialize session (keep for backwards compatibility)
-    session['domain'] = domain
-    session['answers'] = []
-    session['current_question'] = 0
-    session['quiz_session_id'] = secrets.token_hex(8)
+    print(f"[Stateless] Received client UUID: {client_uuid}")
+    print(f"[Stateless] Selected domain: {domain}")
 
-    # IMPORTANT: Store client UUID in session for this quiz
-    if client_uuid:
-        session['client_uuid'] = client_uuid
-        print(f"[Client UUID] Received from frontend: {client_uuid}")
-
-    print(f"[Session Debug] SUPABASE_AVAILABLE: {SUPABASE_AVAILABLE}")
-
-    # Track in Supabase using CLIENT UUID (not server session)
+    # Track in Supabase using CLIENT UUID (stateless)
     if SUPABASE_AVAILABLE and db and client_uuid:
         session_uuid = db.create_quiz_session(
             session_id=client_uuid,  # Use client UUID!
@@ -301,7 +291,6 @@ def start_quiz():
         )
         print(f"[Supabase] Created session with client UUID, returned: {session_uuid}")
         if session_uuid:
-            session['db_session_uuid'] = session_uuid
             print(f"[Supabase] ✓ Successfully created Supabase session!")
         else:
             print(f"[Supabase] ✗ Failed to create Supabase session")
@@ -331,30 +320,16 @@ def answer_question():
     client_uuid = data.get('client_uuid')
 
     # Debug logging
-    print(f"[Quiz] Client UUID: {client_uuid}")
-    print(f"[Quiz] Question number: {question_number}")
-    print(f"[Quiz] Answer: {answer}")
+    print(f"[Stateless] Client UUID: {client_uuid}")
+    print(f"[Stateless] Question number: {question_number}")
+    print(f"[Stateless] Answer: {answer}")
 
-    # Initialize or restore answers array
-    if 'answers' not in session:
-        print("[Quiz] Initializing answers array")
-        session['answers'] = []
+    # Stateless: No session storage needed
+    # Client will store answers and send all at the end
 
-    # Store client UUID in session if provided
-    if client_uuid and not session.get('client_uuid'):
-        session['client_uuid'] = client_uuid
-
-    # Store answer at the correct position
-    # Ensure the list is long enough
-    while len(session['answers']) <= question_number:
-        session['answers'].append(None)
-
-    session['answers'][question_number] = answer
-    session.modified = True
-
-    # Use question_number + 1 as the next question (client-provided, not session-based)
+    # Use question_number + 1 as the next question (client-provided)
     next_question_idx = question_number + 1
-    print(f"[Quiz] Next question index: {next_question_idx}/{len(QUESTIONS)}")
+    print(f"[Stateless] Next question index: {next_question_idx}/{len(QUESTIONS)}")
 
     # Check if quiz is complete
     if next_question_idx >= len(QUESTIONS):
@@ -378,20 +353,21 @@ def get_matches():
     import time
     start_time = time.time()
 
-    # Try to get client UUID from request body OR session
+    # STATELESS: Get everything from request body
     data = request.json or {}
-    client_uuid = data.get('client_uuid') or session.get('client_uuid')
+    client_uuid = data.get('client_uuid')
+    answers = data.get('answers', [])  # Get answers from request
+    domain = data.get('domain', 'cosmos')  # Get domain from request
+    recently_shown = data.get('recently_shown', [])  # Get from request
 
-    answers = session.get('answers', [])
-    domain = session.get('domain', 'cosmos')
+    print(f"[Stateless] Client UUID: {client_uuid}")
+    print(f"[Stateless] Domain: {domain}")
+    print(f"[Stateless] Answers: {answers}")
+    print(f"[Stateless] Recently shown: {recently_shown}")
 
+    # Build user profile from answers
     user_profile = build_user_profile(answers)
     print(f"[Performance] Profile built in {time.time() - start_time:.3f}s")
-    print(f"[Client UUID] Using UUID for save: {client_uuid}")
-
-    # Anti-repetition: Get recently shown scientists from session
-    # Keep track of last 9 scientists shown (3 attempts × 3 matches)
-    recently_shown = session.get('recently_shown_scientists', [])
 
     # Get matches with anti-repetition
     match_start = time.time()
@@ -399,66 +375,44 @@ def get_matches():
     matches = engine.get_full_matches(user_profile, domain, recently_shown=recently_shown)
     print(f"[Performance] Matching took {time.time() - match_start:.3f}s")
 
-    # Update recently shown list with current matches
-    current_scientists = [m['name'] for m in matches]
-    recently_shown.extend(current_scientists)
-
-    # Keep only the last 9 entries (prevent list from growing indefinitely)
-    # This gives variety across ~3 quiz attempts
-    recently_shown = recently_shown[-9:]
-    session['recently_shown_scientists'] = recently_shown
-    session.modified = True
-
     # Calculate trait percentages based on answer positions
-    # Each answer (0-3) maps to different intensity levels
     trait_percentages = {}
     for i, answer in enumerate(answers):
         if i < len(QUESTIONS):
             dim = QUESTIONS[i]['dimension']
             # Map answer position to percentage (visual representation)
-            # Answer 0=95%, 1=82%, 2=68%, 3=55% (first answer = strongest expression)
             percent_map = {0: 95, 1: 82, 2: 68, 3: 55}
             trait_percentages[dim] = percent_map.get(answer, 75)
 
-    # Save to Supabase using client UUID (doesn't depend on server session!)
-    if SUPABASE_AVAILABLE and db:
-        # Use db_session_uuid from session if it exists, otherwise use client_uuid directly
-        session_uuid = session.get('db_session_uuid') or client_uuid
-
+    # Save to Supabase using client UUID (stateless)
+    if SUPABASE_AVAILABLE and db and client_uuid:
         print(f"[Supabase] Attempting to save results")
-        print(f"[Supabase] Using UUID: {session_uuid}")
+        print(f"[Supabase] Using UUID: {client_uuid}")
 
-        if session_uuid:
-            db_start = time.time()
-            try:
-                # Complete the session
-                db.complete_quiz_session(session_uuid, user_profile)
-                # Save match results
-                db.save_quiz_results(session_uuid, matches)
-                print(f"[Performance] Supabase save took {time.time() - db_start:.3f}s")
-                print(f"[Supabase] ✓ Successfully saved quiz results!")
-            except Exception as e:
-                print(f"[Supabase] ✗ Save failed: {e}")
-                import traceback
-                traceback.print_exc()
-        else:
-            print(f"[Supabase] ✗ NO UUID available (neither db_session_uuid nor client_uuid)!")
-            print(f"[Supabase] Results will NOT be saved")
-
-    # Store result in session for "Back to results" functionality
-    session['last_result'] = {
-        "user_profile": user_profile,
-        "trait_percentages": trait_percentages,
-        "matches": matches
-    }
-    session.modified = True
+        db_start = time.time()
+        try:
+            # Complete the session
+            db.complete_quiz_session(client_uuid, user_profile)
+            # Save match results
+            db.save_quiz_results(client_uuid, matches)
+            print(f"[Performance] Supabase save took {time.time() - db_start:.3f}s")
+            print(f"[Supabase] ✓ Successfully saved quiz results!")
+        except Exception as e:
+            print(f"[Supabase] ✗ Save failed: {e}")
+            import traceback
+            traceback.print_exc()
+    else:
+        print(f"[Supabase] ✗ NO UUID available or Supabase not configured!")
+        print(f"[Supabase] Results will NOT be saved")
 
     print(f"[Performance] Total request time: {time.time() - start_time:.3f}s")
 
+    # Return results (no session storage)
     return jsonify({
         "user_profile": user_profile,
         "trait_percentages": trait_percentages,
-        "matches": matches
+        "matches": matches,
+        "client_uuid": client_uuid  # Return UUID for client to store
     })
 
 
@@ -609,57 +563,63 @@ def analytics():
 
 @app.route('/results')
 def view_results():
-    """Display the last quiz result - bulletproof version"""
+    """Display quiz results - STATELESS (query from Supabase or localStorage)"""
     try:
-        last_result = session.get('last_result')
+        # Get client_uuid from URL parameter
+        client_uuid = request.args.get('uuid')
 
-        if not last_result:
-            # No result in session, redirect to home
-            return redirect('/')
+        if not client_uuid:
+            print("[Stateless] No UUID provided, redirecting to home")
+            # No UUID, redirect to home (client can use localStorage)
+            return redirect('/?showResults=true')  # Signal client to load from localStorage
 
-        # Validate result has required fields
-        if not isinstance(last_result, dict) or 'matches' not in last_result:
-            # Invalid result format, clear and redirect
-            session.pop('last_result', None)
-            return redirect('/')
-
-        # Return stored result as JSON for client-side rendering
-        return render_template('index_v3.html', stored_result=json.dumps(last_result))
+        # Query results from Supabase
+        if SUPABASE_AVAILABLE and db:
+            print(f"[Stateless] Querying results for UUID: {client_uuid}")
+            # This would require a new method in supabase_client
+            # For now, just render template and let client handle it via localStorage
+            return render_template('index_v3.html', domains=DOMAINS, client_uuid=client_uuid)
+        else:
+            # No Supabase, use localStorage on client
+            return redirect('/?showResults=true')
 
     except Exception as e:
         # Log error and redirect to home
         print(f"[ERROR] /results route failed: {e}")
-        session.pop('last_result', None)
         return redirect('/')
 
 
 @app.route('/api/like', methods=['POST'])
 def like_result():
-    """Track when users like their result"""
+    """Track when users like their result (STATELESS)"""
     data = request.json
     scientist_name = data.get('scientist', '')
+    client_uuid = data.get('client_uuid')  # Get from request
 
-    # Save to Supabase
-    if SUPABASE_AVAILABLE and db:
-        session_uuid = session.get('db_session_uuid')
-        if session_uuid:
-            db.record_like(session_uuid, scientist_name)
+    print(f"[Stateless] Like - Client UUID: {client_uuid}, Scientist: {scientist_name}")
+
+    # Save to Supabase using client UUID
+    if SUPABASE_AVAILABLE and db and client_uuid:
+        db.record_like(client_uuid, scientist_name)
+        print(f"[Supabase] ✓ Recorded like for {scientist_name}")
 
     return jsonify({"success": True, "message": f"Liked {scientist_name}!"})
 
 
 @app.route('/api/share', methods=['POST'])
 def track_share():
-    """Track when users share their result"""
+    """Track when users share their result (STATELESS)"""
     data = request.json
     scientist_name = data.get('scientist', '')
     platform = data.get('platform', 'unknown')
+    client_uuid = data.get('client_uuid')  # Get from request
 
-    # Save to Supabase
-    if SUPABASE_AVAILABLE and db:
-        session_uuid = session.get('db_session_uuid')
-        if session_uuid:
-            db.record_share(session_uuid, scientist_name, platform)
+    print(f"[Stateless] Share - Client UUID: {client_uuid}, Platform: {platform}, Scientist: {scientist_name}")
+
+    # Save to Supabase using client UUID
+    if SUPABASE_AVAILABLE and db and client_uuid:
+        db.record_share(client_uuid, scientist_name, platform)
+        print(f"[Supabase] ✓ Recorded {platform} share for {scientist_name}")
 
     return jsonify({"success": True})
 

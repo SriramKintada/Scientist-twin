@@ -1006,13 +1006,15 @@
     <div class="toast" id="toast"></div>
 
     <script>
+        // ===== STATELESS QUIZ STATE =====
         let selectedDomain = null;
         let currentQuestion = 0;
         let totalQuestions = 12;
         let selectedAnswer = null;
         let userTraitPercentages = {};
+        let quizAnswers = [];  // STATELESS: Store all answers client-side
 
-        // Generate client-side UUID for tracking (doesn't rely on server sessions)
+        // Generate client-side UUID for tracking (stateless)
         let clientSessionUUID = null;
 
         function generateUUID() {
@@ -1021,6 +1023,26 @@
                 const v = c === 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
             });
+        }
+
+        // ===== ANTI-REPETITION (localStorage) =====
+        function getRecentlyShown() {
+            try {
+                return JSON.parse(localStorage.getItem('recently_shown_scientists') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function updateRecentlyShown(scientists) {
+            try {
+                let recent = getRecentlyShown();
+                recent.push(...scientists);
+                recent = recent.slice(-9);  // Keep last 9
+                localStorage.setItem('recently_shown_scientists', JSON.stringify(recent));
+            } catch (e) {
+                console.error('[localStorage] Failed to update recently shown:', e);
+            }
         }
 
         // Check for stored last results on page load
@@ -1062,9 +1084,12 @@
         document.getElementById('btn-domain').addEventListener('click', startQuiz);
 
         async function startQuiz() {
-            // Generate client UUID for this session (persists in memory)
+            // Generate client UUID for this session (stateless)
             clientSessionUUID = generateUUID();
-            console.log('[Quiz] Generated client UUID:', clientSessionUUID);
+            console.log('[Stateless] Generated client UUID:', clientSessionUUID);
+
+            // Initialize answers array (stateless storage)
+            quizAnswers = [];
 
             const response = await fetch('/api/start-quiz', {
                 method: 'POST',
@@ -1161,7 +1186,11 @@
         }
 
         document.getElementById('btn-answer').addEventListener('click', async function() {
-            console.log('[Quiz] Next button clicked, selectedAnswer:', selectedAnswer);
+            console.log('[Stateless] Next button clicked, selectedAnswer:', selectedAnswer);
+
+            // STATELESS: Store answer locally
+            quizAnswers[currentQuestion] = selectedAnswer;
+            console.log('[Stateless] Stored answer locally, answers so far:', quizAnswers);
 
             try {
                 const response = await fetch('/api/answer-question', {
@@ -1174,14 +1203,14 @@
                     })
                 });
 
-                console.log('[Quiz] API response status:', response.status);
+                console.log('[Stateless] API response status:', response.status);
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                console.log('[Quiz] API response data:', data);
+                console.log('[Stateless] API response data:', data);
 
                 if (data.complete) {
                     showLoading();
@@ -1190,8 +1219,8 @@
                     showQuestion(data.question);
                 }
             } catch (error) {
-                console.error('[Quiz] ERROR:', error);
-                console.error('[Quiz] Error details:', error.message, error.stack);
+                console.error('[Stateless] ERROR:', error);
+                console.error('[Stateless] Error details:', error.message, error.stack);
                 showToast('⚠️ Connection error. Retrying...');
                 // Don't block - let user try again
             }
@@ -1205,11 +1234,22 @@
         async function getMatches() {
             const startTime = Date.now();
 
+            // STATELESS: Send all data to backend
+            const recentlyShown = getRecentlyShown();
+            console.log('[Stateless] Sending to backend:', {
+                answers: quizAnswers,
+                domain: selectedDomain,
+                recently_shown: recentlyShown
+            });
+
             const response = await fetch('/api/get-matches', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    client_uuid: clientSessionUUID  // Send UUID to backend
+                    client_uuid: clientSessionUUID,
+                    answers: quizAnswers,  // Send answers
+                    domain: selectedDomain,  // Send domain
+                    recently_shown: recentlyShown  // Send from localStorage
                 })
             });
 
@@ -1217,6 +1257,13 @@
 
             // Store trait percentages
             userTraitPercentages = data.trait_percentages || {};
+
+            // STATELESS: Update recently shown in localStorage
+            if (data.matches && data.matches.length > 0) {
+                const scientistNames = data.matches.map(m => m.name);
+                updateRecentlyShown(scientistNames);
+                console.log('[Stateless] Updated recently shown:', getRecentlyShown());
+            }
 
             // Minimum 3 seconds loading
             const elapsed = Date.now() - startTime;
@@ -1513,9 +1560,23 @@
         // Social sharing functions
         function toggleLike(btn) {
             btn.classList.toggle('liked');
-            if (btn.classList.contains('liked')) {
+            const isLiked = btn.classList.contains('liked');
+
+            if (isLiked) {
                 btn.querySelector('.heart-icon').innerHTML = '&#10084;';
                 showToast('Added to favorites! ❤️');
+
+                // STATELESS: Send like to backend with client_uuid
+                if (currentScientistData && clientSessionUUID) {
+                    fetch('/api/like', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            scientist: currentScientistData.name,
+                            client_uuid: clientSessionUUID  // Send UUID
+                        })
+                    }).catch(err => console.log('[Stateless] Like tracking failed:', err));
+                }
             } else {
                 btn.querySelector('.heart-icon').innerHTML = '&#9825;';
             }
@@ -1604,16 +1665,23 @@
         }
 
         function trackShare(platform) {
-            // Track share event in backend analytics
+            // STATELESS: Track share event with client_uuid
             const scientistName = currentScientistData ? currentScientistData.name : '';
+
+            if (!clientSessionUUID) {
+                console.warn('[Stateless] No client UUID available for share tracking');
+                return;
+            }
+
             fetch('/api/share', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     scientist: scientistName,
-                    platform: platform
+                    platform: platform,
+                    client_uuid: clientSessionUUID  // Send UUID
                 })
-            }).catch(err => console.log('Share tracking failed:', err));
+            }).catch(err => console.log('[Stateless] Share tracking failed:', err));
         }
 
         function updateMetaTags(scientistData) {
