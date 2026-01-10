@@ -1087,6 +1087,10 @@
             console.log('[Quiz] showQuestion() called with:', question);
 
             try {
+                // Update current question index (0-based)
+                currentQuestion = question.number - 1;
+                console.log('[Quiz] Current question index:', currentQuestion);
+
                 console.log('[Quiz] Updating question text to:', question.text);
                 document.getElementById('question-text').textContent = question.text;
 
@@ -1163,7 +1167,11 @@
                 const response = await fetch('/api/answer-question', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ answer: selectedAnswer })
+                    body: JSON.stringify({
+                        answer: selectedAnswer,
+                        question_number: currentQuestion,
+                        client_uuid: clientSessionUUID
+                    })
                 });
 
                 console.log('[Quiz] API response status:', response.status);

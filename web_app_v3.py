@@ -318,30 +318,45 @@ def start_quiz():
 def answer_question():
     data = request.json
     answer = data.get('answer', 0)
+    question_number = data.get('question_number', 0)  # Get from client
+    client_uuid = data.get('client_uuid')
 
     # Debug logging
-    print(f"[Session Debug] Session ID: {session.get('quiz_session_id', 'NO SESSION ID')}")
-    print(f"[Session Debug] DB UUID: {session.get('db_session_uuid', 'NO DB UUID')}")
-    print(f"[Session Debug] Current answers: {session.get('answers', [])}")
-    print(f"[Session Debug] New answer: {answer}")
+    print(f"[Quiz] Client UUID: {client_uuid}")
+    print(f"[Quiz] Question number: {question_number}")
+    print(f"[Quiz] Answer: {answer}")
 
+    # Initialize or restore answers array
     if 'answers' not in session:
-        print("[Session Debug] WARNING: No answers in session - session may have been lost!")
+        print("[Quiz] Initializing answers array")
         session['answers'] = []
-    session['answers'].append(answer)
+
+    # Store client UUID in session if provided
+    if client_uuid and not session.get('client_uuid'):
+        session['client_uuid'] = client_uuid
+
+    # Store answer at the correct position
+    # Ensure the list is long enough
+    while len(session['answers']) <= question_number:
+        session['answers'].append(None)
+
+    session['answers'][question_number] = answer
     session.modified = True
 
-    current = len(session['answers'])
-    print(f"[Session Debug] Total answers now: {current}/{len(QUESTIONS)}")
+    # Use question_number + 1 as the next question (client-provided, not session-based)
+    next_question_idx = question_number + 1
+    print(f"[Quiz] Next question index: {next_question_idx}/{len(QUESTIONS)}")
 
-    if current >= len(QUESTIONS):
+    # Check if quiz is complete
+    if next_question_idx >= len(QUESTIONS):
         return jsonify({"complete": True})
 
-    question = QUESTIONS[current]
+    # Return next question
+    question = QUESTIONS[next_question_idx]
     return jsonify({
         "complete": False,
         "question": {
-            "number": current + 1,
+            "number": next_question_idx + 1,
             "text": question['text'],
             "options": [opt['text'] for opt in question['options']],
             "dimension": question['dimension']
