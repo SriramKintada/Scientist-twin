@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curious Minds Club - Scientist Twin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #f87171;
+            --coral-dark: #ef4444;
+            --coral-light: #fca5a5;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --card-bg: #ffffff;
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fb7185 0%, #f87171 50%, #ef4444 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .data-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.85em;
+            margin-top: 16px;
+        }
+
+        .stats-hero {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .big-number {
+            font-size: 5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .stats-label {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .card-subtitle {
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        /* Hall of Fame */
+        .hall-of-fame-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .hall-of-fame-item:hover {
+            background: #fef2f2;
+            transform: translateX(8px);
+        }
+
+        .rank {
+            font-size: 1.2em;
+            font-weight: 800;
+            color: var(--coral);
+            width: 32px;
+        }
+
+        .scientist-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e5e7eb;
+            border: 3px solid var(--coral-light);
+        }
+
+        .scientist-info {
+            flex: 1;
+        }
+
+        .scientist-info h4 {
+            font-weight: 700;
+            font-size: 1em;
+            margin-bottom: 4px;
+        }
+
+        .scientist-info p {
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+
+        .match-rate {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.85em;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        /* Live Activity */
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .activity-item:last-child { border-bottom: none; }
+
+        .activity-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .activity-text {
+            flex: 1;
+            font-size: 0.95em;
+        }
+
+        .activity-text strong { color: var(--text-dark); }
+        .activity-text .scientist-name { color: var(--coral); font-weight: 600; }
+
+        .activity-time {
+            font-size: 0.8em;
+            color: var(--text-muted);
+        }
+
+        /* Trait bars */
+        .trait-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .trait-icon { font-size: 1.3em; width: 32px; }
+
+        .trait-name {
+            width: 120px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .trait-bar-bg {
+            flex: 1;
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .trait-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+
+        .trait-percent {
+            width: 40px;
+            text-align: right;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        /* Stats grid */
+        .stat-box {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-box .number {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--coral);
+        }
+
+        .stat-box .label {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Fields */
+        .field-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: #f9fafb;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .field-item:hover {
+            background: #fef2f2;
+            transform: translateX(4px);
+        }
+
+        .field-name { font-weight: 600; }
+        .field-count { color: var(--coral); font-weight: 700; }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: white;
+            color: var(--coral);
+            border: none;
+            border-radius: 16px;
+            padding: 16px 32px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--coral);
+            border: 3px solid white;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 3px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding: 24px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-company-logo {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+            background: white;
+            padding: 6px 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95em;
+        }
+
+        .footer-text a {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container { padding: 16px 12px; }
+            .header { margin-bottom: 24px; }
+            .header h1 { font-size: 1.6em; line-height: 1.2; }
+            .header p { font-size: 0.9em; }
+            .data-badge { font-size: 0.75em; padding: 6px 14px; }
+            .stats-hero { padding: 28px 20px; border-radius: 20px; margin-bottom: 20px; }
+            .big-number { font-size: 3em; }
+            .stats-label { font-size: 1em; }
+            .grid { grid-template-columns: 1fr; gap: 16px; }
+            .card { padding: 24px 18px; border-radius: 20px; }
+            .card-header { margin-bottom: 18px; }
+            .card-icon { width: 40px; height: 40px; font-size: 1.2em; border-radius: 12px; }
+            .card-title { font-size: 1.1em; }
+            .card-subtitle { font-size: 0.8em; }
+            .hall-of-fame-item { padding: 14px; gap: 12px; border-radius: 14px; margin-bottom: 10px; }
+            .rank { font-size: 1em; width: 28px; }
+            .scientist-avatar { width: 48px; height: 48px; }
+            .scientist-info h4 { font-size: 0.9em; }
+            .scientist-info p { font-size: 0.75em; }
+            .match-rate { padding: 6px 12px; font-size: 0.75em; }
+            .activity-item { padding: 12px; gap: 10px; }
+            .activity-avatar { width: 36px; height: 36px; font-size: 1em; }
+            .activity-text { font-size: 0.85em; }
+            .activity-time { font-size: 0.7em; }
+            .trait-item { gap: 10px; margin-bottom: 12px; }
+            .trait-icon { font-size: 1.1em; width: 28px; }
+            .trait-name { width: 100px; font-size: 0.8em; }
+            .trait-bar-bg { height: 8px; }
+            .trait-percent { width: 35px; font-size: 0.8em; }
+            .stat-box { padding: 16px; border-radius: 14px; }
+            .stat-box .number { font-size: 1.6em; }
+            .stat-box .label { font-size: 0.8em; }
+            .field-item { padding: 12px 14px; border-radius: 10px; margin-bottom: 8px; }
+            .field-name { font-size: 0.9em; }
+            .field-count { font-size: 0.85em; }
+            .action-buttons { flex-direction: column; gap: 12px; margin-top: 28px; }
+            .btn { width: 100%; justify-content: center; padding: 14px 24px; font-size: 0.95em; border-radius: 14px; }
+            .footer { margin-top: 32px; padding: 20px; }
+        }
+
+        @media (max-width: 380px) {
+            .header h1 { font-size: 1.4em; }
+            .big-number { font-size: 2.5em; }
+            .hall-of-fame-item { flex-wrap: wrap; }
+            .match-rate { margin-left: 0; margin-top: 8px; width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>The Curious Minds Club</h1>
+            <p>Real-time insights from our growing community of science enthusiasts</p>
+        </header>
+
+        <div class="stats-hero">
+            <div class="big-number" id="total-plays">{{ stats.total_plays }}</div>
+            <div class="stats-label">Curious Minds Have Played!</div>
+            {% if stats.total_plays == 0 %}
+            <p style="margin-top: 16px; color: #6b7280; font-size: 0.95em;">
+                🎯 Analytics will appear here once people start taking the quiz!
+            </p>
+            {% endif %}
+        </div>
+
+        <div class="grid">
+            <!-- Hall of Fame -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#127942;</div>
+                    <div>
+                        <div class="card-title">Hall of Fame</div>
+                        <div class="card-subtitle">Most matched scientists</div>
+                    </div>
+                </div>
+                {% if stats.hall_of_fame %}
+                    {% for scientist in stats.hall_of_fame %}
+                    <div class="hall-of-fame-item">
+                        <div class="rank">#{{ loop.index }}</div>
+                        <img src="{{ scientist.image_url if scientist.image_url else 'https://en.wikipedia.org/wiki/Special:FilePath/' + scientist.name | replace(' ', '_') + '.jpg' }}"
+                             alt="{{ scientist.name }}"
+                             class="scientist-avatar"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect fill=\'%23f3f4f6\' width=\'100\' height=\'100\'/><circle cx=\'50\' cy=\'35\' r=\'18\' fill=\'%239ca3af\'/><ellipse cx=\'50\' cy=\'75\' rx=\'28\' ry=\'20\' fill=\'%239ca3af\'/></svg>');">
+                        <div class="scientist-info">
+                            <h4>{{ scientist.name }}</h4>
+                            <p>{{ scientist.field }} &bull; {{ scientist.era }}</p>
+                        </div>
+                        <span class="match-rate">{{ scientist.match_count }} match{{ 'es' if scientist.match_count != 1 else '' }}</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No matches yet</p>
+                {% endif %}
+            </div>
+
+            <!-- Live Activity -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128226;</div>
+                    <div>
+                        <div class="card-title">Live Activity</div>
+                        <div class="card-subtitle">Recent quiz completions</div>
+                    </div>
+                </div>
+                {% if stats.recent_activity %}
+                    {% for activity in stats.recent_activity %}
+                    <div class="activity-item">
+                        <div class="activity-avatar">&#129300;</div>
+                        <div class="activity-text">
+                            <strong>Player #{{ activity.id }}</strong> matched with <span class="scientist-name">{{ activity.scientist }}</span>
+                        </div>
+                        <div class="activity-time">{{ activity.time }}</div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No recent activity</p>
+                {% endif %}
+            </div>
+
+            <!-- Top Traits -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128202;</div>
+                    <div>
+                        <div class="card-title">Top Traits</div>
+                        <div class="card-subtitle">Most common in our community</div>
+                    </div>
+                </div>
+                {% if stats.top_traits %}
+                    {% for trait in stats.top_traits %}
+                    <div class="trait-item">
+                        <span class="trait-icon">{{ trait.icon }}</span>
+                        <span class="trait-name">{{ trait.name }}</span>
+                        <div class="trait-bar-bg">
+                            <div class="trait-bar-fill" style="width: {{ trait.percent }}%"></div>
+                        </div>
+                        <span class="trait-percent">{{ trait.percent }}%</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No trait data yet</p>
+                {% endif %}
+            </div>
+
+            <!-- Popular Fields -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128218;</div>
+                    <div>
+                        <div class="card-title">Popular Fields</div>
+                        <div class="card-subtitle">Top matched scientific areas</div>
+                    </div>
+                </div>
+                {% if stats.popular_fields %}
+                    {% for field in stats.popular_fields %}
+                    <div class="field-item">
+                        <span class="field-name">{{ field.name }}</span>
+                        <span class="field-count">{{ field.count }} matches</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No field data yet</p>
+                {% endif %}
+            </div>
+
+            <!-- Engagement Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#128170;</div>
+                    <div>
+                        <div class="card-title">Community Engagement</div>
+                        <div class="card-subtitle">How our community interacts</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.share_rate }}%</div>
+                    <div class="label">Share Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.retake_rate }}%</div>
+                    <div class="label">Retake Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.favorites }}</div>
+                    <div class="label">Favorites</div>
+                </div>
+            </div>
+
+            <!-- Peak Times -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">&#9200;</div>
+                    <div>
+                        <div class="card-title">When Do They Play?</div>
+                        <div class="card-subtitle">Peak activity times</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.peak_hour }}</div>
+                    <div class="label">Busiest Hour</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ stats.peak_day }}</div>
+                    <div class="label">Most Active Day</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/?showResults=true" class="btn btn-secondary">Back to Results</a>
+            <a href="/" class="btn btn-primary">Take Quiz Again</a>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-brand">
+                <img src="/static/companyimage.png" alt="SciRio" class="footer-company-logo">
+                <span class="footer-text">A <a href="https://www.scirio.in" target="_blank">SciRio</a> Product</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Animate the big number on load
+        const totalPlaysElement = document.getElementById('total-plays');
+        const targetNumber = parseInt(totalPlaysElement.textContent);
+        let currentNumber = 0;
+        const duration = 1500;
+        const startTime = performance.now();
+
+        function animateNumber(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            currentNumber = Math.floor(targetNumber * easeOut);
+            totalPlaysElement.textContent = currentNumber.toLocaleString();
+
+            if (progress < 1) {
+                requestAnimationFrame(animateNumber);
+            } else {
+                totalPlaysElement.textContent = targetNumber.toLocaleString();
+            }
+        }
+
+        requestAnimationFrame(animateNumber);
+
+        // Animate trait bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.trait-bar-fill');
+                    bars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.trait-item').forEach(item => {
+            observer.observe(item.closest('.card'));
+        });
+
+        // Auto-refresh player count and live activity every 90 seconds (reduced DB load)
+        setInterval(async () => {
+            try {
+                const response = await fetch('/api/analytics-live');
+                const data = await response.json();
+
+                // Update total plays count
+                const totalPlaysEl = document.getElementById('total-plays');
+                if (totalPlaysEl && data.total_plays) {
+                    totalPlaysEl.textContent = data.total_plays.toLocaleString();
+                }
+
+                // Update recent activity if provided
+                if (data.recent_activity && data.recent_activity.length > 0) {
+                    const activityContainer = document.querySelector('.live-activity .stat-list');
+                    if (activityContainer) {
+                        activityContainer.innerHTML = data.recent_activity.map(activity => `
+                            <div class="stat-item">
+                                <div class="player-info">
+                                    <div class="player-name">Player #${activity.id}</div>
+                                    <div class="player-scientist">matched with ${activity.scientist}</div>
+                                </div>
+                                <div class="time">${activity.time}</div>
+                            </div>
+                        `).join('');
+                    }
+                }
+
+                console.log('[Analytics] Auto-refreshed at', new Date().toLocaleTimeString());
+            } catch (error) {
+                console.error('[Analytics] Refresh failed:', error);
+                // Graceful degradation - continue showing current data
+            }
+        }, 90000); // Refresh every 90 seconds
+    </script>
+</body>
+</html>

@@ -6,6 +6,8 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
+ENV/
 *.egg-info/
 dist/
 build/
@@ -13,10 +15,12 @@ build/
 # Flask
 instance/
 .env
+.env.local
+flask_session/
 
 # IDE
-.vscode/
 .idea/
+.vscode/
 *.swp
 *.swo
 
@@ -24,8 +28,12 @@ instance/
 .DS_Store
 Thumbs.db
 
-# Temporary files
+# Logs
 *.log
+
+# Temporary files
+*.tmp
+*.temp
 nul
 
 # Local development

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientist Twin 2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .option-grid {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-card.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .option-desc {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .match-result {
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .match-name {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .match-quality {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .trait-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .trait-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .trait-name {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="main-title">Scientist Twin 2.0</h1>
+        <p class="subtitle">Discover your scientific kindred spirit among Indian scientists</p>
+
+        <!-- Step 1: Domain Selection -->
+        <div class="step active" id="step-domain">
+            <h2>Choose Your Scientific Domain</h2>
+            <div class="option-grid">
+                {% for key, domain in domains.items() %}
+                <div class="option-card" data-domain="{{ key }}">
+                    <div class="option-title">{{ domain.name }}</div>
+                    <div class="option-desc">{{ domain.description }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <button id="btn-domain" disabled>Continue</button>
+        </div>
+
+        <!-- Step 2: Impact Style -->
+        <div class="step" id="step-impact">
+            <h2>Choose Your Impact Style</h2>
+            <div class="option-grid">
+                {% for key, style in impact_styles.items() %}
+                <div class="option-card" data-impact="{{ key }}">
+                    <div class="option-title">{{ style }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <button id="btn-impact" disabled>Start Assessment</button>
+        </div>
+
+        <!-- Step 3: Quiz -->
+        <div class="step" id="step-quiz">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress" style="width: 0%"></div>
+            </div>
+            <div class="question-text" id="question-text"></div>
+            <div class="option-grid" id="quiz-options"></div>
+            <button id="btn-answer" disabled>Next</button>
+        </div>
+
+        <!-- Step 4: Loading -->
+        <div class="step" id="step-loading">
+            <div class="loading">
+                <div class="spinner"></div>
+                <h2>Analyzing your profile...</h2>
+                <p>Finding your scientific twin among 12 legendary scientists</p>
+            </div>
+        </div>
+
+        <!-- Step 5: Results -->
+        <div class="step" id="step-results">
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let selectedDomain = null;
+        let selectedImpact = null;
+        let currentQuestion = 0;
+        let totalQuestions = 0;
+        let selectedAnswer = null;
+
+        // Domain selection
+        document.querySelectorAll('[data-domain]').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('[data-domain]').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedDomain = this.dataset.domain;
+                document.getElementById('btn-domain').disabled = false;
+            });
+        });
+
+        document.getElementById('btn-domain').addEventListener('click', function() {
+            document.getElementById('step-domain').classList.remove('active');
+            document.getElementById('step-impact').classList.add('active');
+        });
+
+        // Impact style selection
+        document.querySelectorAll('[data-impact]').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('[data-impact]').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedImpact = this.dataset.impact;
+                document.getElementById('btn-impact').disabled = false;
+            });
+        });
+
+        document.getElementById('btn-impact').addEventListener('click', function() {
+            startQuiz();
+        });
+
+        // Start quiz
+        async function startQuiz() {
+            const response = await fetch('/api/start-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain: selectedDomain, impact_style: selectedImpact })
+            });
+
+            const data = await response.json();
+            totalQuestions = data.total_questions;
+
+            document.getElementById('step-impact').classList.remove('active');
+            document.getElementById('step-quiz').classList.add('active');
+
+            showQuestion(data.question);
+        }
+
+        // Show question
+        function showQuestion(question) {
+            document.getElementById('question-text').textContent = question.text;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const card = document.createElement('div');
+                card.className = 'option-card';
+                card.dataset.answer = index;
+                card.textContent = option;
+
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('#quiz-options .option-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedAnswer = parseInt(this.dataset.answer);
+                    document.getElementById('btn-answer').disabled = false;
+                });
+
+                optionsContainer.appendChild(card);
+            });
+
+            selectedAnswer = null;
+            document.getElementById('btn-answer').disabled = true;
+
+            const progress = ((question.number) / totalQuestions) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Answer question
+        document.getElementById('btn-answer').addEventListener('click', async function() {
+            const response = await fetch('/api/answer-question', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answer: selectedAnswer })
+            });
+
+            const data = await response.json();
+
+            if (data.complete) {
+                showLoading();
+                await getMatches();
+            } else {
+                showQuestion(data.question);
+            }
+        });
+
+        // Show loading
+        function showLoading() {
+            document.getElementById('step-quiz').classList.remove('active');
+            document.getElementById('step-loading').classList.add('active');
+        }
+
+        // Get matches
+        async function getMatches() {
+            const response = await fetch('/api/get-matches', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+            showResults(data);
+        }
+
+        // Show results
+        function showResults(data) {
+            const resultsContainer = document.getElementById('results-container');
+            const primaryMatch = data.matches[0];
+
+            let html = `
+                <div class="match-result">
+                    <div class="match-name">${primaryMatch.name}</div>
+                    <span class="match-quality">${primaryMatch.match_quality}</span>
+                    <div style="color: #666; margin: 10px 0;">${primaryMatch.archetype}</div>
+
+                    <div class="section-title">Resonances (Similarities)</div>
+                    <ul class="trait-list">
+                        ${primaryMatch.resonances.map(r => `
+                            <li class="trait-item">
+                                <div class="trait-name">${r.trait}</div>
+                                <div>${r.explanation}</div>
+                            </li>
+                        `).join('')}
+                    </ul>
+
+                    ${primaryMatch.contrasts.length > 0 ? `
+                    <div class="section-title">Contrasts (Differences)</div>
+                    <ul class="trait-list">
+                        ${primaryMatch.contrasts.map(c => `
+                            <li class="trait-item">
+                                <div class="trait-name">${c.trait}</div>
+                                <div>${c.explanation}</div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    ` : ''}
+
+                    <div class="section-title">Working Style</div>
+                    <p style="padding: 15px; background: white; border-radius: 8px;">${primaryMatch.working_style}</p>
+
+                    <div class="section-title">Character Moment</div>
+                    <p style="padding: 15px; background: white; border-radius: 8px;">${primaryMatch.character_moment}</p>
+                </div>
+
+                ${data.matches.length > 1 ? `
+                <div class="section-title">Alternative Matches</div>
+                ${data.matches.slice(1).map(m => `
+                    <div class="trait-item">
+                        <div class="trait-name">${m.name}</div>
+                        <div>${m.archetype}</div>
+                    </div>
+                `).join('')}
+                ` : ''}
+            `;
+
+            resultsContainer.innerHTML = html;
+
+            document.getElementById('step-loading').classList.remove('active');
+            document.getElementById('step-results').classList.add('active');
+        }
+    </script>
+</body>
+</html>

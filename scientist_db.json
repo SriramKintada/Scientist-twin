@@ -1,0 +1,254 @@
+[
+  {
+    "name": "C.V. Raman",
+    "domain": "quantum",
+    "sub_domain": "Physics - Optics",
+    "era": "Colonial-Independence",
+    "career_arc": "Academic Researcher",
+    "wikipedia_title": "C._V._Raman",
+    "trait_summary": {
+      "Persistence": "Built his own laboratory with minimal resources",
+      "Creativity": "Discovered the Raman Effect through novel light scattering experiments",
+      "Risk-Taking": "Challenged Western scientific establishment",
+      "Social Impact": "First Asian Nobel laureate in sciences, inspired generations"
+    },
+    "personality_summary": "A fiercely independent experimentalist who overcame resource scarcity through creative instrument-building. Driven by national pride and desire to prove Indian science could lead globally.",
+    "key_moments": [
+      "Built spectrograph from salvaged parts",
+      "Rejected prestigious Western positions to stay in India",
+      "Founded Indian Academy of Sciences"
+    ],
+    "archetype": "Resourceful Pioneer"
+  },
+  {
+    "name": "Srinivasa Ramanujan",
+    "domain": "quantum",
+    "sub_domain": "Mathematics",
+    "era": "Colonial",
+    "career_arc": "Self-Taught Genius",
+    "wikipedia_title": "Srinivasa_Ramanujan",
+    "trait_summary": {
+      "Intuition": "Developed theorems through pure intuition and dreams",
+      "Persistence": "Continued mathematical work despite poverty and illness",
+      "Creativity": "Created entirely new mathematical frameworks",
+      "Resilience": "Overcame social barriers and health challenges"
+    },
+    "personality_summary": "An intensely intuitive mathematician who saw patterns others couldn't perceive. Worked in isolation with minimal formal training, yet produced groundbreaking results that challenged mathematical orthodoxy.",
+    "key_moments": [
+      "Self-taught advanced mathematics from a single book",
+      "Sent letter to G.H. Hardy that changed mathematical history",
+      "Continued work from hospital bed during final illness"
+    ],
+    "archetype": "Intuitive Visionary"
+  },
+  {
+    "name": "A.P.J. Abdul Kalam",
+    "domain": "engineering",
+    "sub_domain": "Aerospace Engineering",
+    "era": "Modern",
+    "career_arc": "Engineering Leader",
+    "wikipedia_title": "A._P._J._Abdul_Kalam",
+    "trait_summary": {
+      "Social Impact": "Made space technology accessible, became People's President",
+      "Persistence": "Led India's missile program despite initial failures",
+      "Collaboration": "Built ISRO and DRDO teams",
+      "Resilience": "Rose from humble beginnings to national leadership"
+    },
+    "personality_summary": "A mission-driven engineer who combined technical excellence with deep social consciousness. Believed science should serve humanity and spent his life mentoring youth and building institutions.",
+    "key_moments": [
+      "Led SLV-3 project after initial failure",
+      "Developed India's missile program under sanctions",
+      "Used presidency to inspire millions of students"
+    ],
+    "archetype": "Mission-Driven Builder"
+  },
+  {
+    "name": "Homi J. Bhabha",
+    "domain": "quantum",
+    "sub_domain": "Nuclear Physics",
+    "era": "Independence",
+    "career_arc": "Institution Builder",
+    "wikipedia_title": "Homi_J._Bhabha",
+    "trait_summary": {
+      "Logic": "Systematic approach to building India's nuclear program",
+      "Risk-Taking": "Advocated for nuclear energy when it was controversial",
+      "Collaboration": "Founded TIFR and built scientific institutions",
+      "Social Impact": "Envisioned science-led national development"
+    },
+    "personality_summary": "A strategic thinker who saw science as key to national sovereignty. Combined theoretical brilliance with institution-building prowess, creating the foundation for India's nuclear and space programs.",
+    "key_moments": [
+      "Founded Tata Institute of Fundamental Research",
+      "Architected India's three-stage nuclear program",
+      "Organized first International Conference on Peaceful Uses of Atomic Energy"
+    ],
+    "archetype": "Strategic Architect"
+  },
+  {
+    "name": "Vikram Sarabhai",
+    "domain": "cosmos",
+    "sub_domain": "Space Research",
+    "era": "Independence-Modern",
+    "career_arc": "Visionary Institution Builder",
+    "wikipedia_title": "Vikram_Sarabhai",
+    "trait_summary": {
+      "Social Impact": "Founded ISRO with focus on societal applications",
+      "Creativity": "Envisioned space tech for rural development",
+      "Collaboration": "Built multidisciplinary teams and institutions",
+      "Logic": "Systematic planning of India's space program"
+    },
+    "personality_summary": "A Renaissance scientist who believed technology should serve society's poorest. Combined cosmic ambitions with grounded social consciousness, making space research relevant to Indian villages.",
+    "key_moments": [
+      "Founded Physical Research Laboratory at age 28",
+      "Established Indian space program with focus on education and communication",
+      "Created satellite instructional TV experiment for rural education"
+    ],
+    "archetype": "Socially Conscious Innovator"
+  },
+  {
+    "name": "Subrahmanyan Chandrasekhar",
+    "domain": "cosmos",
+    "sub_domain": "Astrophysics",
+    "era": "Colonial-Modern",
+    "career_arc": "Theoretical Researcher",
+    "wikipedia_title": "Subrahmanyan_Chandrasekhar",
+    "trait_summary": {
+      "Logic": "Rigorous mathematical approach to stellar evolution",
+      "Persistence": "Defended Chandrasekhar limit despite opposition",
+      "Creativity": "Applied quantum mechanics to astrophysics",
+      "Resilience": "Continued work despite criticism from Eddington"
+    },
+    "personality_summary": "A theoretical purist who pursued mathematical beauty and physical truth with unwavering dedication. Willing to challenge established authorities when logic demanded it.",
+    "key_moments": [
+      "Calculated stellar mass limit during ship voyage to Cambridge",
+      "Stood firm against Eddington's public criticism",
+      "Won Nobel Prize 53 years after initial discovery"
+    ],
+    "archetype": "Steadfast Theorist"
+  },
+  {
+    "name": "Salim Ali",
+    "domain": "life",
+    "sub_domain": "Ornithology",
+    "era": "Colonial-Modern",
+    "career_arc": "Field Researcher",
+    "wikipedia_title": "Salim_Ali_(ornithologist)",
+    "trait_summary": {
+      "Persistence": "Conducted field surveys across India for decades",
+      "Social Impact": "Made ornithology accessible through popular writing",
+      "Resilience": "Continued fieldwork into his 90s",
+      "Collaboration": "Trained generation of Indian naturalists"
+    },
+    "personality_summary": "A patient observer who found meaning in India's natural heritage. Believed conservation required public engagement and spent his life documenting and popularizing bird science.",
+    "key_moments": [
+      "Conducted Systematic Survey of Indian birds across all habitats",
+      "Prevented Silent Valley hydroelectric project to save biodiversity",
+      "Published 'Book of Indian Birds' that inspired millions"
+    ],
+    "archetype": "Patient Documenter"
+  },
+  {
+    "name": "Har Gobind Khorana",
+    "domain": "life",
+    "sub_domain": "Molecular Biology",
+    "era": "Modern",
+    "career_arc": "Lab Researcher",
+    "wikipedia_title": "Har_Gobind_Khorana",
+    "trait_summary": {
+      "Logic": "Methodical approach to deciphering genetic code",
+      "Persistence": "Years of painstaking laboratory work",
+      "Creativity": "Synthesized first artificial gene",
+      "Collaboration": "Led interdisciplinary research teams"
+    },
+    "personality_summary": "A meticulous experimentalist who combined chemical precision with biological insight. Believed in systematic exploration and collaborative science.",
+    "key_moments": [
+      "Deciphered how RNA codons specify amino acids",
+      "Constructed first synthetic gene",
+      "Shared Nobel Prize for interpretation of genetic code"
+    ],
+    "archetype": "Methodical Experimenter"
+  },
+  {
+    "name": "Tessy Thomas",
+    "domain": "engineering",
+    "sub_domain": "Missile Technology",
+    "era": "Contemporary",
+    "career_arc": "Engineering Leader",
+    "wikipedia_title": "Tessy_Thomas",
+    "trait_summary": {
+      "Resilience": "Overcame gender barriers in defense research",
+      "Persistence": "Led Agni-V missile project through challenges",
+      "Logic": "Systematic approach to ballistic missile design",
+      "Risk-Taking": "Took on India's most ambitious missile program"
+    },
+    "personality_summary": "A determined engineer who broke barriers to lead India's strategic missile program. Combines technical excellence with quiet perseverance.",
+    "key_moments": [
+      "Became first woman scientist to head missile project",
+      "Successfully led Agni-IV and Agni-V missile development",
+      "Known as 'Missile Woman of India'"
+    ],
+    "archetype": "Barrier-Breaking Leader"
+  },
+  {
+    "name": "Yellapragada Subbarow",
+    "domain": "life",
+    "sub_domain": "Biochemistry",
+    "era": "Colonial-Modern",
+    "career_arc": "Medical Researcher",
+    "wikipedia_title": "Yellapragada_Subbarow",
+    "trait_summary": {
+      "Persistence": "Continued research despite lack of recognition",
+      "Creativity": "Developed multiple life-saving drugs",
+      "Social Impact": "Work saved millions through antibiotics and cancer drugs",
+      "Resilience": "Overcame poverty and discrimination"
+    },
+    "personality_summary": "An unsung hero who prioritized impact over recognition. His biochemical discoveries transformed medicine, yet he remained largely unknown during his lifetime.",
+    "key_moments": [
+      "Developed method to synthesize folic acid",
+      "Contributed to discovery of methotrexate for cancer",
+      "Work led to tetracycline antibiotics"
+    ],
+    "archetype": "Quiet Impact-Maker"
+  },
+  {
+    "name": "M.S. Swaminathan",
+    "domain": "life",
+    "sub_domain": "Agricultural Science",
+    "era": "Modern",
+    "career_arc": "Applied Researcher",
+    "wikipedia_title": "M._S._Swaminathan",
+    "trait_summary": {
+      "Social Impact": "Led Green Revolution that saved millions from famine",
+      "Collaboration": "Worked with farmers, policymakers, and scientists",
+      "Persistence": "Dedicated life to food security",
+      "Logic": "Scientific breeding programs for Indian conditions"
+    },
+    "personality_summary": "A mission-driven scientist who saw agriculture as both science and social justice. Believed technology should empower farmers and ensure food security.",
+    "key_moments": [
+      "Introduced high-yielding wheat varieties to India",
+      "Prevented predicted famine in 1960s-70s",
+      "Advocated for sustainable agriculture and farmer rights"
+    ],
+    "archetype": "Social Justice Scientist"
+  },
+  {
+    "name": "Jagadish Chandra Bose",
+    "domain": "quantum",
+    "sub_domain": "Physics & Biology",
+    "era": "Colonial",
+    "career_arc": "Interdisciplinary Pioneer",
+    "wikipedia_title": "Jagadish_Chandra_Bose",
+    "trait_summary": {
+      "Creativity": "Pioneered radio waves and plant physiology",
+      "Risk-Taking": "Pursued unconventional ideas about plant consciousness",
+      "Persistence": "Built instruments and conducted experiments with limited funding",
+      "Social Impact": "Refused to patent inventions for commercial gain"
+    },
+    "personality_summary": "A polymath who refused to be bound by disciplinary boundaries. Believed in open science and that nature held unified principles across physics and biology.",
+    "key_moments": [
+      "Demonstrated wireless communication before Marconi",
+      "Invented crescograph to measure plant response",
+      "Founded Bose Institute for interdisciplinary research"
+    ],
+    "archetype": "Interdisciplinary Maverick"
+  }
+]
