@@ -59,16 +59,14 @@ try:
 except ImportError:
     print("[Performance] flask-compress not available - install with: pip install flask-compress")
 
-# Lazy load matching engine to avoid slow cold starts
-matching_engine = None
+# Pre-load matching engine at module level for better concurrent handling
+# This makes cold starts slower but handles multiple users better
+print("[Performance] Loading scientist database...")
+matching_engine = MatchingEngineV3('scientist_db_rich.json')
+print("[Performance] Database loaded - ready for concurrent requests")
 
 def get_matching_engine():
-    """Lazy load matching engine on first use"""
-    global matching_engine
-    if matching_engine is None:
-        print("[Performance] Loading scientist database...")
-        matching_engine = MatchingEngineV3('scientist_db_rich.json')
-        print("[Performance] Database loaded successfully")
+    """Return pre-loaded matching engine"""
     return matching_engine
 
 DOMAINS = {
