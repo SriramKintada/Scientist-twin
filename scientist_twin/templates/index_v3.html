@@ -1207,13 +1207,21 @@
 
             try {
                 console.log('[getMatches] Fetching results...');
+
+                // Add timeout to prevent infinite waiting
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
                 const response = await fetch('/api/get-matches', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         client_uuid: clientSessionUUID  // Send UUID to backend
-                    })
+                    }),
+                    signal: controller.signal
                 });
+
+                clearTimeout(timeoutId);
 
                 console.log('[getMatches] Response status:', response.status);
 
@@ -1244,7 +1252,15 @@
                 console.error('[getMatches] ERROR:', error);
                 // Hide loading screen and show error
                 document.getElementById('step-loading').classList.remove('active');
-                alert('An error occurred while calculating your match. Please try again.');
+
+                let errorMessage = 'An error occurred while calculating your match. Please try again.';
+                if (error.name === 'AbortError') {
+                    errorMessage = 'Request timed out. The server might be busy. Please try again.';
+                } else if (error.message.includes('Failed to fetch')) {
+                    errorMessage = 'Network error. Please check your connection and try again.';
+                }
+
+                alert(errorMessage);
                 // Go back to start
                 restartQuiz();
             }
