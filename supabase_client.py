@@ -88,11 +88,22 @@ def _execute_with_fallback(operation_name: str, db_operation, fallback_value=Non
 # ============ QUIZ SESSION TRACKING ============
 
 def create_quiz_session(session_id: str, domain: str, ip_address: str = None) -> Optional[str]:
-    """Create a new quiz session, returns session UUID - graceful fallback"""
+    """Create or reuse existing quiz session (prevents duplicate counts) - graceful fallback"""
     def _create_session(client):
         # Hash IP for privacy
         ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()[:16] if ip_address else None
 
+        # First, check if session already exists
+        existing = client.table("quiz_sessions")\
+            .select("id")\
+            .eq("session_id", session_id)\
+            .execute()
+
+        if existing.data and len(existing.data) > 0:
+            # Session exists - return existing ID (prevents duplicate counting!)
+            return existing.data[0]["id"]
+
+        # Session doesn't exist - create new one
         result = client.table("quiz_sessions").insert({
             "session_id": session_id,
             "domain": domain,
