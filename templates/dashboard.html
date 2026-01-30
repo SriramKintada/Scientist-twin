@@ -221,6 +221,38 @@
         </div>
         {% endif %}
 
+        <!-- Most Matched Scientists -->
+        {% if stats.scientist_matches %}
+        <div class="section">
+            <h2>🏆 Most Matched Scientists (ISF Event)</h2>
+            <p style="color: #718096; margin-bottom: 16px;">Top scientists that users matched with during the event</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Scientist Name</th>
+                        <th>Match Count</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in stats.scientist_matches %}
+                    <tr>
+                        <td><strong style="color: #667eea;">#{{ loop.index }}</strong></td>
+                        <td><strong>{{ match.name }}</strong></td>
+                        <td><strong>{{ match.count }}</strong> users</td>
+                        <td>
+                            <div class="chart-bar" style="width: {{ (match.count / stats.scientist_matches[0].count * 100)|int if stats.scientist_matches[0].count > 0 else 10 }}%; height: 20px; font-size: 0.85em;">
+                                {{ (match.count / stats.summary.total_plays * 100)|round(1) if stats.summary and stats.summary.total_plays > 0 else 0 }}%
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
         <!-- Top Traits -->
         {% if stats.trait_distribution %}
         <div class="section">
@@ -253,7 +285,7 @@
         <!-- Recent Sessions -->
         {% if stats.recent_sessions %}
         <div class="section">
-            <h2>🔄 Recent Sessions (Last 50)</h2>
+            <h2>🔄 Recent Sessions (Last 100)</h2>
             <table>
                 <thead>
                     <tr>
@@ -285,7 +317,7 @@
         <!-- Match Results -->
         {% if stats.all_results %}
         <div class="section">
-            <h2>🏆 Recent Match Results (Last 100)</h2>
+            <h2>🏆 Recent Match Results (Last 500)</h2>
             <table>
                 <thead>
                     <tr>

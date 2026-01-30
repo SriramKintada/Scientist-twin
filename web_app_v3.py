@@ -491,28 +491,42 @@ def dashboard():
             </body></html>
             '''
 
-    # Get detailed analytics
+    # Get detailed analytics - FULL ISF EVENT DATA
     detailed_stats = {}
 
     if SUPABASE_AVAILABLE and db:
         client = db.get_client()
         if client:
             try:
-                # Get all sessions with user profiles
-                sessions = client.table("quiz_sessions")\
+                # GET TOTAL COUNT OF ALL COMPLETED SESSIONS (not just 50!)
+                total_count_result = client.table("quiz_sessions")\
+                    .select("id", count="exact")\
+                    .not_.is_("completed_at", "null")\
+                    .execute()
+
+                total_completed = total_count_result.count or 0
+
+                # Get ALL sessions for domain/trait distribution (no limit!)
+                all_sessions = client.table("quiz_sessions")\
+                    .select("domain, user_profile, created_at")\
+                    .not_.is_("completed_at", "null")\
+                    .execute()
+
+                # Get recent 100 sessions for display
+                recent_sessions = client.table("quiz_sessions")\
                     .select("*")\
                     .not_.is_("completed_at", "null")\
                     .order("completed_at", desc=True)\
-                    .limit(50)\
+                    .limit(100)\
                     .execute()
 
-                detailed_stats['recent_sessions'] = sessions.data if sessions.data else []
+                detailed_stats['recent_sessions'] = recent_sessions.data if recent_sessions.data else []
 
-                # Domain distribution
+                # Domain distribution from ALL sessions
                 domain_counts = {}
                 trait_counts = {}
 
-                for session in (sessions.data or []):
+                for session in (all_sessions.data or []):
                     domain = session.get('domain', 'unknown')
                     domain_counts[domain] = domain_counts.get(domain, 0) + 1
 
@@ -532,21 +546,34 @@ def dashboard():
                     for t, c in sorted(trait_counts.items(), key=lambda x: -x[1])[:20]
                 ]
 
-                # All quiz results for detailed view
+                # ALL quiz results (top 3 matches per session)
                 results = client.table("quiz_results")\
                     .select("*")\
-                    .order("id", desc=True)\
-                    .limit(100)\
+                    .order("created_at", desc=True)\
+                    .limit(500)\
                     .execute()
 
                 detailed_stats['all_results'] = results.data if results.data else []
 
-                # Calculate summary stats from the data we already have
-                total_completed = len(sessions.data) if sessions.data else 0
-
                 # Count likes and shares
                 likes = client.table("likes").select("id", count="exact").execute()
                 shares = client.table("shares").select("id", count="exact").execute()
+
+                # Get scientist match counts (who matched with whom)
+                scientist_matches = client.table("quiz_results")\
+                    .select("scientist_name, scientist_field")\
+                    .eq("rank", 1)\
+                    .execute()
+
+                match_counts = {}
+                for match in (scientist_matches.data or []):
+                    name = match.get('scientist_name', 'Unknown')
+                    match_counts[name] = match_counts.get(name, 0) + 1
+
+                detailed_stats['scientist_matches'] = [
+                    {"name": name, "count": count}
+                    for name, count in sorted(match_counts.items(), key=lambda x: -x[1])[:20]
+                ]
 
                 detailed_stats['summary'] = {
                     'total_plays': total_completed,
