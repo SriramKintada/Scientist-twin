@@ -508,7 +508,7 @@ def dashboard():
 
                 # Get ALL sessions for domain/trait distribution (no limit!)
                 all_sessions = client.table("quiz_sessions")\
-                    .select("domain, user_profile, created_at")\
+                    .select("domain, user_profile")\
                     .not_.is_("completed_at", "null")\
                     .execute()
 
